@@ -1,7 +1,11 @@
 * Create a web scraper 
 Create a web scraper program that can scrap any kind of website.
 
-Start with an HTML-parser.
+Start with an HTML-parser.\n
 Then apply it on avanzas website.
 
 The scraper has to be made in Java!
+
+** How to start
+Figure out what the entire program is suppose to do and document it. 
+After that start on HTML-parser.
