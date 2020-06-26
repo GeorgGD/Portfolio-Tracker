@@ -1,0 +1,5 @@
+* Create a web scraper 
+Create a web scraper program that can scrap any kind of website.
+
+Start with an HTML-parser.
+Then apply it on avanzas website.
