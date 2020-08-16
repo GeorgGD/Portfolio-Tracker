@@ -1,0 +1,10 @@
+List of things that need to be done. (Can also be used to add description for features)
+
+Desc:
+Make it so that a sidebar appears when someone is logged in where they have access
+to personal menu options such as their current stock portfolio.
+
+Functionallity wise I think the user should be able to document their own research
+on stocks with this website as well as create buy and sell signals that can lead
+to them getting a notification on their phone. But this idé needs more time to be
+fleshed out.

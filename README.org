@@ -1,11 +1,25 @@
-* Create a web scraper 
-Create a web scraper program that can scrap any kind of website.
+* Portfolio Tracker
+  A simple program to track your portfolio.
+  
+  This is a personal project to showcase my understanding of working
+  with databases. As always feel free to provide feedback. 
 
-Start with an HTML-parser.
-Then apply it on avanzas website.
+** Database design
+   For the database itself, I used a drawing tool to draw an 
+   ER-diagram of the database with all of its content. 
+   
+#+CAPTION: ER-diagram of the database that was used
+#+NAME: Figure 1
+[[./doc/er-diagram.png]]
 
-The scraper has to be made in Java!
 
-** How to start
-Figure out what the entire program is suppose to do and document it. 
-After that start on HTML-parser.
+** Recursive descent
+  Algorithm used to parse elements (tags in HTML).
+ 
+   #+CAPTION: Diagram of the recursive descent that is used by the parser
+   #+NAME: Figure 2
+[[./doc/HTML_recursive_descent.png]]
+
+** Parser Assumptions
+   We asssume that every tag starts with no whitespace, <tag>.
+   If the tag starts with whitespace the parser will fail, < tag>.
