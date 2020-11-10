@@ -87,10 +87,13 @@
 
   <div class="container">
     <div class="search-bar">
-      <h3>Search for a company</h3>
-      <div class="btn btn-success w-50 pt-5">
-      </div>
+      <h3>Search for a company</h3>      
+      <form action="tickerSearch" class="get">
+      	<input class="form-control col-sm-3" type="text" name="ticker" placeholder="Ticker">
+      </form>
     </div>
+    
+    ${result}
   </div>
 
   <footer class="indigo mt-3 pt-2 bg-secondary fixed-bottom">
