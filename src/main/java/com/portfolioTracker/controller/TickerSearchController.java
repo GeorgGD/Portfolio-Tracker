@@ -25,4 +25,9 @@ public class TickerSearchController {
 		return mav;
 	}
 
+	private ModelAndView setupModelAndView(ModelAndView mav, String res) {
+		mav.setViewName("index.jsp");
+		mav.addObject("result", res);
+		return mav;
+	}
 }
