@@ -35,13 +35,13 @@
         <div class="collapse navbar-collapse" id="navbar-responsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a href="index.html" class="nav-link">Home</a>
+              <a href="index.jsp" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-              <a href="about.html" class="nav-link">About</a>
+              <a href="about.jsp" class="nav-link">About</a>
             </li>
             <li class="nav-item">
-              <a href="contact.html" class="nav-link active">Contact</a>
+              <a href="contact.jsp" class="nav-link active">Contact</a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link btn btn-outline-light">Login</a>
