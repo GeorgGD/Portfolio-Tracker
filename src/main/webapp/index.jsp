@@ -16,7 +16,7 @@
   <meta name="revised" content="Monday, June 16th, 12:00 pm">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/stylesheet.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/stylesheet.css">
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/2994acdae5.js" crossorigin="anonymous"></script>
   <title>Stock Market Research</title>
@@ -27,7 +27,7 @@
     <div class="container">
       <nav class="navbar navbar-expand-md sticky-top">
 
-        <a href="index.html"><img src="img/logo.png" class="nav-logo" alt="Logo"></a>
+        <a href="index.html"><img src="${pageContext.request.contextPath}/resources/img/logo.png" class="nav-logo" alt="Logo"></a>
         <button type="button" class="navbar-toggler custome-toggler" data-toggle="collapse" data-target="#navbar-responsive">
           <span class="navbar-toggler-icon"><i class="fas fa-bars fa-1x"></i></span>
         </button>
@@ -62,7 +62,7 @@
           <span class="btn btn-warning font-weight-bold">Sign up</span>
         </div>
         <div class="col-6 pl-5 pr-5 pb-4 pt-2 text-center">
-          <img src="img/frontpage.png" alt="frontpage.png" class="hero-img">
+          <img src="${pageContext.request.contextPath}/resources/img/frontpage.png" alt="frontpage.png" class="hero-img">
         </div>
       </div>
     </div>
