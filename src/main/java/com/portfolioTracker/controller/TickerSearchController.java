@@ -17,9 +17,12 @@ public class TickerSearchController {
 		ModelAndView mav = new ModelAndView();
 		
 		if(ticker == null || ticker.equals("")) {
-			return null;
+			res = "ERROR: Ticker not found!";
+			mav = setupModelAndView(mav, res);
+			return mav;
 		}
 		
 		return mav;
 	}
+
 }
