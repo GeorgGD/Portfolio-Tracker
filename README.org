@@ -1,25 +1,6 @@
 * Portfolio Tracker
   A simple program to track your portfolio.
   
-  This is a personal project to showcase my understanding of working
-  with databases. As always feel free to provide feedback. 
-
-** Database design
-   For the database itself, I used a drawing tool to draw an 
-   ER-diagram of the database with all of its content. 
-   
-#+CAPTION: ER-diagram of the database that was used
-#+NAME: Figure 1
-[[./doc/er-diagram.png]]
-
-
-** Recursive descent
-  Algorithm used to parse elements (tags in HTML).
+  This is my attempt to try and create a servive that uses an API. 
+  As always feel free to provide feedback. 
  
-   #+CAPTION: Diagram of the recursive descent that is used by the parser
-   #+NAME: Figure 2
-[[./doc/HTML_recursive_descent.png]]
-
-** Parser Assumptions
-   We asssume that every tag starts with no whitespace, <tag>.
-   If the tag starts with whitespace the parser will fail, < tag>.
