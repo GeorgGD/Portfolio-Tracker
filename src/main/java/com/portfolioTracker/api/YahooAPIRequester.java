@@ -1,5 +1,8 @@
 package com.portfolioTracker.api;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class YahooAPIRequester implements APIRequester{
 
 	/**

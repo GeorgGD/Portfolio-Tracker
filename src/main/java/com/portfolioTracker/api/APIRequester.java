@@ -1,5 +1,7 @@
 package com.portfolioTracker.api;
 
+import org.springframework.stereotype.Component;
+
 /**
  * The following interface is meant to allow developers to switch the API
  * they are using in the background without affecting classes using  
@@ -7,6 +9,7 @@ package com.portfolioTracker.api;
  * @author Georgios Davakos
  * @since 2020-11-11
  */
+@Component
 public interface APIRequester {
 
 	/**
