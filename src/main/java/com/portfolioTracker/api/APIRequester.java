@@ -1,5 +1,7 @@
 package com.portfolioTracker.api;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,8 +18,9 @@ public interface APIRequester {
 	 * Looks up the current price of a stock for a given ticker symbol
 	 * @param ticker The ticker of the stock
 	 * @return The currentPrice of a stock	
+	 * @throws IOException
 	 */
-	public String currentPrice(String ticker);
+	public String currentPrice(final String ticker) throws IOException;
 
 	/**
 	 * The name of the stock with the given tocker symbol
