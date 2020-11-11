@@ -1,5 +1,7 @@
 package com.portfolioTracker.controller;
 
+import java.io.IOException;
+
 import com.portfolioTracker.api.APIRequester;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class TickerSearchController {
 	@RequestMapping("tickerSearch")
 	public ModelAndView tickerSearch(@RequestParam("ticker") String ticker) {
 		// TODO: pass ticker to an api class that makes the api call
-	
+		
 		// TODO: return the name of the company and current price
 		String res;
 		ModelAndView mav = new ModelAndView();
@@ -32,6 +34,20 @@ public class TickerSearchController {
 			res = "ERROR: Ticker not found!";
 			mav = setupModelAndView(mav, res);
 			return mav;
+		}
+
+		try {
+			res = api.currentPrice(ticker);
+			if(res == null) {
+				res = "ERROR: Server call not found!";
+				mav = setupModelAndView(mav, res);
+				return mav;
+			}
+			mav = setupModelAndView(mav, res);
+			return mav;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return mav;
