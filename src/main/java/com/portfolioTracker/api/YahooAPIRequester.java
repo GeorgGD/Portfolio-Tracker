@@ -9,4 +9,12 @@ public class YahooAPIRequester implements APIRequester{
 		
 		return null;
 	}
+
+	public String stocksName(String ticker) {
+		//send get request
+
+		//select the desired data
+
+		return null;
+	}
 }
