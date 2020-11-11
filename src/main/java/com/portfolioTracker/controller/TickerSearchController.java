@@ -13,11 +13,17 @@ public class TickerSearchController {
 
 	@Autowired
 	private APIRequester api;
-	
+
+	/**
+	 * Searches for the stock with the given ticker and provides 
+	 * the name and current price of the stock. 
+	 * @param ticker The ticker of the stock
+	 * @return The model and view holding the stocks name and current price	
+	 */	
 	@RequestMapping("tickerSearch")
 	public ModelAndView tickerSearch(@RequestParam("ticker") String ticker) {
 		// TODO: pass ticker to an api class that makes the api call
-
+	
 		// TODO: return the name of the company and current price
 		String res;
 		ModelAndView mav = new ModelAndView();
@@ -30,7 +36,13 @@ public class TickerSearchController {
 		
 		return mav;
 	}
-
+	
+	/**
+	 * A helper function for tickerSeearch-method, sets up the model and view
+	 * @param mav The model and view
+	 * @param res the string that the model and view should hold
+	 * @return the modefied model and view	
+	 */
 	private ModelAndView setupModelAndView(ModelAndView mav, String res) {
 		mav.setViewName("index.jsp");
 		mav.addObject("result", res);
