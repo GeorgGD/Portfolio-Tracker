@@ -4,18 +4,6 @@
 
 <web-app>
     <display-name>Portfolio-Tracker</display-name>
-
-  <servlet>
-    <servlet-name>Portfolio-Tracker</servlet-name>
-    <servlet-class>
-      org.springframework.web.servlet.DispatcherServlet
-    </servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>Portfolio-Tracker</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
   
   <servlet-mapping>
   <servlet-name>default</servlet-name>
