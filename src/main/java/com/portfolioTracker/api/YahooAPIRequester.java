@@ -2,7 +2,6 @@ package com.portfolioTracker.api;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import okhttp3.OkHttpClient;
@@ -10,10 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @Component
-public class YahooAPIRequester implements APIRequester{
-
-	@Autowired
-	OkHttpClient client;
+public class YahooAPIRequester implements APIRequester{	
 	
 	/**
 	 * Looks up the current price of a stock for a given ticker symbol
@@ -22,6 +18,8 @@ public class YahooAPIRequester implements APIRequester{
 	 * @throws IOException
 	 */
 	public String currentPrice(final String ticker) throws IOException {
+		OkHttpClient client = new OkHttpClient();
+		
 		final Request request = new Request.Builder()
 			.url("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-analysis?symbol=" + ticker + "&region=US")
 			.get()
