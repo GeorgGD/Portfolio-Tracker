@@ -78,8 +78,7 @@ public class YahooAPIRequester implements APIRequester {
 			}
 
 			return node;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e) {		    
 			e.printStackTrace();		    
 		} catch (NullPointerException e) {
 			e.printStackTrace();		    

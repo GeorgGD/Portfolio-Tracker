@@ -46,7 +46,6 @@ public class TickerSearchController {
 			mav = setupModelAndView(mav, res);
 			return mav;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
