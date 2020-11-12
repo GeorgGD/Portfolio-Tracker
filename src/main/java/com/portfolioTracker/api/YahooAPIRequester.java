@@ -17,7 +17,7 @@ public class YahooAPIRequester implements APIRequester{
 	 * @return The currentPrice of a stock	
 	 * @throws IOException
 	 */
-	public String currentPrice(final String ticker) throws IOException {
+	public String currentPrice(final String ticker) {
 		OkHttpClient client = new OkHttpClient();
 		
 		final Request request = new Request.Builder()
@@ -27,12 +27,20 @@ public class YahooAPIRequester implements APIRequester{
 			.addHeader("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
 			.build();
 		
-		final Response response = client.newCall(request).execute();
-
-		if(response.isSuccessful()) {
-			return response.body().string();
+		Response response = null;
+		try {
+			response = client.newCall(request).execute();
+		   
+			if(response.isSuccessful()) {
+				return response.body().string();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		} finally {
+			if(response != null)
+				response.close();
 		}
-		
 		// select the desired data
 		
 		return null;
