@@ -50,9 +50,9 @@ public class YahooAPIRequester implements APIRequester {
 	}
 
 	/**
-	 * Selects the current price and currency from the api response 
+	 * Selects the current price from the api response 
 	 * @param response The response object from an api request
-	 * @return The current price and the currency 	
+	 * @return The current price	
 	 */	
 	private String selectCurrPrice(Response response) {
 		ObjectMapper parser = new ObjectMapper();
@@ -72,13 +72,34 @@ public class YahooAPIRequester implements APIRequester {
 		}
 		return null;
 	}
+
+	private JsonNode selectNode(Response response, String[] valueArr) {
+		ObjectMapper parser = new ObjectMapper();
+		try {
+			JsonNode jsonTree = parser.readTree(response.body().string());
+			int length = valueArr.length;
+			JsonNode node = null;
+			
+			for(int i = 0; i < length; ++i) {
+				node = jsonTree.get(valueArr[i]);
+			}
+
+			return node;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();		    
+		} catch (NullPointerException e) {
+			e.printStackTrace();		    
+		}
+		
+		return null;
+	}
 	
 	/**
 	 * The name of the stock with the given tocker symbol
 	 * @param ticker The ticker of the stock
 	 * @return The name of the stock	
 	 */
-
 	public String stocksName(final String ticker) {
 		//send get request
 
