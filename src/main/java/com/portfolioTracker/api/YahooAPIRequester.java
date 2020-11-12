@@ -10,7 +10,9 @@ import okhttp3.Response;
 
 @Component
 public class YahooAPIRequester implements APIRequester{	
-	
+
+	private static OkHttpClient client = new OkHttpClient(); //TODO: add a close method
+		
 	/**
 	 * Looks up the current price of a stock for a given ticker symbol
 	 * @param ticker The ticker of the stock
@@ -18,7 +20,6 @@ public class YahooAPIRequester implements APIRequester{
 	 * @throws IOException
 	 */
 	public String currentPrice(final String ticker) {
-		OkHttpClient client = new OkHttpClient();
 		
 		final Request request = new Request.Builder()
 			.url("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-analysis?symbol=" + ticker + "&region=US")
