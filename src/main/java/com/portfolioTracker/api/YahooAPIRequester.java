@@ -35,9 +35,9 @@ public class YahooAPIRequester implements APIRequester {
 		try {
 			response = client.newCall(request).execute();
 		   
-			if(response.isSuccessful()) 
-				responseString = selectCurrPrice(response);			
-			
+			if (response.isSuccessful()) {
+				responseString = selectCurrPrice(response);
+			}
 			return responseString;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -78,6 +78,7 @@ public class YahooAPIRequester implements APIRequester {
 			JsonNode jsonTree = parser.readTree(response.body().string());
 			int length = valueArr.length;
 			JsonNode node = null;
+
 			
 			for(int i = 0; i < length; ++i) {
 				node = jsonTree.get(valueArr[i]);
@@ -98,7 +99,7 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param ticker The api response holding the stocks name
 	 * @return The name of the stock	
 	 */
-	private String stockName(Response response) {
+	private String selectStockName(Response response) {
 		String[] valueArr = { "price", "shortName" };
 		JsonNode node = selectNode(response, valueArr);
 
