@@ -95,7 +95,7 @@ public class YahooAPIRequester implements APIRequester {
 	}
 	
 	/**
-	 * The name of the stock
+	 * Selects the name of the stock
 	 * @param ticker The api response holding the stocks name
 	 * @return The name of the stock	
 	 */
