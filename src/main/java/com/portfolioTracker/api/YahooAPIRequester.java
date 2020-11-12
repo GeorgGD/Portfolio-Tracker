@@ -39,9 +39,8 @@ public class YahooAPIRequester implements APIRequester {
 				ObjectMapper parser = new ObjectMapper();
 				JsonNode jsonTree = parser.readTree(response.body().string());	
 				responseString = selectStockName(jsonTree);
-				responseString = responseString + ": ";
-				responseString = selectCurrPrice(jsonTree);
-				responseString = " " + selectCurrency(jsonTree);
+				responseString = responseString + ": " + selectCurrPrice(jsonTree);
+				responseString = responseString + " " + selectCurrency(jsonTree);
 			}
 			return responseString;
 		} catch (IOException e) {
@@ -80,10 +79,10 @@ public class YahooAPIRequester implements APIRequester {
 	private JsonNode selectNode(JsonNode jsonTree, String[] valueArr) {
     	try {
 			int length = valueArr.length;
-			JsonNode node = null;
+			JsonNode node = jsonTree;
 		
 			for(int i = 0; i < length; ++i) {
-				node = jsonTree.get(valueArr[i]);
+				node = node.get(valueArr[i]);
 			}
 	
 			return node;

@@ -24,10 +24,7 @@ public class TickerSearchController {
 	 */	
 	@RequestMapping("tickerSearch")
 	public ModelAndView tickerSearch(@RequestParam("ticker") String ticker) {
-		// TODO: pass ticker to an api class that makes the api call
-		
-		// TODO: return the name of the company and current price
-		String res;
+    	String res;
 		ModelAndView mav = new ModelAndView();
 		
 		if(ticker == null || ticker.equals("")) {
