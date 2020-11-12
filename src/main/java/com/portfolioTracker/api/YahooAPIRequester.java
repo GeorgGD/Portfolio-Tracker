@@ -108,4 +108,16 @@ public class YahooAPIRequester implements APIRequester {
 		}
 		return null;
 	}
+
+	private String currencyName(Response response) {
+		String[] valueArr = { "financialData", "financialCurrency" };
+		JsonNode node = selectNode(response, valueArr);
+
+		if(node != null) {
+			String currency = node.asText();
+			return currency;
+		}
+		
+		return null;
+	}
 }
