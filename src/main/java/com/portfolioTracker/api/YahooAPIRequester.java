@@ -50,7 +50,7 @@ public class YahooAPIRequester implements APIRequester {
 	}
 
 	/**
-	 * Selects the current price from the api response 
+	 * Selects the current price 
 	 * @param response The response object from an api request
 	 * @return The current price	
 	 */	
@@ -66,6 +66,12 @@ public class YahooAPIRequester implements APIRequester {
 		return null;
 	}
 
+	/**
+	 * Select a JSON object represented as a node
+	 * @param response The response object from an api request
+	 * @param valueArr Array with names to JSON objects 
+	 * @return The JSON object as a node	
+	 */	
 	private JsonNode selectNode(Response response, String[] valueArr) {
 		ObjectMapper parser = new ObjectMapper();
 		try {
@@ -76,7 +82,7 @@ public class YahooAPIRequester implements APIRequester {
 			for(int i = 0; i < length; ++i) {
 				node = jsonTree.get(valueArr[i]);
 			}
-
+	
 			return node;
 		} catch (IOException e) {		    
 			e.printStackTrace();		    
