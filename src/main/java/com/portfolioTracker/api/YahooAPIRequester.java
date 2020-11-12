@@ -49,6 +49,11 @@ public class YahooAPIRequester implements APIRequester {
 		return responseString;
 	}
 
+	/**
+	 * Selects the current price and currency from the api response 
+	 * @param response The response object from an api request
+	 * @return The current price and the currency 	
+	 */	
 	private String selectCurrPrice(Response response) {
 		ObjectMapper parser = new ObjectMapper();
 		try {
@@ -67,7 +72,7 @@ public class YahooAPIRequester implements APIRequester {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * The name of the stock with the given tocker symbol
 	 * @param ticker The ticker of the stock
