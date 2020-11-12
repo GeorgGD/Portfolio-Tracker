@@ -55,21 +55,14 @@ public class YahooAPIRequester implements APIRequester {
 	 * @return The current price	
 	 */	
 	private String selectCurrPrice(Response response) {
-		ObjectMapper parser = new ObjectMapper();
-		try {
-			JsonNode jsonTree = parser.readTree(response.body().string());
-			JsonNode financialDataNode = jsonTree.get("financialData");
-			JsonNode currPriceNode = financialDataNode.get("currentPrice");
-			String price = currPriceNode.get("fmt").asText();
-			price = price + " " + financialDataNode.get("financialCurrency").asText();
-			return price;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return null;
+		String[] valueArr = { "financialData", "currentPrice", "fmt" };
+		JsonNode node = selectNode(response, valueArr);
+
+		if(node != null) {
+			String price = node.asText();
+			return price;	    
 		}
+		
 		return null;
 	}
 
