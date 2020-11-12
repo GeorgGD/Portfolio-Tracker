@@ -15,7 +15,16 @@ import okhttp3.Response;
 public class YahooAPIRequester implements APIRequester {	
 
 	private static OkHttpClient client = new OkHttpClient(); //TODO: add a close method
-		
+
+	public void closeClient() {
+		try {
+			if(client != null)
+				client.cache().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Looks up the current price of a stock for a given ticker symbol
 	 * @param ticker The ticker of the stock
