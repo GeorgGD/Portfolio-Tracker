@@ -19,7 +19,7 @@ public class YahooAPIRequester implements APIRequester {
 	/**
 	 * Looks up the current price of a stock for a given ticker symbol
 	 * @param ticker The ticker of the stock
-	 * @return The currentPrice of a stock
+	 * @return The current price of a stock
 	 */
 	public String currentPrice(final String ticker) {
 		
