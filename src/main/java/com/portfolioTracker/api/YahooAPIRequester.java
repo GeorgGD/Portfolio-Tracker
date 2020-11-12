@@ -94,15 +94,18 @@ public class YahooAPIRequester implements APIRequester {
 	}
 	
 	/**
-	 * The name of the stock with the given tocker symbol
-	 * @param ticker The ticker of the stock
+	 * The name of the stock
+	 * @param ticker The api response holding the stocks name
 	 * @return The name of the stock	
 	 */
-	public String stocksName(final String ticker) {
-		//send get request
+	private String stockName(Response response) {
+		String[] valueArr = { "price", "shortName" };
+		JsonNode node = selectNode(response, valueArr);
 
-		//select the desired data
-
+		if(node != null) {
+			String name = node.asText();
+			return name;
+		}
 		return null;
 	}
 }
