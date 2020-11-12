@@ -47,6 +47,7 @@ public class YahooAPIRequester implements APIRequester {
 			if(response != null)
 				response.close();			
 		}
+		return responseString;
 	}
 
 	private String selectCurrPrice(Response response) {
