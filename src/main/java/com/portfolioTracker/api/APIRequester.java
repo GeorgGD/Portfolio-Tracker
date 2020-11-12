@@ -23,6 +23,8 @@ public interface APIRequester {
 	public String currentPrice(final String ticker) throws IOException;
 
 
+	public void closeClient();
+	
 	/* This method will be reworked for the future!
 	/**
 	 * The name of the stock with the given tocker symbol
