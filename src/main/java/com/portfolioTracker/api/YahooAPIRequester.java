@@ -36,20 +36,17 @@ public class YahooAPIRequester implements APIRequester {
 		try {
 			response = client.newCall(request).execute();
 		   
-			if(response.isSuccessful()) {
-				responseString = selectCurrPrice(response);				 
-				return responseString;
-			}
+			if(response.isSuccessful()) 
+				responseString = selectCurrPrice(response);			
+			
+			return responseString;
 		} catch (IOException e) {
 			e.printStackTrace();
 			
 		} finally {
 			if(response != null)
-				response.close();
-			
+				response.close();			
 		}
-		// select the desired data
-		return responseString;
 	}
 
 	private String selectCurrPrice(Response response) {
