@@ -22,10 +22,12 @@ public interface APIRequester {
 	 */
 	public String currentPrice(final String ticker) throws IOException;
 
+
+	/* This method will be reworked for the future!
 	/**
 	 * The name of the stock with the given tocker symbol
 	 * @param ticker The ticker of the stock
 	 * @return The name of the stock	
-	 */
-	public String stocksName(String ticker);
+	 
+	public String stocksName(String ticker);*/
 }
