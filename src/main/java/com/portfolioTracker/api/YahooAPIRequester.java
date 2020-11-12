@@ -2,6 +2,9 @@ package com.portfolioTracker.api;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.stereotype.Component;
 
 import okhttp3.OkHttpClient;
@@ -9,7 +12,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @Component
-public class YahooAPIRequester implements APIRequester{	
+public class YahooAPIRequester implements APIRequester {	
 
 	private static OkHttpClient client = new OkHttpClient(); //TODO: add a close method
 		
@@ -34,7 +37,7 @@ public class YahooAPIRequester implements APIRequester{
 			response = client.newCall(request).execute();
 		   
 			if(response.isSuccessful()) {
-				responseString = response.body().string();
+				responseString = selectCurrPrice(response);				 
 				return responseString;
 			}
 		} catch (IOException e) {
@@ -47,6 +50,25 @@ public class YahooAPIRequester implements APIRequester{
 		}
 		// select the desired data
 		return responseString;
+	}
+
+	private String selectCurrPrice(Response response) {
+		ObjectMapper parser = new ObjectMapper();
+		try {
+			JsonNode jsonTree = parser.readTree(response.body().string());
+			JsonNode financialDataNode = jsonTree.get("financialData");
+			JsonNode currPriceNode = financialDataNode.get("currentPrice");
+			String price = currPriceNode.get("fmt").asText();
+			price = price + " " + financialDataNode.get("financialCurrency").asText();
+			return price;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return null;
 	}
 
 	/**
