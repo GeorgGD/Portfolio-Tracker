@@ -36,10 +36,12 @@ public class YahooAPIRequester implements APIRequester {
 			response = client.newCall(request).execute();
 		   
 			if (response.isSuccessful()) {
-				responseString = selectStockName(response);
+				ObjectMapper parser = new ObjectMapper();
+				JsonNode jsonTree = parser.readTree(response.body().string());	
+				responseString = selectStockName(jsonTree);
 				responseString = responseString + ": ";
-				responseString = selectCurrPrice(response);
-				responseString = " " + selectCurrency(response);
+				responseString = selectCurrPrice(jsonTree);
+				responseString = " " + selectCurrency(jsonTree);
 			}
 			return responseString;
 		} catch (IOException e) {
@@ -57,9 +59,9 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param response The response object from an api request
 	 * @return The current price	
 	 */	
-	private String selectCurrPrice(Response response) {
+	private String selectCurrPrice(JsonNode jsonTree) {
 		String[] valueArr = { "financialData", "currentPrice", "fmt" };
-		JsonNode node = selectNode(response, valueArr);
+		JsonNode node = selectNode(jsonTree, valueArr);
 
 		if(node != null) {
 			String price = node.asText();
@@ -75,21 +77,16 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param valueArr Array with names to JSON objects 
 	 * @return The JSON object as a node	
 	 */	
-	private JsonNode selectNode(Response response, String[] valueArr) {
-		ObjectMapper parser = new ObjectMapper();
-		try {
-			JsonNode jsonTree = parser.readTree(response.body().string());
+	private JsonNode selectNode(JsonNode jsonTree, String[] valueArr) {
+    	try {
 			int length = valueArr.length;
 			JsonNode node = null;
-
-			
+		
 			for(int i = 0; i < length; ++i) {
 				node = jsonTree.get(valueArr[i]);
 			}
 	
 			return node;
-		} catch (IOException e) {		    
-			e.printStackTrace();		    
 		} catch (NullPointerException e) {
 			e.printStackTrace();		    
 		}
@@ -102,9 +99,9 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param ticker The api response holding the stocks name
 	 * @return The name of the stock	
 	 */
-	private String selectStockName(Response response) {
+	private String selectStockName(JsonNode jsonTree) {
 		String[] valueArr = { "price", "shortName" };
-		JsonNode node = selectNode(response, valueArr);
+		JsonNode node = selectNode(jsonTree, valueArr);
 
 		if(node != null) {
 			String name = node.asText();
@@ -113,9 +110,9 @@ public class YahooAPIRequester implements APIRequester {
 		return null;
 	}
 
-	private String selectCurrency(Response response) {
+	private String selectCurrency(JsonNode jsonTree) {
 		String[] valueArr = { "financialData", "financialCurrency" };
-		JsonNode node = selectNode(response, valueArr);
+		JsonNode node = selectNode(jsonTree, valueArr);
 
 		if(node != null) {
 			String currency = node.asText();
