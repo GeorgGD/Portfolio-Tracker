@@ -29,11 +29,13 @@ public class YahooAPIRequester implements APIRequester{
 			.build();
 		
 		Response response = null;
+		String responseString = null;
 		try {
 			response = client.newCall(request).execute();
 		   
 			if(response.isSuccessful()) {
-				return response.body().string();
+				responseString = response.body().string();
+				return responseString;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -41,10 +43,10 @@ public class YahooAPIRequester implements APIRequester{
 		} finally {
 			if(response != null)
 				response.close();
+			
 		}
 		// select the desired data
-		
-		return null;
+		return responseString;
 	}
 
 	/**
