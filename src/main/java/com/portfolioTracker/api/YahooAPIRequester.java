@@ -16,6 +16,9 @@ public class YahooAPIRequester implements APIRequester {
 
 	private static OkHttpClient client = new OkHttpClient(); //TODO: add a close method
 
+	/**
+	 * Closes the client used for api calls
+	 */	
 	public void closeClient() {
 		try {
 			if(client != null)
@@ -64,7 +67,7 @@ public class YahooAPIRequester implements APIRequester {
 
 	/**
 	 * Selects the current price 
-	 * @param response The response object from an api request
+	 * @param jsonTree A JSON object represented as a tree
 	 * @return The current price	
 	 */	
 	private String selectCurrPrice(JsonNode jsonTree) {
@@ -81,7 +84,7 @@ public class YahooAPIRequester implements APIRequester {
 
 	/**
 	 * Select a JSON object represented as a node
-	 * @param response The response object from an api request
+	 * @param jsonTree A JSON object represented as a tree
 	 * @param valueArr Array with names to JSON objects 
 	 * @return The JSON object as a node	
 	 */	
@@ -104,7 +107,7 @@ public class YahooAPIRequester implements APIRequester {
 	
 	/**
 	 * Selects the name of the stock
-	 * @param ticker The api response holding the stocks name
+	 * @param jsonTree A JSON object represented as a tree
 	 * @return The name of the stock	
 	 */
 	private String selectStockName(JsonNode jsonTree) {
@@ -118,6 +121,11 @@ public class YahooAPIRequester implements APIRequester {
 		return null;
 	}
 
+	/**
+	 * Selects the node that holds the corrency value
+	 * @param jsonTree A JSON object represented as a tree
+	 * @return The currency 	
+	 */
 	private String selectCurrency(JsonNode jsonTree) {
 		String[] valueArr = { "financialData", "financialCurrency" };
 		JsonNode node = selectNode(jsonTree, valueArr);
