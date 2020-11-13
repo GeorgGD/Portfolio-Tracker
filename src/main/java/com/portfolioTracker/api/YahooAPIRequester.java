@@ -11,6 +11,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * A class for making API requests to the Yahoo Finance API
+ * @author Georgios Davakos
+ * @since 2020-11-13 
+ */
 @Component
 public class YahooAPIRequester implements APIRequester {	
 

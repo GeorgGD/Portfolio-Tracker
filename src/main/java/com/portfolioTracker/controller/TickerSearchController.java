@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * This controller is responsable for any searches that revolve around
+ * using the ticker to find data about a stock
+ * @author Georgios Davakos
+ * @since 2020-11-13
+ */ 
 @Controller
 public class TickerSearchController {
 
