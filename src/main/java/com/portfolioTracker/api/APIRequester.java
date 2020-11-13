@@ -22,7 +22,9 @@ public interface APIRequester {
 	 */
 	public String currentPrice(final String ticker) throws IOException;
 
-
+	/**
+	 * Closes the client used for api calls
+	 */	
 	public void closeClient();
 	
 	/* This method will be reworked for the future!
