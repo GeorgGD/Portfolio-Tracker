@@ -23,80 +23,45 @@
 </head>
 
 <body>
-  <div class="container-fluid nav-cont">
-    <div class="container">
-      <nav class="navbar navbar-expand-md sticky-top">
-
-        <a href="index.html"><img src="${pageContext.request.contextPath}/resources/img/logo.png" class="nav-logo" alt="Logo"></a>
-        <button type="button" class="navbar-toggler custome-toggler" data-toggle="collapse" data-target="#navbar-responsive">
-          <span class="navbar-toggler-icon"><i class="fas fa-bars fa-1x"></i></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbar-responsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a href="index.jsp" class="nav-link active">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="about.jsp" class="nav-link">About</a>
-            </li>
-            <li class="nav-item">
-              <a href="contact.jsp" class="nav-link">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link btn btn-outline-light">Login</a>
-            </li>
-          </ul>
-        </div>
-
-      </nav>
-    </div>
-  </div>
 
   <div class="container-fluid">
     <div class="container mt-4">
       <div class="row">
-        <div class="col-6 pl-5 pr-5 pb-4 pt-2 left-hero">
-          <h2>Lorem ipsum</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non consequat tellus. Donec pulvinar maximus mauris, viverra interdum enim condimentum eget. Phasellus at euismod nulla.</p>
-          <span class="btn btn-warning font-weight-bold">Sign up</span>
+        <div class="col-8 pl-3 pr-5 pb-4 pt-2 left-hero">
+          <h2 class="font-weight-bold">Welcome to my <span class="orange">Portfolio Tracker</span></h2>
+          <p>
+            Hi and welcome, to use the portfolio tracker please enter a user name inside the text bar to the right. After that please either press enter or click on the "Get Started" button.
+            <br>
+            <br>
+            If you are not feeling like building an entire portfolio and just want to have a quick look into the current prices of different stocks then use the section below.
+          </p>
         </div>
-        <div class="col-6 pl-5 pr-5 pb-4 pt-2 text-center">
-          <img src="${pageContext.request.contextPath}/resources/img/frontpage.png" alt="frontpage.png" class="hero-img">
+        <div class="col-4 pl-5 pr-5 pb-4 pt-2 more-margin">
+          <form action="username" method="post">
+            <input type="text" name="userName" placeholder="Username" class="form-conrol">
+          </form>
+          <button type="submit" class="btn btn-primary font-weight-bold mt-2">Get Started</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-4 bg-sucess mt-3">
-        <h4>Lorem Ipsum</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non consequat tellus. Donec pulvinar maximus mauris, viverra interdum enim condimentum eget.</p>
-      </div>
-      <div class="col-4 bg-sucess mt-3">
-        <h4>Lorem Ipsum</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non consequat tellus. Donec pulvinar maximus mauris, viverra interdum enim condimentum eget.</p>
-      </div>
-      <div class="col-4 bg-sucess mt-3">
-        <h4>Lorem Ipsum</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non consequat tellus. Donec pulvinar maximus mauris, viverra interdum enim condimentum eget.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
+  <div class="container bg rounded py-3">
     <div class="search-bar">
-      <h3>Search for a company</h3>      
-      <form action="tickerSearch" class="get">
-      	<input class="form-control col-sm-3" type="text" name="ticker" placeholder="Ticker">
+      <h3 class="font-weight-bold">Search for a company</h3>
+      <p>
+        Please search for US companies as companies from other countries are not supported as of now!
+      </p>
+      <form action="tickerSearch" method="get">
+        <input class="form-control col-sm-3" type="text" name="ticker" placeholder="Ticker">
       </form>
     </div>
-    
-    ${result}
+    <p class="mt-3 mb-0">
+      ${result}
+    </p>
   </div>
 
-  <footer class="indigo mt-3 pt-2 bg-secondary fixed-bottom">
+  <footer class="mt-3 pt-2 bg fixed-bottom">
     <div class="container-fluid py-1 copyrights">
       <p class="text-center mt-1 mb-1"> &copy; 2020 Georgios Davakos, All rights reserved.</p>
     </div>
