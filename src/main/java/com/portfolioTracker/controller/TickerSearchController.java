@@ -28,7 +28,7 @@ public class TickerSearchController {
 	 * @param ticker The ticker of the stock
 	 * @return The model and view holding the stocks name and current price	
 	 */	
-	@RequestMapping("tickerSearch")
+	@RequestMapping("/tickerSearch")
 	public ModelAndView tickerSearch(@RequestParam("ticker") String ticker) {
     	String res;
 		ModelAndView mav = new ModelAndView();
