@@ -38,7 +38,7 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param ticker The ticker of the stock
 	 * @return The name and current price of a stock
 	 */
-	public String currentPrice(final String ticker) {
+	public String currentStcokData(final String ticker) {
 		
 		final Request request = new Request.Builder()
 			.url("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-analysis?symbol=" + ticker + "&region=US")

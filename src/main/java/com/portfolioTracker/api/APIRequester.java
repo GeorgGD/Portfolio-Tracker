@@ -15,12 +15,11 @@ import org.springframework.stereotype.Component;
 public interface APIRequester {
 
 	/**
-	 * Looks up the current price of a stock for a given ticker symbol
+	 * Looks up the name and current price of a stock for a given ticker symbol
 	 * @param ticker The ticker of the stock
-	 * @return The currentPrice of a stock	
-	 * @throws IOException
+	 * @return The name and current price of a stock
 	 */
-	public String currentPrice(final String ticker) throws IOException;
+	public String currentStcokData(final String ticker);
 
 	/**
 	 * Closes the client used for api calls

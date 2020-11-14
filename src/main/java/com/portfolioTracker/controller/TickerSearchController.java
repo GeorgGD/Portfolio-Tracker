@@ -44,7 +44,7 @@ public class TickerSearchController {
 		}
 
 		try {
-			values.add(api.currentPrice(ticker));
+			values.add(api.currentStcokData(ticker));
 			if(values.size() == 0) {
 				values.add("ERROR: Server call not found!");
 				mav = setupModelAndView(mav, expressions, values, view);
