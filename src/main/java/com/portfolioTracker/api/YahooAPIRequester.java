@@ -40,12 +40,7 @@ public class YahooAPIRequester implements APIRequester {
 	 */
 	public String currentStcokData(final String ticker) {
 		
-		final Request request = new Request.Builder()
-			.url("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-analysis?symbol=" + ticker + "&region=US")
-			.get()
-			.addHeader("x-rapidapi-key", "f66deea662msh14939375d70d6c0p1886d9jsn758536cc2677")
-			.addHeader("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
-			.build();
+		final Request request = prepRequest(ticker);
 		
 		Response response = null;
 		String responseString = null;
@@ -70,6 +65,17 @@ public class YahooAPIRequester implements APIRequester {
 		return responseString;
 	}
 
+	private final Request prepRequest(String ticker) {
+		final Request request = new Request.Builder()
+			.url("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-analysis?symbol=" + ticker + "&region=US")
+			.get()
+			.addHeader("x-rapidapi-key", "f66deea662msh14939375d70d6c0p1886d9jsn758536cc2677")
+			.addHeader("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
+			.build();
+
+		return request;
+	}
+	
 	/**
 	 * Selects the current price 
 	 * @param jsonTree A JSON object represented as a tree
