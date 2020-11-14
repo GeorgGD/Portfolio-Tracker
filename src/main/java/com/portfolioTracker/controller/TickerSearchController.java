@@ -1,6 +1,7 @@
 package com.portfolioTracker.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.portfolioTracker.api.APIRequester;
 
@@ -30,23 +31,26 @@ public class TickerSearchController {
 	 */	
 	@RequestMapping("/tickerSearch")
 	public ModelAndView tickerSearch(@RequestParam("ticker") String ticker) {
-    	String res;
+		ArrayList<String> values = new ArrayList<String>();
+		ArrayList<String> expressions = new ArrayList<String>();
 		ModelAndView mav = new ModelAndView();
+		String view = "index";
+		expressions.add("result");
 		
 		if(ticker == null || ticker.equals("")) {
-			res = "ERROR: Ticker not found!";
-			mav = setupModelAndView(mav, res);
+			values.add("ERROR: Ticker not found!");
+			mav = setupModelAndView(mav, expressions, values, view);
 			return mav;
 		}
 
 		try {
-			res = api.currentPrice(ticker);
-			if(res == null) {
-				res = "ERROR: Server call not found!";
-				mav = setupModelAndView(mav, res);
+			values.add(api.currentPrice(ticker));
+			if(values.size() == 0) {
+				values.add("ERROR: Server call not found!");
+				mav = setupModelAndView(mav, expressions, values, view);
 				return mav;
 			}
-			mav = setupModelAndView(mav, res);
+			mav = setupModelAndView(mav, expressions, values, view);
 			return mav;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -55,15 +59,20 @@ public class TickerSearchController {
 		return mav;
 	}
 	
-	/**
+	/** //TODO: REDO DOCS
 	 * A helper function for tickerSeearch-method, sets up the model and view
 	 * @param mav The model and view
-	 * @param res the string that the model and view should hold
+	 * @param values The string that the model and view should hold
 	 * @return the modefied model and view	
 	 */
-	private ModelAndView setupModelAndView(ModelAndView mav, String res) {
-		mav.setViewName("index.jsp");
-		mav.addObject("result", res);
+	private ModelAndView setupModelAndView(ModelAndView mav, ArrayList<String> expressions, ArrayList<String> values, String view) {
+		mav.setViewName(view);
+
+		int size = values.size();
+		for (int i = 0; i < size; ++i) {
+			mav.addObject(expressions.get(i), values.get(i));
+		}
+
 		return mav;
 	}
 }
