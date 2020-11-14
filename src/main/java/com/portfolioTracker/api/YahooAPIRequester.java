@@ -71,6 +71,7 @@ public class YahooAPIRequester implements APIRequester {
 	 */	
 	public String nameOFCompany(final String ticker) {
 		final Request request = prepRequest(ticker);
+
 		Response response = null;
 		String responseString = null;
 		try{
@@ -90,6 +91,36 @@ public class YahooAPIRequester implements APIRequester {
 		}
 		
 		return responseString;
+	}
+
+	/**
+	 * The current price per share in USD
+	 * @param ticker The ticker of the company
+	 * @return The current price of the company	
+	 */	
+	public int currentPrice(final String ticker) {
+		final Request request = prepRequest(ticker);
+
+		Response response = null;
+		int responseValue = -1;
+		try{
+			response = client.newCall(request).execute();
+			if(response.isSuccessful()) {
+				ObjectMapper parser = new ObjectMapper();
+				JsonNode jsonTree = parser.readTree(response.body().string());
+				String currPrice = selectCurrPrice(jsonTree);
+				responseValue = Integer.parseInt(currPrice);
+			}
+
+			return responseValue;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(response != null)
+				response.close();
+		}
+
+		return responseValue;
 	}
 	
 	/**
