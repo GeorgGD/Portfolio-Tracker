@@ -31,8 +31,23 @@
       <p>
         Please search for US companies as companies from other countries are not supported as of now!
       </p>
-      <form action="tickerSearch" method="get">
-        <input class="form-control col-sm-3" type="text" name="ticker" placeholder="Ticker">
+      <form action="portfolioSearch" method="get">
+        <div class="form-group row">
+          <label for="ticker" class="col-sm-3 col-form-label">Companies ticker symbol</label>
+          <input class="form-control col-sm-3" type="text" name="ticker" placeholder="Ticker">
+        </div>
+        <div class="form-group row">
+          <label for="sharesNum" class="col-sm-3 col-form-label">Number of shares</label>
+          <input class="form-control col-sm-3" type="number" name="sharesNum" placeholder="0">
+        </div>
+        <div class="form-group row">
+          <label for="buyInPrice" class="col-sm-3 col-form-label">Per share price</label>
+          <input class="form-control col-sm-3" type="text" name="buyInPrice" placeholder="0.0">
+        </div>
+        <div class="row">
+          <div class="col-sm-3"></div>
+          <button type="submit" class="btn btn-primary text-white col-sm-3"><b>Add</b></button>
+        </div>
       </form>
     </div>
 
