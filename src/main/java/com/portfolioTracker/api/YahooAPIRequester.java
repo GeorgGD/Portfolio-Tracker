@@ -94,19 +94,20 @@ public class YahooAPIRequester implements APIRequester {
 	 * @return The JSON object as a node	
 	 */	
 	private JsonNode selectNode(JsonNode jsonTree, String[] valueArr) {
-    	try {
-			int length = valueArr.length;
-			JsonNode node = jsonTree;
-		
-			for(int i = 0; i < length; ++i) {
-				node = node.get(valueArr[i]);
+		if (jsonTree != null) {
+			try {
+				int length = valueArr.length;
+				JsonNode node = jsonTree;
+
+				for (int i = 0; i < length; ++i) {
+					node = node.get(valueArr[i]);
+				}
+
+				return node;
+			} catch (NullPointerException e) {
+				e.printStackTrace();
 			}
-	
-			return node;
-		} catch (NullPointerException e) {
-			e.printStackTrace();		    
 		}
-		
 		return null;
 	}
 	
