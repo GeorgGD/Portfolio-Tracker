@@ -42,20 +42,14 @@ public class TickerSearchController {
 			mav = setupModelAndView(mav, expressions, values, view);
 			return mav;
 		}
-
-		try {
-			values.add(api.currentStcokData(ticker));
-			if(values.size() == 0) {
-				values.add("ERROR: Server call not found!");
-				mav = setupModelAndView(mav, expressions, values, view);
-				return mav;
-			}
+		
+		values.add(api.currentStcokData(ticker));
+		if(values.size() == 0) {
+			values.add("ERROR: Server call not found!");
 			mav = setupModelAndView(mav, expressions, values, view);
 			return mav;
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		
+		mav = setupModelAndView(mav, expressions, values, view);
 		return mav;
 	}
 	
