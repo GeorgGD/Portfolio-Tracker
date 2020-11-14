@@ -38,8 +38,7 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param ticker The ticker of the stock
 	 * @return The name and current price of a stock
 	 */
-	public String currentStcokData(final String ticker) {
-		
+	public String currentStcokData(final String ticker) {		
 		final Request request = prepRequest(ticker);
 		
 		Response response = null;
@@ -65,6 +64,34 @@ public class YahooAPIRequester implements APIRequester {
 		return responseString;
 	}
 
+	/**
+	 * Provides the name of a company for the given ticker
+	 * @param ticker The ticker of the company
+	 * @return The name of the company	
+	 */	
+	public String nameOFCompany(final String ticker) {
+		final Request request = prepRequest(ticker);
+		Response response = null;
+		String responseString = null;
+		try{
+			response = client.newCall(request).execute();
+			if(response.isSuccessful()) {
+				ObjectMapper parser = new ObjectMapper();
+				JsonNode jsonTree = parser.readTree(response.body().string());
+				responseString = selectStockName(jsonTree);
+			}
+			
+			return responseString;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(response != null)
+				response.close();
+		}
+		
+		return responseString;
+	}
+	
 	/**
 	 * Prepers the request to the API
 	 * @param ticker The ticker of the company
@@ -112,6 +139,7 @@ public class YahooAPIRequester implements APIRequester {
 
 				for (int i = 0; i < length; ++i) {
 					node = node.get(valueArr[i]);
+					
 				}
 
 				return node;
