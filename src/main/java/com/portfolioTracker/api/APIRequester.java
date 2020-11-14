@@ -37,6 +37,6 @@ public interface APIRequester {
 	 * @param ticker The ticker of the company
 	 * @return The current price of the company	
 	 */	
-	public int currentPrice(String ticker);
+	public int currentPrice(final String ticker);
 	
 }
