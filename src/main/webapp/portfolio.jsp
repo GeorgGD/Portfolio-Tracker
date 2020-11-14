@@ -26,31 +26,41 @@
 <body>
 
   <div class="container bg rounded py-3 left-hero">
-    <div class="search-bar">
-      <h3 class="font-weight-bold">Search for a company</h3>
-      <p>
-        Please search for US companies as companies from other countries are not supported as of now!
-      </p>
-      <form action="portfolioSearch" method="get">
-        <div class="form-group row">
-          <label for="ticker" class="col-sm-3 col-form-label">Companies ticker symbol</label>
-          <input class="form-control col-sm-3" type="text" name="ticker" placeholder="Ticker">
-        </div>
-        <div class="form-group row">
-          <label for="sharesNum" class="col-sm-3 col-form-label">Number of shares</label>
-          <input class="form-control col-sm-3" type="number" name="sharesNum" placeholder="0">
-        </div>
-        <div class="form-group row">
-          <label for="buyInPrice" class="col-sm-3 col-form-label">Per share price</label>
-          <input class="form-control col-sm-3" type="text" name="buyInPrice" placeholder="0.0">
-        </div>
-        <div class="row">
-          <div class="col-sm-3"></div>
-          <button type="submit" class="btn btn-primary text-white col-sm-3"><b>Add</b></button>
-        </div>
-      </form>
-    </div>
+    <div class="row">
 
+      <div class="search-bar col-8 w-auto">
+        <h3 class="font-weight-bold w-auto">Search for a company</h3>
+        <p class="w-auto">
+          Please search for US companies as companies from other countries are not supported as of now!
+        </p>
+        <form action="portfolioSearch" method="get" class="">
+          <div class="form-group row w-75">
+            <label for="ticker" class="col-sm-5 col-form-label">Companies ticker symbol</label>
+            <input class="form-control col-sm-5" type="text" name="ticker" placeholder="Ticker">
+          </div>
+          <div class="form-group row w-75">
+            <label for="sharesNum" class="col-sm-5 col-form-label">Number of shares</label>
+            <input class="form-control col-sm-5" type="number" name="sharesNum" placeholder="0">
+          </div>
+          <div class="form-group row w-75">
+            <label for="buyInPrice" class="col-sm-5 col-form-label">Per share price</label>
+            <input class="form-control col-sm-5" type="text" name="buyInPrice" placeholder="0.0">
+          </div>
+          <div class="row w-75">
+            <div class="col-sm-5"></div>
+            <button type="submit" class="btn btn-primary text-white col-sm-5"><b>Add</b></button>
+          </div>
+        </form>
+      </div>
+
+      <div class="totalValue col-4 text-center">
+        <h3 class="font-weight-bold">Current Evaluation</h3>
+        <p class="mb-0 mt-5 font-weight-bold">You have currently invested:</p>
+        <p class="mt-0">${currentInvestment}</p>
+        <p class="mb-0 mt-5 font-weight-bold">Your investments are worth:</p>
+        <p class="mt-0">${currentEvaluation}</p>
+      </div>
+    </div>
   </div>
 
   <div class="container bg rounded py-3 mt-4">
