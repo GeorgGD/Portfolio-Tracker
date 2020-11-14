@@ -65,6 +65,11 @@ public class YahooAPIRequester implements APIRequester {
 		return responseString;
 	}
 
+	/**
+	 * Prepers the request to the API
+	 * @param ticker The ticker of the company
+	 * @return The prepered request object	
+	 */	
 	private final Request prepRequest(String ticker) {
 		final Request request = new Request.Builder()
 			.url("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-analysis?symbol=" + ticker + "&region=US")
@@ -72,7 +77,7 @@ public class YahooAPIRequester implements APIRequester {
 			.addHeader("x-rapidapi-key", "f66deea662msh14939375d70d6c0p1886d9jsn758536cc2677")
 			.addHeader("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
 			.build();
-
+	
 		return request;
 	}
 	
