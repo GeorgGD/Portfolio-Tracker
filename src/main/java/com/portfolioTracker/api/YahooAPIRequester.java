@@ -69,7 +69,7 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param ticker The ticker of the company
 	 * @return The name of the company	
 	 */	
-	public String nameOFCompany(final String ticker) {
+	public String nameOfCompany(final String ticker) {
 		final Request request = prepRequest(ticker);
 
 		Response response = null;
