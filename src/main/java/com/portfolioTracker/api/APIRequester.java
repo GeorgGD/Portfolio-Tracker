@@ -23,4 +23,11 @@ public interface APIRequester {
 	 * Closes the client used for api calls
 	 */	
 	public void closeClient();
+
+	/**
+	 * Provides the name of a company for the given ticker
+	 * @param ticker The ticker of the company
+	 * @return The name of the company	
+	 */	
+	public String nameOfCompany(final String ticker);
 }
