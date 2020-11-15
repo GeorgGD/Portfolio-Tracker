@@ -1,5 +1,7 @@
 package com.portfolioTracker.view;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,6 +15,17 @@ public class ViewHandler {
 	}
 
 	public ModelAndView getModelView() {
+		return mav;
+	}
+
+	private ModelAndView setupModelAndView(ModelAndView mav, ArrayList<String> expressions, ArrayList<String> values, String view) {
+		mav.setViewName(view);
+
+		int size = values.size();
+		for (int i = 0; i < size; ++i) {
+			mav.addObject(expressions.get(i), values.get(i));
+		}
+
 		return mav;
 	}
 }
