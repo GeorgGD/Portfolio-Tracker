@@ -36,8 +36,7 @@ public class Username {
 			return mav;
 		}
 		
-		//Else create a cookie with username and send them to portfolio page
-		Cookie cookie = new Cookie("username",username);
+    	Cookie cookie = new Cookie("username",username);
 		response.addCookie(cookie);
 		view = "portfolio";
 		jspExpression = "currentInvestment";
