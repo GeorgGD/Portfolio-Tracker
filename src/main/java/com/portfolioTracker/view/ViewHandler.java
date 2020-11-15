@@ -8,4 +8,11 @@ public class ViewHandler {
 
 	private ModelAndView mav;
 
+	public void setModelView(ModelAndView mav) {
+		this.mav = mav;
+	}
+
+	public ModelAndView getModelView() {
+		return mav;
+	}
 }
