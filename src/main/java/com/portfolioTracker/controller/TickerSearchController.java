@@ -3,6 +3,7 @@ package com.portfolioTracker.controller;
 import java.util.ArrayList;
 
 import com.portfolioTracker.api.APIRequester;
+import com.portfolioTracker.view.ViewHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class TickerSearchController {
 	@Autowired
 	private APIRequester api;
 
+	@Autowired
+	private ViewHandler viewHandler;
 	/**
 	 * Searches for the stock with the given ticker and provides 
 	 * the name and current price of the stock. 
@@ -32,23 +35,24 @@ public class TickerSearchController {
 	public ModelAndView tickerSearch(@RequestParam("ticker") String ticker) {
 		ArrayList<String> values = new ArrayList<String>();
 		ArrayList<String> expressions = new ArrayList<String>();
-		ModelAndView mav = new ModelAndView();
+		viewHandler.setModelView(new ModelAndView());
 		String view = "index";
 		expressions.add("result");
+		ModelAndView mav;
 		
 		if(ticker == null || ticker.equals("")) {
 			values.add("ERROR: Ticker not found!");
-			mav = setupModelAndView(mav, expressions, values, view);
+			mav = viewHandler.setupModelAndView(expressions, values, view);
 			return mav;
 		}
 		
 		values.add(api.currentStcokData(ticker));
 		if(values.size() == 0) {
 			values.add("ERROR: Server call not found!");
-			mav = setupModelAndView(mav, expressions, values, view);
+			mav = viewHandler.setupModelAndView(expressions, values, view);
 			return mav;
 		}
-		mav = setupModelAndView(mav, expressions, values, view);
+		mav = viewHandler.setupModelAndView(expressions, values, view);
 		return mav;
 	}
 }
