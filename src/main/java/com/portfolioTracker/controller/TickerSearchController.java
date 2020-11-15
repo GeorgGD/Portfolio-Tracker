@@ -1,6 +1,5 @@
 package com.portfolioTracker.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.portfolioTracker.api.APIRequester;
