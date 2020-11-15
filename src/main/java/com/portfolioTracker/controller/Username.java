@@ -39,7 +39,7 @@ public class Username {
 		//Else create a cookie with username and send them to portfolio page
 		Cookie cookie = new Cookie("username",username);
 		response.addCookie(cookie);
-		view = "portofolio";
+		view = "portfolio";
 		jspExpression = "currentInvestment";
 		expValuePair.put(jspExpression, "0");
 

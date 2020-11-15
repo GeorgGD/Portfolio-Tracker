@@ -52,6 +52,7 @@ public class TickerSearchController {
 			mav = viewHandler.setupModelAndView(expValuePair, view);
 			return mav;
 		}
+		expValuePair.put(jspExpression, apiResponseStr);
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
