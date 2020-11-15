@@ -18,7 +18,7 @@ public class ViewHandler {
 		return mav;
 	}
 
-	private ModelAndView setupModelAndView(ModelAndView mav, ArrayList<String> expressions, ArrayList<String> values, String view) {
+	public ModelAndView setupModelAndView(ModelAndView mav, ArrayList<String> expressions, ArrayList<String> values, String view) {
 		mav.setViewName(view);
 
 		int size = values.size();
