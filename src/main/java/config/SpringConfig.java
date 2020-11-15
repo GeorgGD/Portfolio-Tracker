@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@ComponentScan({"com.portfolioTracker.api", "com.portfolioTracker.controller"})
+@ComponentScan({"com.portfolioTracker.api", "com.portfolioTracker.controller", "com.portfolioTracker.view"})
 public class SpringConfig {
 
 	/**
