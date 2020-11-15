@@ -2,6 +2,7 @@ package com.portfolioTracker.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import com.portfolioTracker.view.ViewHandler;
@@ -21,8 +22,7 @@ public class Username {
 	
 	@RequestMapping(value = "/username", method = RequestMethod.POST)
 	public ModelAndView setUsernameCookie(@RequestParam("userName") String username, HttpServletResponse response) {
-		//If username is null return to index
-		HashMap<String, String> expValuePair = new HashMap<String, String>();
+	    HashMap<String, String> expValuePair = new HashMap<String, String>();
 		String jspExpression;
 		String view;
 		ModelAndView mav;
@@ -35,7 +35,18 @@ public class Username {
 			mav = viewHandler.setupModelAndView(expValuePair,view);
 			return mav;
 		}
+		
 		//Else create a cookie with username and send them to portfolio page
-		return null;
+		Cookie cookie = new Cookie("username",username);
+		response.addCookie(cookie);
+		view = "portofolio";
+		jspExpression = "currentInvestment";
+		expValuePair.put(jspExpression, "0");
+
+		jspExpression = "currentEvaluation";
+		expValuePair.put(jspExpression, "0");
+
+		mav = viewHandler.setupModelAndView(expValuePair, view);
+		return mav;
 	}
 }
