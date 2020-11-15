@@ -19,7 +19,8 @@ public class Username {
 
 	@Autowired
 	private ViewHandler viewHandler;
-	
+
+	//TODO: Check cookies and setup portfolio page based on those cookies
 	@RequestMapping(value = "/username", method = RequestMethod.POST)
 	public ModelAndView setUsernameCookie(@RequestParam("userName") String username, HttpServletResponse response) {
 	    HashMap<String, String> expValuePair = new HashMap<String, String>();
