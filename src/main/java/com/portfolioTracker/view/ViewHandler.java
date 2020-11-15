@@ -1,6 +1,8 @@
 package com.portfolioTracker.view;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,17 +27,15 @@ public class ViewHandler {
 	
 	/**
 	 * Sets up the view object with the data it needs
-	 * @param expressions The EL expressions found in the view 
-	 * @param values The values the EL expressions are meant to hold
+	 * @param expValuePair The EL expression paired with a value 
 	 * @return the modefied model and view	
 	 */
-	public ModelAndView setupModelAndView(ArrayList<String> expressions, ArrayList<String> values, String view) {
-		// TODO: Combine expressions variable with values into a map because this solution isn't scalable!
-		mav.setViewName(view);
-
-		int size = values.size();
-		for (int i = 0; i < size; ++i) {
-			mav.addObject(expressions.get(i), values.get(i));
+	public ModelAndView setupModelAndView(HashMap<String,String> expValuePair, String view) {	    
+		mav.setViewName(view);		
+		Set<Map.Entry<String, String>> pair = expValuePair.entrySet();
+		
+		for (Map.Entry<String, String> e: pair) {
+			mav.addObject(e.getKey(), e.getValue());		   
 		}
 
 		return mav;
