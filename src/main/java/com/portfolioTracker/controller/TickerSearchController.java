@@ -1,6 +1,7 @@
 package com.portfolioTracker.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.portfolioTracker.api.APIRequester;
 import com.portfolioTracker.view.ViewHandler;
@@ -33,26 +34,26 @@ public class TickerSearchController {
 	 */	
 	@RequestMapping("/tickerSearch")
 	public ModelAndView tickerSearch(@RequestParam("ticker") String ticker) {
-		ArrayList<String> values = new ArrayList<String>();
-		ArrayList<String> expressions = new ArrayList<String>();
+		HashMap<String, String> expValuePair = new HashMap<String, String>();
+		String jspExpression = "result";
 		viewHandler.setModelView(new ModelAndView());
 		String view = "index";
-		expressions.add("result");
 		ModelAndView mav;
 		
 		if(ticker == null || ticker.equals("")) {
-			values.add("ERROR: Ticker not found!");
-			mav = viewHandler.setupModelAndView(expressions, values, view);
+			expValuePair.put(jspExpression, "ERROR: Ticker not found!");		    
+			mav = viewHandler.setupModelAndView(expValuePair, view);
 			return mav;
 		}
 		
-		values.add(api.currentStcokData(ticker));
-		if(values.size() == 0) {
-			values.add("ERROR: Server call not found!");
-			mav = viewHandler.setupModelAndView(expressions, values, view);
+		String apiResponseStr = api.currentStcokData(ticker);
+		
+		if(apiResponseStr == null) {
+			expValuePair.put(jspExpression,"ERROR: Server call not found!");
+			mav = viewHandler.setupModelAndView(expValuePair, view);
 			return mav;
 		}
-		mav = viewHandler.setupModelAndView(expressions, values, view);
+		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
 }
