@@ -41,6 +41,7 @@
             <input type="text" name="userName" placeholder="Username" class="form-conrol">         
           <button type="submit" class="btn btn-primary font-weight-bold mt-2">Get Started</button>
           </form>
+	  <p>${errorMsg}</p>
         </div>
       </div>
     </div>
