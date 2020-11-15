@@ -1,6 +1,5 @@
 package com.portfolioTracker.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.portfolioTracker.api.APIRequester;
