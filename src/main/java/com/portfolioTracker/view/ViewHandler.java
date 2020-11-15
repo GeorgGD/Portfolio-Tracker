@@ -18,6 +18,12 @@ public class ViewHandler {
 		return mav;
 	}
 
+	/** //TODO: REDO DOCS
+	 * A helper function for tickerSeearch-method, sets up the model and view
+	 * @param mav The model and view
+	 * @param values The string that the model and view should hold
+	 * @return the modefied model and view	
+	 */
 	public ModelAndView setupModelAndView(ArrayList<String> expressions, ArrayList<String> values, String view) {
 		mav.setViewName(view);
 

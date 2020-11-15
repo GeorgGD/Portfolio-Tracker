@@ -51,21 +51,4 @@ public class TickerSearchController {
 		mav = setupModelAndView(mav, expressions, values, view);
 		return mav;
 	}
-	
-	/** //TODO: REDO DOCS
-	 * A helper function for tickerSeearch-method, sets up the model and view
-	 * @param mav The model and view
-	 * @param values The string that the model and view should hold
-	 * @return the modefied model and view	
-	 */
-	private ModelAndView setupModelAndView(ModelAndView mav, ArrayList<String> expressions, ArrayList<String> values, String view) {
-		mav.setViewName(view);
-
-		int size = values.size();
-		for (int i = 0; i < size; ++i) {
-			mav.addObject(expressions.get(i), values.get(i));
-		}
-
-		return mav;
-	}
 }
