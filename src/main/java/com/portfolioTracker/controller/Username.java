@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import com.portfolioTracker.cookies.CookieHandler;
 import com.portfolioTracker.view.ViewHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class Username {
 	@Autowired
 	private ViewHandler viewHandler;
 
+	@Autowired
+	private CookieHandler cookieHandler;
+	
 	//TODO: Check cookies and setup portfolio page based on those cookies
 	@RequestMapping(value = "/username", method = RequestMethod.POST)
 	public ModelAndView setUsernameCookie(@RequestParam("userName") String username, HttpServletResponse response) {
@@ -37,8 +41,9 @@ public class Username {
 			return mav;
 		}
 		
-    	Cookie cookie = new Cookie("username",username);
-		response.addCookie(cookie);
+    	cookieHandler.setCookie(new Cookie("username",username));
+		cookieHandler.oneWeekCookie();
+		response.addCookie(cookieHandler.getCookie());
 		view = "portfolio";
 		jspExpression = "currentInvestment";
 		expValuePair.put(jspExpression, "0");
