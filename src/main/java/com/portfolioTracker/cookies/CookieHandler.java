@@ -22,4 +22,10 @@ public class CookieHandler {
 			cookie.setMaxAge(age);
 		}
 	}
+
+	public void oneWeekCookie() {
+		if(cookie != null) {
+			cookie.setMaxAge(60*60*24*7);
+		}
+	}
 }
