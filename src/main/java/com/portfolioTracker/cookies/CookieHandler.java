@@ -16,4 +16,10 @@ public class CookieHandler {
 	public Cookie getCookie() {
 		return cookie;
 	}
+
+	public void addAge(int age) {
+		if(cookie != null) {
+			cookie.setMaxAge(age);
+		}
+	}
 }
