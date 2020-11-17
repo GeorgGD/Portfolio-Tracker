@@ -32,16 +32,15 @@ public class PortfolioSearch {
 		ModelAndView mav;
 		viewHandler.setModelView(new ModelAndView());
 		
-
 		try {
 			expValuePair = updateCurrentEvaluation(expValuePair, numShares, buyInPrice, ticker);
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // Should read the cookie and display current investment and evalution instead of 0 USD
 			expValuePair.put("currentInvestment", "0 USD");
 			expValuePair.put("currentEvaluation", "0 USD");			
 			return viewHandler.setupModelAndView(expValuePair, view);
 		} catch (TickerNotFoundException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // Should read the cookie and display current investment and evalution instead of 0 USD
 			expValuePair.put("currentInvestment", "0 USD");
 			expValuePair.put("currentEvaluation", "0 USD");			
 			return viewHandler.setupModelAndView(expValuePair, view); 
