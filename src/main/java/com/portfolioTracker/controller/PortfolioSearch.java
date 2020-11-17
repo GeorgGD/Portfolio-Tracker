@@ -37,10 +37,14 @@ public class PortfolioSearch {
 			expValuePair = updateCurrentEvaluation(expValuePair, numShares, buyInPrice, ticker);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			return null; // should return mav in the future
+			expValuePair.put("currentInvestment", "0 USD");
+			expValuePair.put("currentEvaluation", "0 USD");			
+			return viewHandler.setupModelAndView(expValuePair, view);
 		} catch (TickerNotFoundException e) {
 			e.printStackTrace();
-			return null; // should return mav in the future
+			expValuePair.put("currentInvestment", "0 USD");
+			expValuePair.put("currentEvaluation", "0 USD");			
+			return viewHandler.setupModelAndView(expValuePair, view); 
 		}
 		// Prep current investment and total investment
 
