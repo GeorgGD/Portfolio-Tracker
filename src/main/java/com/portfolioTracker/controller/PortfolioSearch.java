@@ -67,13 +67,13 @@ public class PortfolioSearch {
 		shares = Integer.parseInt(numShares);
 		price = Double.parseDouble(buyInPrice);
 		if(shares < 1 || price <= 0) {
-			throw new NumberFormatException("Number of shares were either less than 1 or price was less or equal to 0");
+			throw new NumberFormatException("Number of shares were either less than 1 or price was less or equal to 0");		    		
 		}
 
 		double currPrice = api.currentPrice(ticker);
 
-		if(price < 0) {
-			throw new TickerNotFoundException("Ticker " + ticker + " doesn't seem to belong to a company");
+		if(currPrice < 0) {
+			throw new TickerNotFoundException("Ticker " + ticker + " doesn't seem to belong to a company");		
 		}
 		
 		expValuePair.put("currentInvestment",shares*price + " USD");
