@@ -98,18 +98,18 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param ticker The ticker of the company
 	 * @return The current price of the company	
 	 */	
-	public int currentPrice(final String ticker) {
+	public double currentPrice(final String ticker) {
 		final Request request = prepRequest(ticker);
 
 		Response response = null;
-		int responseValue = -1;
+		double responseValue = -1;
 		try{
 			response = client.newCall(request).execute();
 			if(response.isSuccessful()) {
 				ObjectMapper parser = new ObjectMapper();
 				JsonNode jsonTree = parser.readTree(response.body().string());
 				String currPrice = selectCurrPrice(jsonTree);
-				responseValue = Integer.parseInt(currPrice);
+				responseValue = Double.parseDouble(currPrice);
 			}
 
 			return responseValue;
