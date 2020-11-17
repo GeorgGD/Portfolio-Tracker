@@ -24,7 +24,7 @@ public class PortfolioSearch {
 
 	@Autowired
 	private CookieHandler cookieHandler;
-
+	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
 	public ModelAndView portfolioSearch(@RequestParam("ticker") String ticker, @RequestParam("sharesNum") String numShares, @RequestParam("buyInPrice") String buyInPrice) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
@@ -53,6 +53,9 @@ public class PortfolioSearch {
 		return mav;
 	}
 
+	/**
+	 * Updates the current evaluation, this method will be changed in the future!
+	 */
 	private HashMap<String,String> updateCurrentEvaluation(HashMap<String,String> expValuePair, String numShares, String buyInPrice, String ticker) throws NumberFormatException, TickerNotFoundException {
 		int shares;
 		double price;
@@ -62,14 +65,15 @@ public class PortfolioSearch {
 		if(shares < 1 || price <= 0) {
 			throw new NumberFormatException("Number of shares were either less than 1 or price was less or equal to 0");
 		}
-		expValuePair.put("currentInvestment",shares*price + " USD");
 
-		price = api.currentPrice(ticker);
+		double currPrice = api.currentPrice(ticker);
+
 		if(price < 0) {
 			throw new TickerNotFoundException("Ticker " + ticker + " doesn't seem to belong to a company");
 		}
 		
-		expValuePair.put("currentEvaluation", shares*price + " USD");
+		expValuePair.put("currentInvestment",shares*price + " USD");
+		expValuePair.put("currentEvaluation", shares*currPrice + " USD");
 		
 		return expValuePair;
 	}
