@@ -64,7 +64,7 @@ public class PortfolioSearch {
 		}
 		expValuePair.put("currentInvestment",shares*price + " USD");
 
-		price = (double) api.currentPrice(ticker);
+		price = api.currentPrice(ticker);
 		if(price < 0) {
 			throw new TickerNotFoundException("Ticker " + ticker + " doesn't seem to belong to a company");
 		}
