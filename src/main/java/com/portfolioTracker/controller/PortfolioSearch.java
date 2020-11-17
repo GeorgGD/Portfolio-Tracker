@@ -34,23 +34,26 @@ public class PortfolioSearch {
 		
 
 		try {
-			expValuePair = updateCurrentEvaluation(expValuePair, numShares, buyInPrice);
+			expValuePair = updateCurrentEvaluation(expValuePair, numShares, buyInPrice, ticker);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			return null;
+			return null; // should return mav in the future
+		} catch (TickerNotFoundException e) {
+			e.printStackTrace();
+			return null; // should return mav in the future
 		}
 		// Prep current investment and total investment
 
 		// Make api request to get name and currentPrice
 	    expValuePair.put("name", api.nameOfCompany(ticker));
 		expValuePair.put("shares", numShares);
-		expValuePair.put("buyInPrice", buyInPrice);
+		expValuePair.put("buyInPrice", buyInPrice + " USD");
 		
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
 
-	private HashMap<String,String> updateCurrentEvaluation(HashMap<String,String> expValuePair, String numShares, String buyInPrice) throws NumberFormatException {
+	private HashMap<String,String> updateCurrentEvaluation(HashMap<String,String> expValuePair, String numShares, String buyInPrice, String ticker) throws NumberFormatException, TickerNotFoundException {
 		int shares;
 		double price;
 		
@@ -60,7 +63,13 @@ public class PortfolioSearch {
 			throw new NumberFormatException("Number of shares were either less than 1 or price was less or equal to 0");
 		}
 		expValuePair.put("currentInvestment",shares*price + " USD");
-		expValuePair.put("currentEvaluation", "0 USD");
+
+		price = (double) api.currentPrice(ticker);
+		if(price < 0) {
+			throw new TickerNotFoundException("Ticker " + ticker + " doesn't seem to belong to a company");
+		}
+		
+		expValuePair.put("currentEvaluation", shares*price + " USD");
 		
 		return expValuePair;
 	}
