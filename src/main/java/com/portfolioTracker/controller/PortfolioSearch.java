@@ -32,12 +32,9 @@ public class PortfolioSearch {
 		ModelAndView mav;
 		viewHandler.setModelView(new ModelAndView());
 		
-		int shares;
-		double price;
 
 		try {
-			shares = Integer.parseInt(numShares);
-			price = Double.parseDouble(buyInPrice);
+			expValuePair = updateCurrentEvaluation(expValuePair, numShares, buyInPrice);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			return null;
@@ -49,9 +46,22 @@ public class PortfolioSearch {
 		expValuePair.put("shares", numShares);
 		expValuePair.put("buyInPrice", buyInPrice);
 		
-		expValuePair.put("currentInvestment", "0 USD");
-		expValuePair.put("currentEvaluation", "0 USD");
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
+	}
+
+	private HashMap<String,String> updateCurrentEvaluation(HashMap<String,String> expValuePair, String numShares, String buyInPrice) throws NumberFormatException {
+		int shares;
+		double price;
+		
+		shares = Integer.parseInt(numShares);
+		price = Double.parseDouble(buyInPrice);
+		if(shares < 1 || price <= 0) {
+			throw new NumberFormatException("Number of shares were either less than 1 or price was less or equal to 0");
+		}
+		expValuePair.put("currentInvestment",shares*price + " USD");
+		expValuePair.put("currentEvaluation", "0 USD");
+		
+		return expValuePair;
 	}
 }
