@@ -109,6 +109,9 @@ public class YahooAPIRequester implements APIRequester {
 				ObjectMapper parser = new ObjectMapper();
 				JsonNode jsonTree = parser.readTree(response.body().string());
 				String currPrice = selectCurrPrice(jsonTree);
+				if(currPrice == null)
+					return responseValue;
+				
 				responseValue = Double.parseDouble(currPrice);
 			}
 
