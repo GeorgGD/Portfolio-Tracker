@@ -15,16 +15,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * The Username class takes care of assigning usernames and managing 
+ * cookies related to the user
+ * @auther Georgios Davakos
+ * @since 2020-11-17
+ */
 @Controller
 public class Username {
-
-	@Autowired
-	private ViewHandler viewHandler;
-
-	@Autowired
-	private CookieHandler cookieHandler;
 	
+	@Autowired
+	private ViewHandler viewHandler; 
+
+	@Autowired
+	private CookieHandler cookieHandler; 
+
 	//TODO: Check cookies and setup portfolio page based on those cookies
+	/**
+	 * Sets a cookie with the username that was provided
+	 * @param username The desired username
+	 * @param response The response object
+	 * @return The view with the data to display	
+	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST)
 	public ModelAndView setUsernameCookie(@RequestParam("userName") String username, HttpServletResponse response) {
 	    HashMap<String, String> expValuePair = new HashMap<String, String>();
@@ -46,10 +58,10 @@ public class Username {
 		response.addCookie(cookieHandler.getCookie());
 		view = "portfolio";
 		jspExpression = "currentInvestment";
-		expValuePair.put(jspExpression, "0");
+		expValuePair.put(jspExpression, "0 USD");
 
 		jspExpression = "currentEvaluation";
-		expValuePair.put(jspExpression, "0");
+		expValuePair.put(jspExpression, "0 USD");
 
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
