@@ -16,9 +16,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * The following class is meant to communicate with a database and save data that
+ * can't be stored inside a cookie
+ * @author Georgios Davakos
+ * @since 2020-11-19
+ */
 @Component
 public class ServerCommunication {
 
+	/**
+	 * Creates a user
+	 * @param username The name of the user	
+	 */ 
 	public void createUser(String username) {
 		try {			
 			File user = new File(username + ".txt");
@@ -27,7 +37,13 @@ public class ServerCommunication {
 			e.printStackTrace();
 		}									
 	}
-	
+
+	/**
+	 * Adds a stock to the portfolio of the given user
+	 * @param username The user name of the user
+	 * @param ticker The ticker of the stock
+	 * @param stockData The data about the stock that will be stored	
+	 */
 	public void addStockToPortfolio(String username, String ticker, HashMap<String, String> stockData) {
 		String portfolio;
 		File user = new File(username + ".txt");
@@ -40,6 +56,12 @@ public class ServerCommunication {
 		}
 	}
 
+	/**
+	 * Saves the data into a text file
+	 * Will be depricated in the future
+	 * @param username The user name of the user
+	 * @param toSave The data you want to save 		
+	 */
 	private void saveChanges(String username, String toSave) {
 		File user = new File(username + ".txt");
 		FileWriter toWrite = null;
@@ -77,6 +99,12 @@ public class ServerCommunication {
 		}		
 	}
 
+	/**
+	 * Creates the first entry for a new portfolio
+	 * @param ticker The ticker of the stock
+	 * @param stockData The data to be used for the first entry
+	 * @return The first entry in json form	
+	 */
 	private String createFirstEntry(String ticker, HashMap<String,String> stockData) {
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode stocks = mapper.createObjectNode();
@@ -96,6 +124,11 @@ public class ServerCommunication {
 	   return stocks.toString();		
 	}
 
+	/**
+	 * Helper function to addStockToPortfolio
+	 * Check addStockToPortfolio for docs! 	
+	 * TODO: Reqrite this method because it is not readable!	
+	 */
 	private String addStockToPortfolioAux(String username, String ticker, HashMap<String, String> stockData) {
 		File file = new File(username + ".txt");
 		String portfolio = "";
