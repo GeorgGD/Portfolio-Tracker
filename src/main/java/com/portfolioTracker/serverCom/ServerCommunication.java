@@ -1,14 +1,15 @@
 package com.portfolioTracker.serverCom;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -28,15 +29,11 @@ public class ServerCommunication {
 	}
 	
 	public void addStockToPortfolio(String username, String ticker, HashMap<String, String> stockData) {
-		String portfolio = null;
-		ObjectMapper mapper = new ObjectMapper();
-			
-		if (portfolio != null) {
-			try {
-				JsonNode jnsonTree = mapper.readTree(portfolio);
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();				
-			}
+		String portfolio;
+		File user = new File(username + ".txt");
+		if (user.exists()) {
+			portfolio = addStockToPortfolioAux(username, ticker, stockData);
+			saveChanges(username, portfolio);
 		} else {
 			portfolio = createFirstEntry(ticker, stockData);
 			saveChanges(username, portfolio);
@@ -97,5 +94,45 @@ public class ServerCommunication {
 		stocks.set(ticker, tickerNode);
 		
 	   return stocks.toString();		
+	}
+
+	private String addStockToPortfolioAux(String username, String ticker, HashMap<String, String> stockData) {
+		File file = new File(username + ".txt");
+		String portfolio = "";
+		Scanner scan = null;
+		
+		try {
+			scan = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+			return "";
+		} finally {
+			if(scan != null)
+				scan.close();
+		}
+		
+		while(scan.hasNextLine()) {
+			portfolio = portfolio + scan.nextLine();
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();		
+		try {
+			ObjectNode rootNode = (ObjectNode) mapper.readTree(portfolio);
+			ArrayNode stocks = (ArrayNode) rootNode.get("stocks");
+			stocks.add(ticker);
+			ObjectNode tickerNode = mapper.createObjectNode();
+
+			Set<Map.Entry<String, String>> pair = stockData.entrySet();
+			for(Map.Entry<String, String> e: pair) {
+				if(!e.getKey().equals("currentInvestment") && !e.getKey().equals("currentEvaluation"))
+					tickerNode.put(e.getKey(), e.getValue());
+			}
+			
+			rootNode.set(ticker, tickerNode);
+			portfolio = rootNode.toString();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();				
+		}
+		return portfolio;
 	}
 }
