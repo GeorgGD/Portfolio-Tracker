@@ -1,6 +1,7 @@
 package com.portfolioTracker.serverCom;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,5 +55,44 @@ public class ServerCommunication {
 			portfolio = stocks.toString();
 			
 		}
-	}	
+	}
+
+	private void saveChanges(String username, String toSave) {
+		File user = new File(username + ".txt");
+		FileWriter toWrite = null;
+		if(user.exists()) {
+			try {
+				toWrite = new FileWriter(username + ".txt", false);
+				toWrite.write(toSave);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				if (toWrite != null) {
+					try {
+						toWrite.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		} else {
+			createUser(username);
+			try {
+				toWrite = new FileWriter(username + ".txt", false);
+				toWrite.write(toSave);
+			} catch (IOException e) {
+		    	e.printStackTrace();
+			} finally {
+				if (toWrite != null) {
+					try {
+						toWrite.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+		}
+		
+	}
 }
