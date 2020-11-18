@@ -53,7 +53,7 @@ public class ServerCommunication {
 			stocks.set(ticker, tickerNode);
 			
 			portfolio = stocks.toString();
-			
+			saveChanges(username, portfolio);
 		}
 	}
 
