@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.portfolioTracker.api.APIRequester;
 import com.portfolioTracker.cookies.CookieHandler;
+import com.portfolioTracker.serverCom.ServerCommunication;
 import com.portfolioTracker.view.ViewHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,15 @@ public class PortfolioSearch {
 
 	@Autowired
 	private CookieHandler cookieHandler;
+
+	@Autowired
+	private ServerCommunication server;
 	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
 	public ModelAndView portfolioSearch(@RequestParam("ticker") String ticker,
 										@RequestParam("sharesNum") String numShares,
 										@RequestParam("buyInPrice") String buyInPrice,
-										@CookieValue(value = "username", defaultValue = "") String username,
-										HttpServletResponse response) {
+										@CookieValue(value = "username", defaultValue = "") String username) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		ModelAndView mav;
@@ -58,11 +61,7 @@ public class PortfolioSearch {
 		expValuePair.put("shares", numShares);
 		expValuePair.put("buyInPrice", buyInPrice + " USD");
 		
-
-		String portfolio = cookieHandler.addStockToPortfolio(null, username, ticker, expValuePair);
-		cookieHandler.setCookie(new Cookie(username, portfolio));
-		cookieHandler.oneWeekCookie();
-	    response.addCookie(cookieHandler.getCookie());
+		server.addStockToPortfolio(username, ticker, expValuePair);
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
