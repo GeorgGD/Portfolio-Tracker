@@ -2,6 +2,9 @@ package com.portfolioTracker.cookies;
 
 import javax.servlet.http.Cookie;
 
+import com.portfolioTracker.serverCom.ServerCommunication;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,6 +17,9 @@ public class CookieHandler {
 
 	private Cookie cookie;
 
+	@Autowired
+	private ServerCommunication server;
+	
 	public void setCookie(Cookie cookie) {
 		this.cookie = cookie;
 	}
