@@ -106,14 +106,14 @@ public class ServerCommunication {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 			return "";
-		} finally {
-			if(scan != null)
-				scan.close();
 		}
 		
 		while(scan.hasNextLine()) {
 			portfolio = portfolio + scan.nextLine();
 		}
+		
+		if(scan != null)
+			scan.close();
 		
 		ObjectMapper mapper = new ObjectMapper();		
 		try {
