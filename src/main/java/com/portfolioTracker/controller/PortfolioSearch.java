@@ -59,8 +59,8 @@ public class PortfolioSearch {
 		expValuePair.put("buyInPrice", buyInPrice + " USD");
 		
 
-		String test = cookieHandler.addStockToPortfolio(null, username, ticker, expValuePair);
-		cookieHandler.setCookie(new Cookie(username, test));
+		String portfolio = cookieHandler.addStockToPortfolio(null, username, ticker, expValuePair);
+		cookieHandler.setCookie(new Cookie(username, portfolio));
 		cookieHandler.oneWeekCookie();
 	    response.addCookie(cookieHandler.getCookie());
 		mav = viewHandler.setupModelAndView(expValuePair, view);
