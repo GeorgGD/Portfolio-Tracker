@@ -18,6 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * The following class is meant to allow the used to create a portfolio of stocks
+ * and determine the performance of the portfolio.
+ * @author Georgios Davakos
+ * @since 2020-11-19
+ */
 @Controller
 public class PortfolioSearch {
 
@@ -32,7 +38,15 @@ public class PortfolioSearch {
 
 	@Autowired
 	private ServerCommunication server;
-	
+
+	/**
+	 * The following method is meant to allow the user to search for stocks
+	 * and automatically add those stocks into their portfolio which 
+	 * then is saved on a server.
+	 * 
+	 * TODO: Find an elegant way to keep currentInvestment and currentEvaluation updated as the user adds more stocks!
+	 * Method is not 100% implemented yet	
+	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
 	public ModelAndView portfolioSearch(@RequestParam("ticker") String ticker,
 										@RequestParam("sharesNum") String numShares,
@@ -65,7 +79,7 @@ public class PortfolioSearch {
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
-
+	
 	/**
 	 * Updates the current evaluation, this method will be changed in the future!
 	 */
