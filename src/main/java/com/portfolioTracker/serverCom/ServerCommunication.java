@@ -38,21 +38,7 @@ public class ServerCommunication {
 				e.printStackTrace();				
 			}
 		} else {
-			ObjectNode stocks = mapper.createObjectNode();
-			ArrayNode stockArray = mapper.createArrayNode();
-			stockArray.add(ticker);
-			stocks.set("stocks", stockArray);
-			
-			ObjectNode tickerNode = mapper.createObjectNode();
-
-			Set<Map.Entry<String, String>> pair = stockData.entrySet();
-			for(Map.Entry<String, String> e: pair) {
-				if(!e.getKey().equals("currentInvestment") && !e.getKey().equals("currentEvaluation"))
-				tickerNode.put(e.getKey(), e.getValue());
-			}
-			stocks.set(ticker, tickerNode);
-			
-			portfolio = stocks.toString();
+			portfolio = createFirstEntry(ticker, stockData);
 			saveChanges(username, portfolio);
 		}
 	}
@@ -90,9 +76,26 @@ public class ServerCommunication {
 						e.printStackTrace();
 					}
 				}
-			}
-			
-		}
+			}			
+		}		
+	}
+
+	private String createFirstEntry(String ticker, HashMap<String,String> stockData) {
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode stocks = mapper.createObjectNode();
+		ArrayNode stockArray = mapper.createArrayNode();
+		stockArray.add(ticker);
+		stocks.set("stocks", stockArray);
 		
+		ObjectNode tickerNode = mapper.createObjectNode();
+		
+		Set<Map.Entry<String, String>> pair = stockData.entrySet();
+		for(Map.Entry<String, String> e: pair) {
+			if(!e.getKey().equals("currentInvestment") && !e.getKey().equals("currentEvaluation"))
+				tickerNode.put(e.getKey(), e.getValue());
+		}
+		stocks.set(ticker, tickerNode);
+		
+	   return stocks.toString();		
 	}
 }
