@@ -76,11 +76,13 @@ public class PortfolioSearch {
 		}
 		
 		expValuePair.put("shares", numShares);
-		expValuePair.put("buyInPrice", buyInPrice + " USD");
+		expValuePair.put("buyInPrice", buyInPrice);
 		expValuePair.put("currentInvestment", currInvestment + " USD");
 		expValuePair.put("currentEvaluation", currWorth + " USD");			
 			
 		server.addStockToPortfolio(username, ticker, expValuePair);
+		
+		expValuePair.put("buyInPrice", buyInPrice + " USD");
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
