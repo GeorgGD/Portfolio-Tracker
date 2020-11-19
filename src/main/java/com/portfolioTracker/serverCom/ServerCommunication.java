@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -128,7 +129,6 @@ public class ServerCommunication {
 	/**
 	 * Helper function to addStockToPortfolio
 	 * Check addStockToPortfolio for docs! 	
-	 * TODO: Reqrite this method because it is not readable!	
 	 */
 	private String addStockToPortfolioAux(String username, String ticker, HashMap<String, String> stockData) {
 		String portfolio = readPortfolio(username);
@@ -139,7 +139,10 @@ public class ServerCommunication {
 		try {
 			ObjectNode rootNode = (ObjectNode) mapper.readTree(portfolio);
 			ArrayNode stocks = (ArrayNode) rootNode.get("stocks");
-			stocks.add(ticker);
+
+			if(!tickerExists(ticker, stocks))
+				stocks.add(ticker);
+
 			ObjectNode tickerNode = mapper.createObjectNode();
 
 			Set<Map.Entry<String, String>> pair = stockData.entrySet();
@@ -156,6 +159,20 @@ public class ServerCommunication {
 		return portfolio;
 	}
 
+	/**
+	 * Checks if a ticker already exists in the array of stocks
+	 * @param ticker The ticker of the stock
+	 * @param stocks The array with all the stocks
+	 * @return true if the ticker already exists in the array	
+	 */	
+	private boolean tickerExists(String ticker, ArrayNode stocks) {
+		for(JsonNode node : stocks) {
+			node.toString().equals(ticker);
+			return true;
+		}
+		return false;
+	}
+		
 	/**
 	 * Reads the portfolio of the given user
 	 * @param username The name of the user
