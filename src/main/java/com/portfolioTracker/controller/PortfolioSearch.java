@@ -90,7 +90,7 @@ public class PortfolioSearch {
 	 * NOT IMPLEMENTED	
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
-	public ModelAndView updateEvaluation(@CookieValue(value = "username",defaultValue = "") String username) {
+	public ModelAndView updateEvaluation(@CookieValue(value = "username", defaultValue = "") String username) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		ModelAndView mav;
@@ -101,8 +101,10 @@ public class PortfolioSearch {
 			expValuePair.put("currentEvaluation", "0 USD");			
 			return viewHandler.setupModelAndView(expValuePair, view);
 		}
+
 		
-		return null;
+		mav = viewHandler.setupModelAndView(expValuePair, view);
+		return mav;
 	}
 	
 	/**
