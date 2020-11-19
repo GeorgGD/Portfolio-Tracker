@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.stereotype.Component;
 
+
 /**
  * The following class is meant to communicate with a database and save data that
  * can't be stored inside a cookie
@@ -130,23 +131,9 @@ public class ServerCommunication {
 	 * TODO: Reqrite this method because it is not readable!	
 	 */
 	private String addStockToPortfolioAux(String username, String ticker, HashMap<String, String> stockData) {
-		File file = new File(username + ".txt");
-		String portfolio = "";
-		Scanner scan = null;
-		
-		try {
-			scan = new Scanner(file);
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
+		String portfolio = readPortfolio(username);
+		if(portfolio.equals(""))
 			return "";
-		}
-		
-		while(scan.hasNextLine()) {
-			portfolio = portfolio + scan.nextLine();
-		}
-		
-		if(scan != null)
-			scan.close();
 		
 		ObjectMapper mapper = new ObjectMapper();		
 		try {
@@ -166,6 +153,32 @@ public class ServerCommunication {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();				
 		}
+		return portfolio;
+	}
+
+	/**
+	 * Reads the portfolio of the given user
+	 * @param username The name of the user
+	 * @return The portfolio	
+	 */
+	private String readPortfolio(String username) {
+		File file = new File(username + ".txt");
+		String portfolio = "";
+		Scanner scan = null;
+		
+		try {
+			scan = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+			return "";
+		}
+		
+		while(scan.hasNextLine()) {
+			portfolio = portfolio + scan.nextLine();
+		}
+		
+		if(scan != null)
+			scan.close();
 		return portfolio;
 	}
 }
