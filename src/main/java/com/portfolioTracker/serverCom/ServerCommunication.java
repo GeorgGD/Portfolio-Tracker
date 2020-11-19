@@ -207,7 +207,11 @@ public class ServerCommunication {
 		return portfolio;
 	}
 
-	
+	/**
+	 * Provides the current investment of the given user
+	 * @param username The name of the user
+	 * @return The current investment	
+	 */
 	public String updateCurrentInvestment(String username) {
 		double shares;
 		double price;
