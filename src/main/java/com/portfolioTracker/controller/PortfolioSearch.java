@@ -79,6 +79,26 @@ public class PortfolioSearch {
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
+
+	/**
+	 * Updates the current evaluation of the users portfolio
+	 * NOT IMPLEMENTED	
+	 */	
+	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
+	public ModelAndView updateEvaluation(@CookieValue(value = "username",defaultValue = "") String username) {
+		HashMap<String, String> expValuePair = new HashMap<String, String>();
+	    String view = "portfolio";
+		ModelAndView mav;
+		viewHandler.setModelView(new ModelAndView());
+	
+		if(username.equals("")) {
+			expValuePair.put("currentInvestment", "0 USD");
+			expValuePair.put("currentEvaluation", "0 USD");			
+			return viewHandler.setupModelAndView(expValuePair, view);
+		}
+		
+		return null;
+	}
 	
 	/**
 	 * Updates the current evaluation, this method will be changed in the future!
