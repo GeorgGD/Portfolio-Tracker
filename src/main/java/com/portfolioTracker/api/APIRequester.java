@@ -29,8 +29,7 @@ public interface APIRequester {
 	 * @param ticker The ticker of the company
 	 * @return The name of the company	
 	 */	
-	public String nameOfCompany(final String ticker);
-
+	public String nameOfCompany(final String ticker) throws TickerNotFoundException;
 	
 	/**
 	 * The current price per share in USD

@@ -1,4 +1,4 @@
-package com.portfolioTracker.controller;
+package com.portfolioTracker.api;
 
 public class TickerNotFoundException extends Exception {
 

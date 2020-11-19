@@ -69,7 +69,7 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param ticker The ticker of the company
 	 * @return The name of the company	
 	 */	
-	public String nameOfCompany(final String ticker) {
+	public String nameOfCompany(final String ticker) throws TickerNotFoundException {
 		final Request request = prepRequest(ticker);
 
 		Response response = null;
@@ -79,11 +79,14 @@ public class YahooAPIRequester implements APIRequester {
 			if(response.isSuccessful()) {
 				ObjectMapper parser = new ObjectMapper();
 				JsonNode jsonTree = parser.readTree(response.body().string());
-				responseString = selectStockName(jsonTree);
-				
+				responseString = selectStockName(jsonTree);				
 			}
 			
-			return responseString;
+			if(responseString != null)
+				return responseString;
+			else 
+				throw new TickerNotFoundException("Ticker doesn't seem to belong to a company");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
