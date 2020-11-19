@@ -207,4 +207,33 @@ public class ServerCommunication {
 		return portfolio;
 	}
 
+	
+	public String updateCurrentInvestment(String username) {
+		double shares;
+		double price;
+		double total = 0; 
+		String portfolio = readPortfolio(username);
+
+		if(portfolio.equals(""))
+			return "";
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
+
+			//loop and start adding up all investments
+			for(JsonNode node : stocks) {
+				shares = jsonTree.get(node.asText()).get("shares").asDouble();
+				price = jsonTree.get(node.asText()).get("buyInPrice").asDouble();
+				total = total + shares * price;
+			}
+			
+			return String.valueOf(total);
+			
+		} catch (JsonProcessingException e) {		    
+			e.printStackTrace();
+		}
+		return "";
+	}
 }
