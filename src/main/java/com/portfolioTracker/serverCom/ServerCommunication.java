@@ -170,8 +170,8 @@ public class ServerCommunication {
 	 */	
 	private boolean tickerExists(String ticker, ArrayNode stocks) {
 		for(JsonNode node : stocks) {
-			node.toString().equals(ticker);
-			return true;
+			if(node.toString().equals(ticker))			
+				return true;
 		}
 		return false;
 	}
