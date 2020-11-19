@@ -51,7 +51,9 @@ public class PortfolioSearch {
 	public ModelAndView portfolioSearch(@RequestParam("ticker") String ticker,
 										@RequestParam("sharesNum") String numShares,
 										@RequestParam("buyInPrice") String buyInPrice,
-										@CookieValue(value = "username", defaultValue = "") String username) {
+										@CookieValue(value = "username", defaultValue = "") String username,
+										@CookieValue(value = "invested", defaultValue = "0") String currInvestment,
+										@CookieValue(value = "worth", defaultValue = "0") String currWorth) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		ModelAndView mav;
@@ -61,13 +63,13 @@ public class PortfolioSearch {
 			expValuePair = updateCurrentEvaluation(expValuePair, numShares, buyInPrice, ticker);
 		} catch (NumberFormatException e) {
 			e.printStackTrace(); // Should read the cookie and display current investment and evalution instead of 0 USD
-			expValuePair.put("currentInvestment", "0 USD");
-			expValuePair.put("currentEvaluation", "0 USD");			
+			expValuePair.put("currentInvestment", currInvestment + " USD");
+			expValuePair.put("currentEvaluation", currWorth + " USD");			
 			return viewHandler.setupModelAndView(expValuePair, view);
 		} catch (TickerNotFoundException e) {
 			e.printStackTrace(); // Should read the cookie and display current investment and evalution instead of 0 USD
-			expValuePair.put("currentInvestment", "0 USD");
-			expValuePair.put("currentEvaluation", "0 USD");			
+			expValuePair.put("currentInvestment", currInvestment + " USD");
+			expValuePair.put("currentEvaluation", currWorth + " USD");			
 			return viewHandler.setupModelAndView(expValuePair, view); 
 		}
 		
