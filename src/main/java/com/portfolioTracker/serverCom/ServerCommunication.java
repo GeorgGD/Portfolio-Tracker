@@ -65,6 +65,9 @@ public class ServerCommunication {
 	 * @param toSave The data you want to save 		
 	 */
 	private void saveChanges(String username, String toSave) {
+		if(username.equals(""))
+			return;
+		
 		File user = new File(username + ".txt");
 		FileWriter toWrite = null;
 		if(user.exists()) {
