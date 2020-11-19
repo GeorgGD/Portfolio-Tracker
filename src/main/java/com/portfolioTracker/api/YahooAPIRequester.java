@@ -80,6 +80,7 @@ public class YahooAPIRequester implements APIRequester {
 				ObjectMapper parser = new ObjectMapper();
 				JsonNode jsonTree = parser.readTree(response.body().string());
 				responseString = selectStockName(jsonTree);
+				
 			}
 			
 			return responseString;
@@ -193,10 +194,13 @@ public class YahooAPIRequester implements APIRequester {
 		String[] valueArr = { "price", "shortName" };
 		JsonNode node = selectNode(jsonTree, valueArr);
 
-		if(node != null) {
+		String[] validArr = { "price", "longName" };		
+		JsonNode checkNode = selectNode(jsonTree, validArr);
+		if(node != null && checkNode != null) {
 			String name = node.asText();
 			return name;
 		}
+
 		return null;
 	}
 
