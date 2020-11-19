@@ -6,6 +6,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import com.portfolioTracker.api.APIRequester;
+import com.portfolioTracker.api.TickerNotFoundException;
 import com.portfolioTracker.cookies.CookieHandler;
 import com.portfolioTracker.serverCom.ServerCommunication;
 import com.portfolioTracker.view.ViewHandler;
@@ -60,7 +61,8 @@ public class PortfolioSearch {
 		viewHandler.setModelView(new ModelAndView());
 		
 		try {
-			expValuePair = updateCurrentEvaluation(expValuePair, numShares, buyInPrice, ticker);
+			String name = api.nameOfCompany(ticker); // So exception is caught
+			expValuePair.put("name", name);					
 		} catch (NumberFormatException e) {
 			e.printStackTrace(); // Should read the cookie and display current investment and evalution instead of 0 USD
 			expValuePair.put("currentInvestment", currInvestment + " USD");
@@ -73,10 +75,11 @@ public class PortfolioSearch {
 			return viewHandler.setupModelAndView(expValuePair, view); 
 		}
 		
-	    expValuePair.put("name", api.nameOfCompany(ticker));
 		expValuePair.put("shares", numShares);
 		expValuePair.put("buyInPrice", buyInPrice + " USD");
-		
+		expValuePair.put("currentInvestment", currInvestment + " USD");
+		expValuePair.put("currentEvaluation", currWorth + " USD");			
+			
 		server.addStockToPortfolio(username, ticker, expValuePair);
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
