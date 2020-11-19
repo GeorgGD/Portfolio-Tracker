@@ -59,7 +59,10 @@
         <p class="mt-0">${currentInvestment}</p>
         <p class="mb-0 mt-5 font-weight-bold">Your investments are worth:</p>
         <p class="mt-0">${currentEvaluation}</p>
-      </div>
+	<form class="" action="updateEval" method="get">
+          <button type="submit" class="btn btn-success text-while font-weight-bold col-sm-8">Update</button>
+        </form>
+</div>
     </div>
   </div>
 
