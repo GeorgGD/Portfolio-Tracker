@@ -10,6 +10,7 @@ import com.portfolioTracker.view.ViewHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +39,10 @@ public class Username {
 	 * @return The view with the data to display	
 	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST)
-	public ModelAndView setUsernameCookie(@RequestParam("userName") String username, HttpServletResponse response) {
+	public ModelAndView setUsernameCookie(@RequestParam("userName") String username,
+										  @CookieValue(value = "invested", defaultValue = "0") String currInvestment,
+										  @CookieValue(value = "worth", defaultValue = "0") String currWorth,
+										  HttpServletResponse response) {
 	    HashMap<String, String> expValuePair = new HashMap<String, String>();
 		String jspExpression;
 		String view;
@@ -58,10 +62,10 @@ public class Username {
 		response.addCookie(cookieHandler.getCookie());
 		view = "portfolio";
 		jspExpression = "currentInvestment";
-		expValuePair.put(jspExpression, "0 USD");
+		expValuePair.put(jspExpression, currInvestment+" USD");
 
 		jspExpression = "currentEvaluation";
-		expValuePair.put(jspExpression, "0 USD");
+		expValuePair.put(jspExpression, currWorth+" USD");
 
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
