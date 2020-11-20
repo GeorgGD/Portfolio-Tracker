@@ -64,12 +64,12 @@ public class PortfolioSearch {
 			String name = api.nameOfCompany(ticker); // So exception is caught
 			expValuePair.put("name", name);					
 		} catch (NumberFormatException e) {
-			e.printStackTrace(); // Should read the cookie and display current investment and evalution instead of 0 USD
+			e.printStackTrace(); 
 			expValuePair.put("currentInvestment", currInvestment + " USD");
 			expValuePair.put("currentEvaluation", currWorth + " USD");			
 			return viewHandler.setupModelAndView(expValuePair, view);
 		} catch (TickerNotFoundException e) {
-			e.printStackTrace(); // Should read the cookie and display current investment and evalution instead of 0 USD
+			e.printStackTrace(); 
 			expValuePair.put("currentInvestment", currInvestment + " USD");
 			expValuePair.put("currentEvaluation", currWorth + " USD");			
 			return viewHandler.setupModelAndView(expValuePair, view); 
@@ -110,28 +110,5 @@ public class PortfolioSearch {
 		expValuePair.put("currentEvaluation", currEval + " USD");	// SAVE AS COOKIE TOO!
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
-	}
-	
-	/**
-	 * Updates the current evaluation, this method will be changed in the future!
-	 */
-	private HashMap<String,String> updateCurrentEvaluation(HashMap<String,String> expValuePair, String numShares, String buyInPrice, String ticker) throws NumberFormatException, TickerNotFoundException {
-		int shares;
-		double price;
-		
-		shares = Integer.parseInt(numShares);
-		price = Double.parseDouble(buyInPrice);
-		double currPrice = api.currentPrice(ticker);
-
-		if(shares < 1 || price <= 0) {
-			throw new NumberFormatException("Number of shares were either less than 1 or price was less or equal to 0");		    		
-		} else if(currPrice < 0) {
-			throw new TickerNotFoundException("Ticker " + ticker + " doesn't seem to belong to a company");		
-		}
-		
-		expValuePair.put("currentInvestment",shares*price + " USD");
-		expValuePair.put("currentEvaluation", shares*currPrice + " USD");
-		
-		return expValuePair;
-	}
+	}	
 }
