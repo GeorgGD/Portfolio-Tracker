@@ -61,24 +61,24 @@ public class PortfolioSearch {
 		viewHandler.setModelView(new ModelAndView());
 		
 		try {
+			if(Double.parseDouble(numShares) <= 0 || Double.parseDouble(buyInPrice) <= 0) {
+				expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
+			}			
 			String name = api.nameOfCompany(ticker); // So exception is caught
 			expValuePair.put("name", name);					
 		} catch (NumberFormatException e) {
 			e.printStackTrace(); 
-			expValuePair.put("currentInvestment", currInvestment + " USD");
-			expValuePair.put("currentEvaluation", currWorth + " USD");			
+			expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
 			return viewHandler.setupModelAndView(expValuePair, view);
 		} catch (TickerNotFoundException e) {
-			e.printStackTrace(); 
-			expValuePair.put("currentInvestment", currInvestment + " USD");
-			expValuePair.put("currentEvaluation", currWorth + " USD");			
+			e.printStackTrace();
+			expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
 			return viewHandler.setupModelAndView(expValuePair, view); 
 		}
 		
 		expValuePair.put("shares", numShares);
 		expValuePair.put("buyInPrice", buyInPrice);
-		expValuePair.put("currentInvestment", currInvestment + " USD");
-		expValuePair.put("currentEvaluation", currWorth + " USD");			
+		expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
 			
 		server.addStockToPortfolio(username, ticker, expValuePair);
 		
@@ -110,5 +110,11 @@ public class PortfolioSearch {
 		expValuePair.put("currentEvaluation", currEval + " USD");	// SAVE AS COOKIE TOO!
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
-	}	
+	}
+
+	private HashMap<String, String> prepCurrentEval(HashMap<String, String> expValuePair, String currInvestment, String currWorth) {
+		expValuePair.put("currentInvestment", currInvestment + " USD");
+		expValuePair.put("currentEvaluation", currWorth + " USD");			
+		return expValuePair;
+	}
 }
