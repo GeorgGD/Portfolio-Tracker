@@ -54,12 +54,13 @@ public class PortfolioSearch {
 										@RequestParam("buyInPrice") String buyInPrice,
 										@CookieValue(value = "username", defaultValue = "") String username,
 										@CookieValue(value = "invested", defaultValue = "0") String currInvestment,
-										@CookieValue(value = "worth", defaultValue = "0") String currWorth) {
+										@CookieValue(value = "worth", defaultValue = "0") String currWorth,
+										HttpServletResponse response) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		ModelAndView mav;
 		viewHandler.setModelView(new ModelAndView());
-		
+		response = addToCookie(currInvestment, currWorth, response);
 		try {
 			if(Double.parseDouble(numShares) <= 0 || Double.parseDouble(buyInPrice) <= 0) {
 				expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
@@ -93,7 +94,7 @@ public class PortfolioSearch {
 	 * NOT IMPLEMENTED	
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
-	public ModelAndView updateEvaluation(@CookieValue(value = "username", defaultValue = "") String username) {
+	public ModelAndView updateEvaluation(@CookieValue(value = "username", defaultValue = "") String username, HttpServletResponse response) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		ModelAndView mav;
@@ -107,9 +108,12 @@ public class PortfolioSearch {
 		
 		String currInvestment = server.updateCurrentInvestment(username);
 		String currEval = server.updateCurrentEval(username);
-		expValuePair.put("currentInvestment", currInvestment + " USD"); // SAVE AS COOKIE TOO!
-		expValuePair.put("currentEvaluation", currEval + " USD");	// SAVE AS COOKIE TOO!
+		expValuePair.put("currentInvestment", currInvestment + " USD"); 
+		expValuePair.put("currentEvaluation", currEval + " USD");		
 		mav = viewHandler.setupModelAndView(expValuePair, view);
+
+		response = addToCookie(currInvestment, currEval, response);
+		
 		return mav;
 	}
 
@@ -117,5 +121,12 @@ public class PortfolioSearch {
 		expValuePair.put("currentInvestment", currInvestment + " USD");
 		expValuePair.put("currentEvaluation", currWorth + " USD");			
 		return expValuePair;
+	}
+
+	private HttpServletResponse addToCookie(String currInvestment, String currWorth, HttpServletResponse response) {
+		response.addCookie(cookieHandler.putInsideCookie("invested", currInvestment));
+		response.addCookie(cookieHandler.putInsideCookie("worth", currWorth));
+		
+		return response;
 	}
 }
