@@ -10,7 +10,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -243,6 +242,11 @@ public class ServerCommunication {
 		return "";
 	}
 
+	/**
+	 * Provides the current evaluation of the users portfolio
+	 * @param username The name of the user
+	 * @return The current evaluation	
+	 */
 	public String updateCurrentEval(String username) {
 		double shares;
 		double price;
