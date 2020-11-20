@@ -63,6 +63,7 @@ public class PortfolioSearch {
 		try {
 			if(Double.parseDouble(numShares) <= 0 || Double.parseDouble(buyInPrice) <= 0) {
 				expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
+				return viewHandler.setupModelAndView(expValuePair, view);
 			}			
 			String name = api.nameOfCompany(ticker); // So exception is caught
 			expValuePair.put("name", name);					
