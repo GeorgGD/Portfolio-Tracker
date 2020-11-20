@@ -105,9 +105,9 @@ public class PortfolioSearch {
 		}
 		
 		String currInvestment = server.updateCurrentInvestment(username);
-
+		String currEval = server.updateCurrentEval(username);
 		expValuePair.put("currentInvestment", currInvestment + " USD"); // SAVE AS COOKIE TOO!
-		expValuePair.put("currentEvaluation", "0 USD");	// SAVE AS COOKIE TOO!
+		expValuePair.put("currentEvaluation", currEval + " USD");	// SAVE AS COOKIE TOO!
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
