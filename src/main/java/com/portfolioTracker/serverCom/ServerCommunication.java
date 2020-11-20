@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -226,8 +227,7 @@ public class ServerCommunication {
 			JsonNode jsonTree = mapper.readTree(portfolio);
 			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
 
-			//loop and start adding up all investments
-			for(JsonNode node : stocks) {
+		    for(JsonNode node : stocks) {
 				shares = jsonTree.get(node.asText()).get("shares").asDouble();
 				price = jsonTree.get(node.asText()).get("buyInPrice").asDouble();
 				total = total + shares * price;
@@ -238,6 +238,34 @@ public class ServerCommunication {
 		} catch (JsonProcessingException e) {		    
 			e.printStackTrace();
 		}
+		return "";
+	}
+
+	public String updateCurrentEval(String username) {
+		double shares;
+		double price;
+		double total = 0;
+		String portfolio = readPortfolio(username);
+
+		if(portfolio.equals(""))
+			return "";
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
+
+			for(JsonNode node : stocks) {
+				shares = jsonTree.get(node.asText()).get("shares").asDouble();
+				price = api.currentPrice(node.asText());
+				total = total + price * shares;
+			}
+
+			return String.valueOf(total);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
 		return "";
 	}
 }
