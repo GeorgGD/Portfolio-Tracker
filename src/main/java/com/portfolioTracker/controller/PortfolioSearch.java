@@ -54,13 +54,12 @@ public class PortfolioSearch {
 										@RequestParam("buyInPrice") String buyInPrice,
 										@CookieValue(value = "username", defaultValue = "") String username,
 										@CookieValue(value = "invested", defaultValue = "0") String currInvestment,
-										@CookieValue(value = "worth", defaultValue = "0") String currWorth,
-										HttpServletResponse response) {
+										@CookieValue(value = "worth", defaultValue = "0") String currWorth) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		ModelAndView mav;
 		viewHandler.setModelView(new ModelAndView());
-		response = addToCookie(currInvestment, currWorth, response);
+
 		try {
 			if(Double.parseDouble(numShares) <= 0 || Double.parseDouble(buyInPrice) <= 0) {
 				expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
