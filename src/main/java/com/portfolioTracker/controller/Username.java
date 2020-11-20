@@ -31,7 +31,6 @@ public class Username {
 	@Autowired
 	private CookieHandler cookieHandler; 
 
-	//TODO: Check cookies and setup portfolio page based on those cookies
 	/**
 	 * Sets a cookie with the username that was provided
 	 * @param username The desired username
