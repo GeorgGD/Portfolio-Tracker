@@ -42,11 +42,14 @@ public class PortfolioSearch {
 
 	/**
 	 * The following method is meant to allow the user to search for stocks
-	 * and automatically add those stocks into their portfolio which 
-	 * then is saved on a server.
-	 * 
-	 * TODO: Find an elegant way to keep currentInvestment and currentEvaluation updated as the user adds more stocks!
-	 * Method is not 100% implemented yet	
+	 * and automatically add those stocks into their portfolio
+	 * @param ticker The ticker of the stock	 
+	 * @param numShares The number of shares
+	 * @param buyInPrice The price per share
+	 * @param username The name of the user
+	 * @param currInvestment The total money invested	
+	 * @param currWorth The current net worth of the portfolio
+	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
 	public ModelAndView portfolioSearch(@RequestParam("ticker") String ticker,
@@ -90,7 +93,9 @@ public class PortfolioSearch {
 
 	/**
 	 * Updates the current evaluation of the users portfolio
-	 * NOT IMPLEMENTED	
+	 * @param username The name of the user
+	 * @param response The HTTP response 
+	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
 	public ModelAndView updateEvaluation(@CookieValue(value = "username", defaultValue = "") String username, HttpServletResponse response) {
