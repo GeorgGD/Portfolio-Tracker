@@ -219,7 +219,7 @@ public class ServerCommunication {
 		String portfolio = readPortfolio(username);
 
 		if(portfolio.equals(""))
-			return "";
+			return "0";
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -239,7 +239,7 @@ public class ServerCommunication {
 		} catch (JsonProcessingException e) {		    
 			e.printStackTrace();
 		}
-		return "";
+		return "0";
 	}
 
 	/**
@@ -254,7 +254,7 @@ public class ServerCommunication {
 		String portfolio = readPortfolio(username);
 
 		if(portfolio.equals(""))
-			return "";
+			return "0";
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -274,6 +274,6 @@ public class ServerCommunication {
 			e.printStackTrace();
 		}
 		
-		return "";
+		return "0";
 	}
 }
