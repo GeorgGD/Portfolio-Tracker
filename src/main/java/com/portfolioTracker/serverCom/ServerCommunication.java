@@ -232,7 +232,9 @@ public class ServerCommunication {
 				price = jsonTree.get(node.asText()).get("buyInPrice").asDouble();
 				total = total + shares * price;
 			}
-			
+			total = total * 10;
+			total = Math.floor(total);
+			total = total / 10;
 			return String.valueOf(total);
 			
 		} catch (JsonProcessingException e) {		    
@@ -260,7 +262,9 @@ public class ServerCommunication {
 				price = api.currentPrice(node.asText());
 				total = total + price * shares;
 			}
-
+			total = total * 10;
+			total = Math.floor(total);
+			total = total / 10;
 			return String.valueOf(total);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
