@@ -6,6 +6,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import com.portfolioTracker.cookies.CookieHandler;
+import com.portfolioTracker.serverCom.ServerCommunication;
 import com.portfolioTracker.view.ViewHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class Username {
 	@Autowired
 	private CookieHandler cookieHandler; 
 
+	@Autowired
+	private ServerCommunication server;
 	/**
 	 * Sets a cookie with the username that was provided
 	 * @param username The desired username
@@ -65,7 +68,7 @@ public class Username {
 
 		jspExpression = "currentEvaluation";
 		expValuePair.put(jspExpression, currWorth+" USD");
-
+		expValuePair.put("tableBody", server.setupTableEntries(username));
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
