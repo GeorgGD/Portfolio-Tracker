@@ -178,8 +178,7 @@ public class YahooAPIRequester implements APIRequester {
 				JsonNode node = jsonTree;
 
 				for (int i = 0; i < length; ++i) {
-					node = node.get(valueArr[i]);
-					
+					node = node.get(valueArr[i]);					
 				}
 
 				return node;
