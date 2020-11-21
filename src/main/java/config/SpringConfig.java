@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import okhttp3.OkHttpClient;
+
 @Configuration
 @ComponentScan({"com.portfolioTracker"})
 public class SpringConfig {
@@ -20,5 +22,10 @@ public class SpringConfig {
 		view.setPrefix("/WEB-INF/view/");
 		view.setSuffix(".jsp");
 		return view;
+	}
+
+	@Bean
+	public OkHttpClient client() {
+		return new OkHttpClient();
 	}
 }
