@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -284,7 +285,28 @@ public class ServerCommunication {
 		
 		return "";
 	}
+
+	/**
+	 * Returns a single HTML table row with three rows
+	 * Will be deprecated in the future!	
+	 */
 	private String defaultTable() {
 		return "<tr><td></td><td></td><td></td></tr>";
+	}
+	
+	private String setupTableEntries(ArrayList<String> entries) {
+		if(entries == null || entries.size() == 0)
+			return "";
+		
+		int size = entries.size();
+		String rowStart = "<tr>";
+		String rowEnd = "</tr>";
+		String rowElements = "";
+		
+		for (int i = 0; i < size; ++i) {
+			rowElements = rowElements + "<td>" + entries.get(i) + "</td>";
+		}
+		
+		return rowStart + rowElements + rowEnd;
 	}
 }

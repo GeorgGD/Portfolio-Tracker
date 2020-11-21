@@ -1,6 +1,5 @@
 package com.portfolioTracker.view;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -42,19 +41,4 @@ public class ViewHandler {
 		return mav;
 	}
 
-	public String setupTableEntries(ArrayList<String> entries) {
-		if(entries == null || entries.size() == 0)
-			return "";
-
-		int size = entries.size();
-		String rowStart = "<tr>";
-		String rowEnd = "</tr>";
-		String rowElements = "";
-		
-		for (int i = 0; i < size; ++i) {
-			rowElements = rowElements + "<td>" + entries.get(i) + "</td>";
-		}
-		
-		return rowStart + rowElements + rowEnd;
-	}
 }
