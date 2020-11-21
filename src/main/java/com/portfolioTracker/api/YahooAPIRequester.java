@@ -23,6 +23,9 @@ public class YahooAPIRequester implements APIRequester {
 	@Autowired
 	private OkHttpClient client;
 
+	@Autowired
+	private ObjectMapper mapper;
+	
 	/**
 	 * Closes the client used for api calls
 	 */	
@@ -49,8 +52,7 @@ public class YahooAPIRequester implements APIRequester {
 			response = client.newCall(request).execute();
 		   
 			if (response.isSuccessful()) {
-				ObjectMapper parser = new ObjectMapper();
-				JsonNode jsonTree = parser.readTree(response.body().string());	
+			    JsonNode jsonTree = mapper.readTree(response.body().string());	
 				responseString = selectStockName(jsonTree);
 				responseString = responseString + ": " + selectCurrPrice(jsonTree);
 				responseString = responseString + " " + selectCurrency(jsonTree);
@@ -79,8 +81,7 @@ public class YahooAPIRequester implements APIRequester {
 		try{
 			response = client.newCall(request).execute();
 			if(response.isSuccessful()) {
-				ObjectMapper parser = new ObjectMapper();
-				JsonNode jsonTree = parser.readTree(response.body().string());
+		    	JsonNode jsonTree = mapper.readTree(response.body().string());
 				responseString = selectStockName(jsonTree);				
 			}
 			
@@ -112,8 +113,7 @@ public class YahooAPIRequester implements APIRequester {
 		try{
 			response = client.newCall(request).execute();
 			if(response.isSuccessful()) {
-				ObjectMapper parser = new ObjectMapper();
-				JsonNode jsonTree = parser.readTree(response.body().string());
+			    JsonNode jsonTree = mapper.readTree(response.body().string());
 				String currPrice = selectCurrPrice(jsonTree);
 				if(currPrice == null)
 					return responseValue;
