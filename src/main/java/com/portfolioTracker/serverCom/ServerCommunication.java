@@ -322,7 +322,12 @@ public class ServerCommunication {
 	private String defaultTable() {
 		return "<tr><td></td><td></td><td></td></tr>";
 	}
-	
+
+	/**
+	 * Sets up the entries into a HTML table format 
+	 * @param entries The row entries for the table
+	 * @return The table row with the given entries	
+	 */
 	private String setupTableEntries(ArrayList<String> entries) {
 		if(entries == null || entries.size() == 0)
 			return "";
