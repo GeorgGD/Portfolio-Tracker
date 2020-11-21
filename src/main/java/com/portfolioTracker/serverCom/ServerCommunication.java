@@ -290,6 +290,10 @@ public class ServerCommunication {
 			return defaultTable();
 	
 		String portfolio = readPortfolio(username);
+		
+		if(portfolio.equals(""))
+			return defaultTable();
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String tableBody = "";
 		ArrayList<String> contentArr = new ArrayList<String>();
