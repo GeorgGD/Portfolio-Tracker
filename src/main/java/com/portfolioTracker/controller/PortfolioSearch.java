@@ -86,7 +86,7 @@ public class PortfolioSearch {
 			
 		server.addStockToPortfolio(username, ticker, expValuePair);
 		
-		expValuePair.put("buyInPrice", buyInPrice + " USD");
+		expValuePair.put("buyInPrice", buyInPrice + " USD"); // To display currency on website
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
