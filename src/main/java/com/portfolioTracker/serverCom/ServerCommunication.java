@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -282,8 +283,30 @@ public class ServerCommunication {
 		if(username == null || username.equals(""))
 			return defaultTable();
 
+		String portfolio = readPortfolio(username);
+		ObjectMapper mapper = new ObjectMapper();
+		String tableBody = "";
+		ArrayList<String> contentArr = new ArrayList<String>();
 		
-		return "";
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
+
+			for(JsonNode node : stocks) {
+				contentArr.add(node.get("name").asText());
+				contentArr.add(node.get("shares").asText());
+				contentArr.add(node.get("buyInPrice").asText() + " USD");
+				tableBody = tableBody + setupTableEntries(contentArr);
+				contentArr.clear();
+			}
+			return tableBody;
+		} catch (JsonMappingException e) {		    
+			e.printStackTrace();
+			return defaultTable();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return defaultTable();
+		}
 	}
 
 	/**
