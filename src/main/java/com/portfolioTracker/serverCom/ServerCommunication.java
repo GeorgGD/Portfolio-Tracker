@@ -279,10 +279,16 @@ public class ServerCommunication {
 		return "0";
 	}
 
+	/**
+	 * Sets up the portfolio contents of the given user
+	 * in HTML table format
+	 * @param username The name of the user
+	 * @return The table body with all the content	
+	 */	
 	public String setupTableEntries(String username) {
 		if(username == null || username.equals(""))
 			return defaultTable();
-
+	
 		String portfolio = readPortfolio(username);
 		ObjectMapper mapper = new ObjectMapper();
 		String tableBody = "";
@@ -291,7 +297,7 @@ public class ServerCommunication {
 		try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
 			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
-
+	
 			for(JsonNode node : stocks) {
 				contentArr.add(jsonTree.get(node.asText()).get("name").asText());
 				contentArr.add(jsonTree.get(node.asText()).get("shares").asText());
@@ -308,7 +314,7 @@ public class ServerCommunication {
 			return defaultTable();
 		}
 	}
-
+	
 	/**
 	 * Returns a single HTML table row with three rows
 	 * Will be deprecated in the future!	
