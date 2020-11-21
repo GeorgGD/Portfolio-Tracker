@@ -293,9 +293,9 @@ public class ServerCommunication {
 			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
 
 			for(JsonNode node : stocks) {
-				contentArr.add(node.get("name").asText());
-				contentArr.add(node.get("shares").asText());
-				contentArr.add(node.get("buyInPrice").asText() + " USD");
+				contentArr.add(jsonTree.get(node.asText()).get("name").asText());
+				contentArr.add(jsonTree.get(node.asText()).get("shares").asText());
+				contentArr.add(jsonTree.get(node.asText()).get("buyInPrice").asText() + " USD");
 				tableBody = tableBody + setupTableEntries(contentArr);
 				contentArr.clear();
 			}
