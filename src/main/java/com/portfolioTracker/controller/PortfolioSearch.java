@@ -126,12 +126,26 @@ public class PortfolioSearch {
 		return mav;
 	}
 
+	/**
+	 * Prepers the current evaluation values
+	 * @param expValuePair A map with EL and value pair
+	 * @param currInvestment The current investment
+	 * @param currWorth The current net worth of the investment
+	 * @return A map with EL and value pair	
+	 */
 	private HashMap<String, String> prepCurrentEval(HashMap<String, String> expValuePair, String currInvestment, String currWorth) {
 		expValuePair.put("currentInvestment", currInvestment + " USD");
 		expValuePair.put("currentEvaluation", currWorth + " USD");			
 		return expValuePair;
 	}
 
+	/**
+	 * Add values to cookie 
+	 * @param currInvestment The current investment 
+	 * @param currWorth The current net worth of the investment
+	 * @param response The HTTP response body 	
+	 * @return The response body	
+	 */
 	private HttpServletResponse addToCookie(String currInvestment, String currWorth, HttpServletResponse response) {
 		response.addCookie(cookieHandler.putInsideCookie("invested", currInvestment));
 		response.addCookie(cookieHandler.putInsideCookie("worth", currWorth));
