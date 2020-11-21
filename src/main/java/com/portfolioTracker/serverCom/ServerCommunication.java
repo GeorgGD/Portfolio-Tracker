@@ -276,4 +276,8 @@ public class ServerCommunication {
 		
 		return "0";
 	}
+
+	private String defaultTable() {
+		return "<tr><td></td><td></td><td></td></tr>";
+	}
 }
