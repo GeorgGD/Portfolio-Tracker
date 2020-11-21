@@ -33,6 +33,9 @@ public class ServerCommunication {
 
 	@Autowired
 	private APIRequester api;
+
+	@Autowired
+	private ObjectMapper mapper;
 	
 	/**
 	 * Creates a user
@@ -118,8 +121,7 @@ public class ServerCommunication {
 	 * @return The first entry in json form	
 	 */
 	private String createFirstEntry(String ticker, HashMap<String,String> stockData) {
-		ObjectMapper mapper = new ObjectMapper();
-		ObjectNode stocks = mapper.createObjectNode();
+    	ObjectNode stocks = mapper.createObjectNode();
 		ArrayNode stockArray = mapper.createArrayNode();
 		stockArray.add(ticker);
 		stocks.set("stocks", stockArray);
@@ -145,7 +147,6 @@ public class ServerCommunication {
 		if(portfolio.equals(""))
 			return "";
 		
-		ObjectMapper mapper = new ObjectMapper();		
 		try {
 			ObjectNode rootNode = (ObjectNode) mapper.readTree(portfolio);
 			ArrayNode stocks = (ArrayNode) rootNode.get("stocks");
@@ -222,8 +223,7 @@ public class ServerCommunication {
 
 		if(portfolio.equals(""))
 			return "0";
-
-		ObjectMapper mapper = new ObjectMapper();
+;
 		try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
 			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
@@ -258,8 +258,7 @@ public class ServerCommunication {
 		if(portfolio.equals(""))
 			return "0";
 
-		ObjectMapper mapper = new ObjectMapper();
-		try {
+    	try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
 			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
 
@@ -294,8 +293,7 @@ public class ServerCommunication {
 		if(portfolio.equals(""))
 			return defaultTable();
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String tableBody = "";
+    	String tableBody = "";
 		ArrayList<String> contentArr = new ArrayList<String>();
 		
 		try {
