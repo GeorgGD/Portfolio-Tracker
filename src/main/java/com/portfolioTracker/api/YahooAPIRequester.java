@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import okhttp3.OkHttpClient;
@@ -19,7 +20,8 @@ import okhttp3.Response;
 @Component
 public class YahooAPIRequester implements APIRequester {	
 
-	private static OkHttpClient client = new OkHttpClient(); //TODO: add a close method
+	@Autowired
+	private OkHttpClient client;
 
 	/**
 	 * Closes the client used for api calls
