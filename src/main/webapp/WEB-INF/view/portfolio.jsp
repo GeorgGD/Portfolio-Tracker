@@ -77,11 +77,7 @@
           </tr>
         </thead>
         <tbody class="text-light">
-          <tr>
-            <td>${name}</td>
-            <td>${shares}</td>
-            <td>${buyInPrice}</td>
-          </tr>
+          ${tableBody}
         </tbody>
       </table>
     </p>
