@@ -66,6 +66,7 @@ public class PortfolioSearch {
 		try {
 			if(Double.parseDouble(numShares) <= 0 || Double.parseDouble(buyInPrice) <= 0) {
 				expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
+				expValuePair.put("tableBody", server.setupTableEntries(username));
 				return viewHandler.setupModelAndView(expValuePair, view);
 			}			
 			String name = api.nameOfCompany(ticker); // So exception is caught
@@ -73,18 +74,20 @@ public class PortfolioSearch {
 		} catch (NumberFormatException e) {
 			e.printStackTrace(); 
 			expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
+			expValuePair.put("tableBody", server.setupTableEntries(username));
 			return viewHandler.setupModelAndView(expValuePair, view);
 		} catch (TickerNotFoundException e) {
 			e.printStackTrace();
 			expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
+			expValuePair.put("tableBody", server.setupTableEntries(username));
 			return viewHandler.setupModelAndView(expValuePair, view); 
 		}
 		
 		expValuePair.put("shares", numShares);
 		expValuePair.put("buyInPrice", buyInPrice);			
 		server.addStockToPortfolio(username, ticker, expValuePair);
-
 		expValuePair.clear();
+		
 		expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
 		expValuePair.put("tableBody", server.setupTableEntries(username));
     	mav = viewHandler.setupModelAndView(expValuePair, view);
@@ -106,14 +109,16 @@ public class PortfolioSearch {
 	
 		if(username.equals("")) {
 			expValuePair.put("currentInvestment", "0 USD");
-			expValuePair.put("currentEvaluation", "0 USD");			
+			expValuePair.put("currentEvaluation", "0 USD");
+			expValuePair.put("tableBody", server.setupTableEntries(username));
 			return viewHandler.setupModelAndView(expValuePair, view);
 		}
 		
 		String currInvestment = server.updateCurrentInvestment(username);
 		String currEval = server.updateCurrentEval(username);
 		expValuePair.put("currentInvestment", currInvestment + " USD"); 
-		expValuePair.put("currentEvaluation", currEval + " USD");		
+		expValuePair.put("currentEvaluation", currEval + " USD");
+		expValuePair.put("tableBody", server.setupTableEntries(username));
 		mav = viewHandler.setupModelAndView(expValuePair, view);
 
 		response = addToCookie(currInvestment, currEval, response);
