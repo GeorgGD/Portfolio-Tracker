@@ -81,13 +81,13 @@ public class PortfolioSearch {
 		}
 		
 		expValuePair.put("shares", numShares);
-		expValuePair.put("buyInPrice", buyInPrice);
-		expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
-			
+		expValuePair.put("buyInPrice", buyInPrice);			
 		server.addStockToPortfolio(username, ticker, expValuePair);
-		
-		expValuePair.put("buyInPrice", buyInPrice + " USD"); // To display currency on website
-		mav = viewHandler.setupModelAndView(expValuePair, view);
+
+		expValuePair.clear();
+		expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
+		expValuePair.put("tableBody", server.setupTableEntries(username));
+    	mav = viewHandler.setupModelAndView(expValuePair, view);
 		return mav;
 	}
 
