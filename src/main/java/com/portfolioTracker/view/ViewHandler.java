@@ -17,10 +17,17 @@ public class ViewHandler {
 	
 	private ModelAndView mav;
 
+	/**
+	 * Creates a new model and view object
+	 */	
+	public void newModelAndView() {
+		this.mav = new ModelAndView();
+	}
+	
 	public void setModelView(ModelAndView mav) {
 		this.mav = mav;
 	}
-
+	
 	public ModelAndView getModelView() {
 		return mav;
 	}
