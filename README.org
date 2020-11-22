@@ -8,7 +8,7 @@
  - Create unit tests with JUnit
  - Optimize the PortfolioSearch controller
  - Redesign both the landing page and the portfolio page!!!
- - Make view handler easy to use to about having to use HashMap if possible
+ - Make view handler easy to use to avoid having to use HashMap if possible
  - Review the code!!!
  - Flesh out README 
  - Write a post
