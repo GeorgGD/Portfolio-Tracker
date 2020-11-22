@@ -45,7 +45,14 @@ public class YahooAPIRequester implements APIRequester {
 	public void setClient(OkHttpClient client) {
 		this.client = client;
 	}
-	
+
+	/**
+	 * Sets the value for the mapper
+	 * @param mapper The mapper	
+	 */	
+	public void setMapper(ObjectMapper mapper) {
+		this.mapper = mapper;
+	}
 	/**
 	 * Looks up the current price of a stock for a given ticker symbol
 	 * @param ticker The ticker of the stock
