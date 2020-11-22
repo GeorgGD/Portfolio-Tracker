@@ -49,4 +49,12 @@ public class ViewHandler {
 	public void addObjectsToView(String name, String value) {
 		mav.addObject(name, value);
 	}
+
+	/**
+	 * Sets the view
+	 * @param view The view	
+	 */
+	public void setView(String view) {
+		mav.setViewName(view);
+	}
 }
