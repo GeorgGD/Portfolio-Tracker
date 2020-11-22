@@ -17,4 +17,11 @@ public class YahooAPIRequesterTest {
 		api.setMapper(new ObjectMapper());
 		return api;
 	}
+	
+	@Test
+	public void currentStockData() {
+		YahooAPIRequester api = initialize();
+		String actualString = api.currentStcokData("");
+		assertNull(actualString);
+	}
 }
