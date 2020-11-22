@@ -40,4 +40,11 @@ public class YahooAPIRequesterTest {
 		String expectedString = "Microsoft Corporation";
 		assertEquals(expectedString,actualString);
 	}
+	
+	@Test
+	public void currentPriceTest() {
+		YahooAPIRequester api = initialize();
+		double actualValue = api.currentPrice("LILA");
+		assertTrue(actualValue > 0);
+	}
 }
