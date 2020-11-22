@@ -37,6 +37,14 @@ public class YahooAPIRequester implements APIRequester {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Sets the value for the HTTP client
+	 * @param client The HTTP client	
+	 */	
+	public void setClient(OkHttpClient client) {
+		this.client = client;
+	}
 	
 	/**
 	 * Looks up the current price of a stock for a given ticker symbol
