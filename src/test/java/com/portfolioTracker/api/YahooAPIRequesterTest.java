@@ -7,7 +7,6 @@ import org.junit.Test;
 import okhttp3.OkHttpClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.portfolioTracker.api.YahooAPIRequester;
 
 public class YahooAPIRequesterTest {
 
@@ -19,7 +18,7 @@ public class YahooAPIRequesterTest {
 	}
 	
 	@Test
-	public void currentStockData() {
+	public void currentStockDataTest() {
 		YahooAPIRequester api = initialize();
 		String actualString = api.currentStcokData("");
 		assertNull(actualString);
