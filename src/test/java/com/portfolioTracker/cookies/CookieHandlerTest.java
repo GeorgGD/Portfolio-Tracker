@@ -22,4 +22,17 @@ public class CookieHandlerTest {
 		assertEquals(expectedKey, cookie2.getName());
 		assertEquals(expectedValue, cookie2.getValue());
 	}
+
+	@Test
+	public void addAgeTest() {
+		CookieHandler handler = new CookieHandler();
+		String expectedKey = "test";
+		String expectedValue = "success";
+		handler.setCookie(new Cookie(expectedKey, expectedValue));
+		int expectedInt = 100;
+		handler.addAge(expectedInt);
+		
+		Cookie cookie = handler.getCookie();
+		assertEquals(expectedInt, cookie.getMaxAge());		
+	}
 }
