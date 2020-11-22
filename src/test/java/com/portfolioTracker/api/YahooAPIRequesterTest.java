@@ -20,7 +20,7 @@ public class YahooAPIRequesterTest {
 	@Test
 	public void currentStockDataTest() {
 		YahooAPIRequester api = initialize();
-		String actualString = api.currentStcokData("");
+		String actualString = api.currentStockData("");
 		assertNull(actualString);
 	}
 }

@@ -17,7 +17,7 @@ public interface APIRequester {
 	 * @param ticker The ticker of the stock
 	 * @return The name and current price of the company
 	 */
-	public String currentStcokData(final String ticker);
+	public String currentStockData(final String ticker);
 
 	/**
 	 * Closes the client used for api calls

@@ -45,7 +45,7 @@ public class TickerSearchController {
 			return mav;
 		}
 		
-		String apiResponseStr = api.currentStcokData(ticker);
+		String apiResponseStr = api.currentStockData(ticker);
 		
 		if(apiResponseStr == null) {
 			expValuePair.put(jspExpression,"ERROR: Server call not found!");

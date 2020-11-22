@@ -58,7 +58,7 @@ public class YahooAPIRequester implements APIRequester {
 	 * @param ticker The ticker of the stock
 	 * @return The name and current price of a stock
 	 */
-	public String currentStcokData(final String ticker) {		
+	public String currentStockData(final String ticker) {		
 		final Request request = prepRequest(ticker);
 		
 		Response response = null;
