@@ -42,4 +42,15 @@ public class ViewHandlerTest {
 		Map<String, Object> map = mav.getModel();
 		assertEquals(expValue, map.get(expName));
 	}
+
+	@Test
+	public void setViewTest() {
+		ViewHandler view = new ViewHandler();
+		view.newModelAndView();
+		String expView = "index";
+		view.setView(expView);
+
+		ModelAndView mav = view.getModelView();
+		assertEquals(expView, mav.getViewName());
+	}
 }
