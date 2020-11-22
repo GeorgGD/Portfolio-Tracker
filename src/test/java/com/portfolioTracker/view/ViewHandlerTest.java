@@ -15,4 +15,15 @@ public class ViewHandlerTest {
 
 		assertNotNull(mav);
 	}
+
+	@Test
+	public void newModelAndViewTest() {
+		ViewHandler view = new ViewHandler();
+		ModelAndView mav = view.getModelView();
+		assertNull(mav);
+		
+		view.newModelAndView();
+		ModelAndView mav2 = view.getModelView();
+		assertNotNull(mav2);
+	}
 }
