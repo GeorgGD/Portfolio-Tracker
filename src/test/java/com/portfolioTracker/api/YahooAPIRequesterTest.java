@@ -39,6 +39,10 @@ public class YahooAPIRequesterTest {
 		String actualString = api.nameOfCompany("MSFT");
 		String expectedString = "Microsoft Corporation";
 		assertEquals(expectedString,actualString);
+
+		String actualString2 = api.nameOfCompany("LILA");
+		String expectedString2 = "Liberty Latin America Ltd.";
+		assertEquals(expectedString2, actualString2);
 	}
 	
 	@Test
