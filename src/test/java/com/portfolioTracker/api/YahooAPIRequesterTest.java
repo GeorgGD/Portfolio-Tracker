@@ -54,5 +54,5 @@ public class YahooAPIRequesterTest {
 		double actualValue = api.currentPrice("");
 		double expected = -1;
 		assertEquals(expected, actualValue, 1);
-	}
+	}	
 }
