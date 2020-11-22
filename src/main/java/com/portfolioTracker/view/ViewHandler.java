@@ -41,4 +41,12 @@ public class ViewHandler {
 		return mav;
 	}
 
+	/**
+	 * Adds the given name and value pair into the model
+	 * @param name The name of the attribute
+	 * @param value The value of the attribute	
+	 */
+	public void addObjectsToView(String name, String value) {
+		mav.addObject(name, value);
+	}
 }
