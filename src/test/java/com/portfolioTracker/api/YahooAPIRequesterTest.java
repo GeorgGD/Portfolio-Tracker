@@ -47,4 +47,12 @@ public class YahooAPIRequesterTest {
 		double actualValue = api.currentPrice("LILA");
 		assertTrue(actualValue > 0);
 	}
+
+	@Test
+	public void currentPriceTestNoTicker() {
+		YahooAPIRequester api = initialize();
+		double actualValue = api.currentPrice("");
+		double expected = -1;
+		assertEquals(expected, actualValue, 1);
+	}
 }
