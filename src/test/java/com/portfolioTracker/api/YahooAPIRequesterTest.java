@@ -1,5 +1,7 @@
 package com.portfolioTracker.api;
 
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
@@ -22,5 +24,14 @@ public class YahooAPIRequesterTest {
 		YahooAPIRequester api = initialize();
 		String actualString = api.currentStockData("");
 		assertNull(actualString);
+	}
+
+	@Test
+	public void currentStockDataWithInput() {
+		YahooAPIRequester api = initialize();
+		String actualString = api.currentStockData("MSFT");
+
+		assertNotNull(actualString);		
+		assertNotEquals("", actualString);
 	}
 }
