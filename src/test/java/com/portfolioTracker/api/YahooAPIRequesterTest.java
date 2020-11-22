@@ -1,8 +1,6 @@
 package com.portfolioTracker.api;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -33,5 +31,13 @@ public class YahooAPIRequesterTest {
 
 		assertNotNull(actualString);		
 		assertNotEquals("", actualString);
+	}
+
+	@Test
+	public void nameOfCompanyTest() throws TickerNotFoundException {
+		YahooAPIRequester api = initialize();
+		String actualString = api.nameOfCompany("MSFT");
+		String expectedString = "Microsoft Corporation";
+		assertEquals(expectedString,actualString);
 	}
 }
