@@ -1,6 +1,6 @@
 package com.portfolioTracker.integrationTests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
@@ -28,6 +28,18 @@ public class TickerSearchControllerTest {
 		HashMap<String, Object> map = mav.getModelMap();
 		String expectedResult = "ERROR: Ticker not found!";
 		String actualResult = (String) map.get("result");
+
 		assertEquals(expectedResult, actualResult);
+	}
+	
+	@Test
+	public void tickerSearchTest() {
+		ModelAndView mav = searchController.tickerSearch("");
+		HashMap<String, Object> map = mav.getModelMap();
+		String notExpectedResult = "ERROR: Ticker not found!";
+		String actualResult = (String) map.get("result");
+
+		assertNotEquals(notExpectedResult, actualResult);
+		assertNotEquals("", actualResult);
 	}
 }
