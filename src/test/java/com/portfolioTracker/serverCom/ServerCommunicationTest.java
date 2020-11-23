@@ -53,4 +53,21 @@ public class ServerCommunicationTest {
 		File file = new File(expUser + ".txt");
 		assertTrue(file.exists());
 	}
+
+	@Test
+	public void addStockToPortfolioTest() {
+		ServerCommunication server = initialize();
+		HashMap<String,String> stockData = new HashMap<String,String>();
+		String expTicker = "MSFT";	
+		String expUser = "unitTest";
+		String expectedResult = "{\"stocks\":[\"MSFT\"],\"MSFT\":{\"shares\":\"20\",\"buyInPrice\":\"5\"}}";
+		
+		server.createUser(expUser);
+		stockData.put("shares", "20");
+		stockData.put("buyInPrice", "5");		
+		server.addStockToPortfolio(expUser, expTicker, stockData);
+		
+		String actualResult = readPortfolio(expUser);
+		assertEquals(expectedResult, actualResult);
+	}
 }
