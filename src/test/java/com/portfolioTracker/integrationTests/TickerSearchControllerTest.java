@@ -34,7 +34,7 @@ public class TickerSearchControllerTest {
 	
 	@Test
 	public void tickerSearchTest() {
-		ModelAndView mav = searchController.tickerSearch("");
+		ModelAndView mav = searchController.tickerSearch("MSFT");
 		HashMap<String, Object> map = mav.getModelMap();
 		String notExpectedResult = "ERROR: Ticker not found!";
 		String actualResult = (String) map.get("result");
