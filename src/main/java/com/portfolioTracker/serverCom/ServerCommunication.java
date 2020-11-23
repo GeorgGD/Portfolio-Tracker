@@ -57,6 +57,14 @@ public class ServerCommunication {
 	public void setAPIRequester(APIRequester api) {
 		this.api = api;
 	}
+
+	/**
+	 * Sets the JSON mapper
+	 * @param mapper The JSON mapper
+	 */
+	public void setObjectMapper(ObjectMapper mapper) {
+		this.mapper = mapper;
+	}
 	
 	/**
 	 * Adds a stock to the portfolio of the given user
