@@ -69,7 +69,7 @@ public class PortfolioSearchTest {
 		ModelAndView mav = portfolio.updateEvaluation(username, response);
 		Map<String, Object> map = mav.getModel();
 
-		String expectedCurrentValue = "100 USD";
+		String expectedCurrentValue = "100.0 USD";
 		assertEquals(expectedCurrentValue, map.get("currentInvestment"));
 		assertNotEquals("0 USD", map.get("currentEvaluation"));		
 	}
