@@ -1,7 +1,6 @@
 package com.portfolioTracker.serverCom;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -69,5 +68,21 @@ public class ServerCommunicationTest {
 		
 		String actualResult = readPortfolio(expUser);
 		assertEquals(expectedResult, actualResult);
+	}
+
+	@Test
+	public void updateCurrentInvestmentTest() {
+		ServerCommunication server = initialize();
+		HashMap<String,String> stockData = new HashMap<String,String>();
+		String expTicker = "MSFT";	
+		String expUser = "unitTest";
+		
+		server.createUser(expUser);
+		stockData.put("shares", "20");
+		stockData.put("buyInPrice", "5");		
+		server.addStockToPortfolio(expUser, expTicker, stockData);
+
+		String actualResult = server.updateCurrentInvestment(expUser);
+		assertNotEquals("", actualResult);
 	}
 }
