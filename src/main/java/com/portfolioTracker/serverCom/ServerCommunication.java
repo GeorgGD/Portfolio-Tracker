@@ -160,8 +160,11 @@ public class ServerCommunication {
 	 */
 	private String addStockToPortfolioAux(String username, String ticker, HashMap<String, String> stockData) {
 		String portfolio = readPortfolio(username);
-		if(portfolio.equals(""))
-			return "";
+		if(portfolio.equals("")) {
+			portfolio = createFirstEntry(ticker, stockData);		    
+			return portfolio;
+		}
+			
 		
 		try {
 			ObjectNode rootNode = (ObjectNode) mapper.readTree(portfolio);
