@@ -51,6 +51,14 @@ public class ServerCommunication {
 	}
 
 	/**
+	 * Sets the API manager
+	 * @param api The API manager
+	 */
+	public void setAPIRequester(APIRequester api) {
+		this.api = api;
+	}
+	
+	/**
 	 * Adds a stock to the portfolio of the given user
 	 * @param username The user name of the user
 	 * @param ticker The ticker of the stock
