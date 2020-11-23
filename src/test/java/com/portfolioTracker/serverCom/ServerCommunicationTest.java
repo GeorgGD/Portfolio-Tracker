@@ -101,4 +101,21 @@ public class ServerCommunicationTest {
 		String actualResult = server.updateCurrentEval(expUser);
 		assertNotEquals("0", actualResult);
 	}
+
+	@Test
+	public void setupTableEntries() {
+		ServerCommunication server = initialize();
+		HashMap<String,String> stockData = new HashMap<String,String>();
+		String expTicker = "MSFT";	
+		String expUser = "unitTest";
+		String expectedResult = "<tr><td>Microsoft</td><td>20</td><td>5 UDS</td></tr>";
+		server.createUser(expUser);
+		stockData.put("name", "Microsoft");
+		stockData.put("shares", "20");
+		stockData.put("buyInPrice", "5");		
+		server.addStockToPortfolio(expUser, expTicker, stockData);
+
+		String actualResult = server.setupTableEntries(expUser);
+		assertEquals(expectedResult, actualResult);
+	}
 }
