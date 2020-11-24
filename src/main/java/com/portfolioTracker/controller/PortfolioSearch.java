@@ -2,7 +2,6 @@ package com.portfolioTracker.controller;
 
 import java.util.HashMap;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import com.portfolioTracker.api.APIRequester;
