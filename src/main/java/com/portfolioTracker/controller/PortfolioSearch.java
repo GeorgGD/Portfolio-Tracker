@@ -60,38 +60,38 @@ public class PortfolioSearch {
 										@CookieValue(value = "worth", defaultValue = "0") String currWorth) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
-		ModelAndView mav;
-		viewHandler.setModelView(new ModelAndView());
-
+	    viewHandler.newModelAndView();
+		viewHandler.setView(view);
+		
 		try {
 			if(Double.parseDouble(numShares) <= 0 || Double.parseDouble(buyInPrice) <= 0) {
-				expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
-				expValuePair.put("tableBody", server.setupTableEntries(username));
-				return viewHandler.setupModelAndView(expValuePair, view);
+				viewHandler = prepCurrentEval(viewHandler, currInvestment, currWorth);
+				viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
+				return viewHandler.getModelView();
 			}			
 			String name = api.nameOfCompany(ticker); // So exception is caught
-			expValuePair.put("name", name);					
+			viewHandler.addObjectsToView("name", name);
+			expValuePair.put("name", name);
 		} catch (NumberFormatException e) {
 			e.printStackTrace(); 
-			expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
-			expValuePair.put("tableBody", server.setupTableEntries(username));
-			return viewHandler.setupModelAndView(expValuePair, view);
+			viewHandler = prepCurrentEval(viewHandler, currInvestment, currWorth);
+			viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
+			return viewHandler.getModelView();
 		} catch (TickerNotFoundException e) {
 			e.printStackTrace();
-			expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
-			expValuePair.put("tableBody", server.setupTableEntries(username));
-			return viewHandler.setupModelAndView(expValuePair, view); 
+			viewHandler = prepCurrentEval(viewHandler, currInvestment, currWorth);
+			viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
+			return viewHandler.getModelView(); 
 		}
 		
 		expValuePair.put("shares", numShares);
 		expValuePair.put("buyInPrice", buyInPrice);			
 		server.addStockToPortfolio(username, ticker, expValuePair);
-		expValuePair.clear();
 		
-		expValuePair = prepCurrentEval(expValuePair, currInvestment, currWorth);
-		expValuePair.put("tableBody", server.setupTableEntries(username));
-    	mav = viewHandler.setupModelAndView(expValuePair, view);
-		return mav;
+		viewHandler = prepCurrentEval(viewHandler, currInvestment, currWorth);
+		viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
+        
+		return viewHandler.getModelView();
 	}
 
 	/**
@@ -133,10 +133,10 @@ public class PortfolioSearch {
 	 * @param currWorth The current net worth of the investment
 	 * @return A map with EL and value pair	
 	 */
-	private HashMap<String, String> prepCurrentEval(HashMap<String, String> expValuePair, String currInvestment, String currWorth) {
-		expValuePair.put("currentInvestment", currInvestment + " USD");
-		expValuePair.put("currentEvaluation", currWorth + " USD");			
-		return expValuePair;
+	private ViewHandler prepCurrentEval(ViewHandler viewHandler, String currInvestment, String currWorth) {
+		viewHandler.addObjectsToView("currentInvestment", currInvestment + " USD");
+		viewHandler.addObjectsToView("currentEvaluation", currWorth + " USD");			
+		return viewHandler;
 	}
 
 	/**
@@ -151,5 +151,5 @@ public class PortfolioSearch {
 		response.addCookie(cookieHandler.putInsideCookie("worth", currWorth));
 		
 		return response;
-	}
+	}	
 }
