@@ -101,25 +101,20 @@ public class PortfolioSearch {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		ModelAndView mav;
-		viewHandler.setModelView(new ModelAndView());
-	
+		viewHandler.newModelAndView();
+		viewHandler.setView(view);
+		
 		if(username.equals("")) {
-			expValuePair.put("currentInvestment", "0 USD");
-			expValuePair.put("currentEvaluation", "0 USD");
-			expValuePair.put("tableBody", server.setupTableEntries(username));
-			return viewHandler.setupModelAndView(expValuePair, view);
+			viewHandler = prepCurrentEvalAndTable(viewHandler, "0", "0", username);
+			return viewHandler.getModelView();
 		}
 		
 		String currInvestment = server.updateCurrentInvestment(username);
 		String currEval = server.updateCurrentEval(username);
-		expValuePair.put("currentInvestment", currInvestment + " USD"); 
-		expValuePair.put("currentEvaluation", currEval + " USD");
-		expValuePair.put("tableBody", server.setupTableEntries(username));
-		mav = viewHandler.setupModelAndView(expValuePair, view);
-
+		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currEval, username);
 		response = addToCookie(currInvestment, currEval, response);
 		
-		return mav;
+		return viewHandler.getModelView();
 	}
 
 	/**
