@@ -98,9 +98,7 @@ public class PortfolioSearch {
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
 	public ModelAndView updateEvaluation(@CookieValue(value = "username", defaultValue = "") String username, HttpServletResponse response) {
-		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
-		ModelAndView mav;
 		viewHandler.newModelAndView();
 		viewHandler.setView(view);
 		
