@@ -1,4 +1,6 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,50 +16,54 @@
   <meta name="revised" content="Monday, June 16th, 12:00 pm">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/stylesheet.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/stylesheet.css">
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/2994acdae5.js" crossorigin="anonymous"></script>
   <title>Stock Market Research</title>
 </head>
 
 <body>
-  <div class="container-fluid nav-cont">
-    <div class="container">
-      <nav class="navbar navbar-expand-md sticky-top">
 
-        <a href="index.html"><img src="img/logo.png" class="nav-logo" alt="Logo"></a>
-        <button type="button" class="navbar-toggler custome-toggler" data-toggle="collapse" data-target="#navbar-responsive">
-          <span class="navbar-toggler-icon"><i class="fas fa-bars fa-1x"></i></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbar-responsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a href="index.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="about.html" class="nav-link">About</a>
-            </li>
-            <li class="nav-item">
-              <a href="contact.html" class="nav-link active">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link btn btn-outline-light">Login</a>
-            </li>
-          </ul>
+  <div class="container-fluid">
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-8 pl-3 pr-5 pb-4 pt-2 left-hero">
+          <h2 class="font-weight-bold">Welcome to my <span class="orange">Portfolio Tracker</span></h2>
+          <p>
+            Hi and welcome, to use the portfolio tracker please enter a user name inside the text bar to the right. After that please either press enter or click on the "Get Started" button.
+            <br>
+            <br>
+            If you are not feeling like building an entire portfolio and just want to have a quick look into the current prices of different stocks then use the section below.
+          </p>
         </div>
-
-      </nav>
+        <div class="col-4 pl-5 pr-5 pb-4 pt-2 more-margin">
+          <form action="username" method="post">
+            <input type="text" name="userName" placeholder="Username" class="form-conrol">
+          	<button type="submit" class="btn btn-primary font-weight-bold mt-2">Get Started</button>
+          </form>  
+          <p>${errorMsg}</p>        
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="container">
-    <h1 class="text-center font-weight-bold">Contact</h1>
-    <p class="w-75 center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non consequat tellus. Donec pulvinar maximus mauris, viverra interdum enim condimentum eget.</p>
-    <h4 class="font-weight-bold text-center mt-2">abcd1234@hotmail.com</h4>
+  <div class="container bg rounded py-3">
+    <div class="search-bar">
+      <h3 class="font-weight-bold">Search for a company</h3>
+      <p>
+        Please search for US companies as companies from other countries are not supported as of now!
+      </p>
+      <form action="tickerSearch" method="get">
+        <input class="form-control col-sm-3" type="text" name="ticker" placeholder="Ticker">
+        <button type="submit" class="btn btn-primary font-weight-bold mt-2">Search</button>
+      </form>
+    </div>
+    <p class="mt-3 mb-0">
+      ${result}
+    </p>
   </div>
 
-  <footer class="indigo mt-3 pt-2 bg-secondary fixed-bottom">
+  <footer class="mt-3 pt-2 bg fixed-bottom">
     <div class="container-fluid py-1 copyrights">
       <p class="text-center mt-1 mb-1"> &copy; 2020 Georgios Davakos, All rights reserved.</p>
     </div>
