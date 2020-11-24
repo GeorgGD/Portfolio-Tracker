@@ -2,7 +2,6 @@ package com.portfolioTracker.view;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
@@ -52,22 +51,5 @@ public class ViewHandlerTest {
 
 		ModelAndView mav = view.getModelView();
 		assertEquals(expView, mav.getViewName());
-	}
-
-	@Test
-	public void setupModelAndViewTest() {
-		HashMap<String, String> hashMap = new HashMap<String, String>();
-		String expKey = "try";
-		String expValue = "catch";
-		hashMap.put(expKey, expValue);
-		String expView = "index";
-
-		ViewHandler view = new ViewHandler();
-		view.newModelAndView();
-		ModelAndView mav = view.setupModelAndView(hashMap, expView);
-		assertEquals(expView, mav.getViewName());
-		
-		Map<String, Object> map = mav.getModel();
-		assertEquals(expValue, map.get(expKey));
 	}
 }
