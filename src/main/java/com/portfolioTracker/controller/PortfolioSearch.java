@@ -65,8 +65,7 @@ public class PortfolioSearch {
 		
 		try {
 			if(Double.parseDouble(numShares) <= 0 || Double.parseDouble(buyInPrice) <= 0) {
-				viewHandler = prepCurrentEval(viewHandler, currInvestment, currWorth);
-				viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
+				viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
 				return viewHandler.getModelView();
 			}			
 			String name = api.nameOfCompany(ticker); // So exception is caught
@@ -74,13 +73,11 @@ public class PortfolioSearch {
 			expValuePair.put("name", name);
 		} catch (NumberFormatException e) {
 			e.printStackTrace(); 
-			viewHandler = prepCurrentEval(viewHandler, currInvestment, currWorth);
-			viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
+			viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
 			return viewHandler.getModelView();
 		} catch (TickerNotFoundException e) {
 			e.printStackTrace();
-			viewHandler = prepCurrentEval(viewHandler, currInvestment, currWorth);
-			viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
+			viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);	    
 			return viewHandler.getModelView(); 
 		}
 		
@@ -88,9 +85,8 @@ public class PortfolioSearch {
 		expValuePair.put("buyInPrice", buyInPrice);			
 		server.addStockToPortfolio(username, ticker, expValuePair);
 		
-		viewHandler = prepCurrentEval(viewHandler, currInvestment, currWorth);
-		viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
-        
+		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
+	    
 		return viewHandler.getModelView();
 	}
 
@@ -128,14 +124,16 @@ public class PortfolioSearch {
 
 	/**
 	 * Prepers the current evaluation values
-	 * @param expValuePair A map with EL and value pair
+	 * @param viewHandler A objects that handles all the data for the view
 	 * @param currInvestment The current investment
 	 * @param currWorth The current net worth of the investment
+	 * @param username The name of the user	
 	 * @return A map with EL and value pair	
 	 */
-	private ViewHandler prepCurrentEval(ViewHandler viewHandler, String currInvestment, String currWorth) {
+	private ViewHandler prepCurrentEvalAndTable(ViewHandler viewHandler, String currInvestment, String currWorth, String username) {
 		viewHandler.addObjectsToView("currentInvestment", currInvestment + " USD");
 		viewHandler.addObjectsToView("currentEvaluation", currWorth + " USD");			
+		viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
 		return viewHandler;
 	}
 
