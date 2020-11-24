@@ -1,15 +1,21 @@
 * Portfolio Tracker
-  A simple program to track your portfolio.
+  A simple program to track your portfolio and for doing papper trading.
   
   This is my attempt to try and create a servive that uses an API. 
   As always feel free to provide feedback. 
- 
+
+** Dependencies
+  - Junit
+  - Maven
+  - Spring Framework
+  - javax.servlet 
+  - Tomcat 8
+  - OkHttp3
+  - Jackson
+
 *** TODO-LIST:
- - Create unit tests with JUnit
- - Optimize the PortfolioSearch controller
- - Redesign both the landing page and the portfolio page!!!
- - Make view handler easy to use to avoid having to use HashMap if possible
+ - Create unit tests with JUnit. DONE!
+ - Redesign both the landing page and the portfolio page!!! DONE
+ - Make view handler easy to use to avoid having to use HashMap if possible DONE
  - Review the code!!!
- - Flesh out README 
- - Write a post
     

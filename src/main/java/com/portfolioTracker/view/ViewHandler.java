@@ -31,22 +31,6 @@ public class ViewHandler {
 	public ModelAndView getModelView() {
 		return mav;
 	}
-	
-	/**
-	 * Sets up the view object with the data it needs
-	 * @param expValuePair The EL expression paired with a value 
-	 * @return the modefied model and view	
-	 */
-	public ModelAndView setupModelAndView(HashMap<String,String> expValuePair, String view) {	    
-		mav.setViewName(view);		
-		Set<Map.Entry<String, String>> pair = expValuePair.entrySet();
-		
-		for (Map.Entry<String, String> e: pair) {
-			mav.addObject(e.getKey(), e.getValue());		   
-		}
-
-		return mav;
-	}
 
 	/**
 	 * Adds the given name and value pair into the model
