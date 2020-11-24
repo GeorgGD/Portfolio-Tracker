@@ -132,7 +132,7 @@ public class YahooAPIRequester implements APIRequester {
 				String currPrice = selectCurrPrice(jsonTree);
 				if(currPrice == null)
 					return responseValue;
-				
+				currPrice = currPrice.replaceAll("[,]","");
 				responseValue = Double.parseDouble(currPrice);
 			}
 
