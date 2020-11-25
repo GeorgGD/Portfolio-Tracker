@@ -133,7 +133,7 @@ public class ServerCommunication {
 	/**
 	 * Creates the first entry for a new portfolio
 	 * @param ticker The ticker of the stock
-	 * @param stockData The data to be used for the first entry
+	 * @param stockData The data about the stock
 	 * @return The first entry in json form	
 	 */
 	private String createFirstEntry(String ticker, HashMap<String,String> stockData) {
@@ -142,18 +142,13 @@ public class ServerCommunication {
 		stockArray.add(ticker);
 		stocks.set("stocks", stockArray);
 		
-		ObjectNode tickerNode = mapper.createObjectNode();
+	    ObjectNode tickerNode = createNewObject(stockData);
 		
-		Set<Map.Entry<String, String>> pair = stockData.entrySet();
-		for(Map.Entry<String, String> e: pair) {
-			if(!e.getKey().equals("currentInvestment") && !e.getKey().equals("currentEvaluation"))
-				tickerNode.put(e.getKey(), e.getValue());
-		}
 		stocks.set(ticker, tickerNode);
 		
 	   return stocks.toString();		
 	}
-
+	
 	/**
 	 * Helper function to addStockToPortfolio
 	 * Check addStockToPortfolio for docs! 	
@@ -173,13 +168,7 @@ public class ServerCommunication {
 			if(!tickerExists(ticker, stocks))
 				stocks.add(ticker);
 
-			ObjectNode tickerNode = mapper.createObjectNode();
-
-			Set<Map.Entry<String, String>> pair = stockData.entrySet();
-			for(Map.Entry<String, String> e: pair) {
-				if(!e.getKey().equals("currentInvestment") && !e.getKey().equals("currentEvaluation"))
-					tickerNode.put(e.getKey(), e.getValue());
-			}
+			ObjectNode tickerNode = createNewObject(stockData);
 			
 			rootNode.set(ticker, tickerNode);
 			portfolio = rootNode.toString();
@@ -189,6 +178,22 @@ public class ServerCommunication {
 		return portfolio;
 	}
 
+	/**
+	 * Creates a new JSON object
+	 * @param stockData The data about the stock
+	 * @return The JSON object	
+	 */	
+	private ObjectNode createNewObject(HashMap<String,String> stockData) {
+		ObjectNode tickerNode = mapper.createObjectNode();
+		
+		Set<Map.Entry<String, String>> pair = stockData.entrySet();
+		for(Map.Entry<String, String> e: pair) {
+			if(!e.getKey().equals("currentInvestment") && !e.getKey().equals("currentEvaluation"))
+				tickerNode.put(e.getKey(), e.getValue());
+		}
+		return tickerNode;
+	}
+	
 	/**
 	 * Checks if a ticker already exists in the array of stocks
 	 * @param ticker The ticker of the stock
