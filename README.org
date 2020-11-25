@@ -1,5 +1,7 @@
 * Portfolio Tracker
-  A simple program to track your portfolio and for doing papper trading.
+  A simple program to track your portfolio and for doing papper trading. To run this program just 
+  download the repo and run it on a web container such as Tomcat 8 and then go to localhost:8080/PortfolioTracker/
+  and get your self started!
   
   This is my attempt to try and create a servive that uses an API. 
   As always feel free to provide feedback. 
@@ -11,11 +13,4 @@
   - javax.servlet 
   - Tomcat 8
   - OkHttp3
-  - Jackson
-
-*** TODO-LIST:
- - Create unit tests with JUnit. DONE!
- - Redesign both the landing page and the portfolio page!!! DONE
- - Make view handler easy to use to avoid having to use HashMap if possible DONE
- - Review the code!!!
-    
+  - Jackson    
