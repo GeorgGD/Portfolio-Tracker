@@ -53,6 +53,7 @@ public class YahooAPIRequester implements APIRequester {
 	public void setMapper(ObjectMapper mapper) {
 		this.mapper = mapper;
 	}
+	
 	/**
 	 * Looks up the current price of a stock for a given ticker symbol
 	 * @param ticker The ticker of the stock
@@ -86,10 +87,11 @@ public class YahooAPIRequester implements APIRequester {
 	/**
 	 * Provides the name of a company for the given ticker
 	 * @param ticker The ticker of the company
-	 * @return The name of the company	
+	 * @return The name of the company
+	 * @throws TickerNotFoundException If ticker is not valid input	
 	 */	
 	public String nameOfCompany(final String ticker) throws TickerNotFoundException {
-		final Request request = prepRequest(ticker);
+    	final Request request = prepRequest(ticker);
 
 		Response response = null;
 		String responseString = null;
