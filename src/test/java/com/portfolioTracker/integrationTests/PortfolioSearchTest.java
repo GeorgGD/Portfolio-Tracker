@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.util.Map;
 
+import com.portfolioTracker.api.PortfolioDTO;
 import com.portfolioTracker.controller.PortfolioSearch;
 
 import org.junit.Before;
@@ -25,15 +26,15 @@ public class PortfolioSearchTest {
 	@Autowired
 	private PortfolioSearch portfolio;
 
+	@Autowired
+	private PortfolioDTO portDTO;
+
 	@Test
 	public void viewTest() {
-		String ticker = "MSFT";
-		String shares = "20";
-		String buyInPrice = "5";
 		String username = "integratedTest";
 		String cookie2 = "0";
 		String cookie3 = "0";
-		ModelAndView mav = portfolio.portfolioSearch(ticker, shares, buyInPrice, username, cookie2, cookie3);
+		ModelAndView mav = portfolio.portfolioSearch(portDTO, username, cookie2, cookie3);
 
 		String expectedView = "portfolio";
 		assertEquals(expectedView, mav.getViewName());
@@ -41,13 +42,10 @@ public class PortfolioSearchTest {
 
 	@Test
 	public void checkAttributeValues() {
-		String ticker = "MSFT";
-		String shares = "20";
-		String buyInPrice = "5";
-		String username = "integratedTest";
+    	String username = "integratedTest";
 		String cookie2 = "0";
 		String cookie3 = "0";
-		ModelAndView mav = portfolio.portfolioSearch(ticker, shares, buyInPrice, username, cookie2, cookie3);
+		ModelAndView mav = portfolio.portfolioSearch(portDTO, username, cookie2, cookie3);
 
 		Map<String, Object> map = mav.getModel();
 		String expectedResult = "<tr><td>Microsoft Corporation</td><td>20</td><td>5 USD</td></tr>";
@@ -56,16 +54,13 @@ public class PortfolioSearchTest {
 	}
 
 	@Test
-	public void updateEvaluationTest() {
-		String ticker = "MSFT";
-		String shares = "20";
-		String buyInPrice = "5";
+	public void updateEvaluationTest() {	    
 		String username = "integratedTest";
 		String cookie2 = "0";
 		String cookie3 = "0";
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
-		portfolio.portfolioSearch(ticker, shares, buyInPrice, username, cookie2, cookie3);
+		portfolio.portfolioSearch(portDTO, username, cookie2, cookie3);
 		ModelAndView mav = portfolio.updateEvaluation(username, response);
 		Map<String, Object> map = mav.getModel();
 
