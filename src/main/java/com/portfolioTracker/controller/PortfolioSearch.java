@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletResponse;
 
 import com.portfolioTracker.api.APIRequester;
+import com.portfolioTracker.api.PortfolioDTO;
 import com.portfolioTracker.api.TickerNotFoundException;
 import com.portfolioTracker.cookies.CookieHandler;
 import com.portfolioTracker.serverCom.ServerCommunication;
@@ -51,9 +52,7 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
-	public ModelAndView portfolioSearch(@RequestParam("ticker") String ticker,
-										@RequestParam("sharesNum") String numShares,
-										@RequestParam("buyInPrice") String buyInPrice,
+	public ModelAndView portfolioSearch(PortfolioDTO portDTO,
 										@CookieValue(value = "username", defaultValue = "") String username,
 										@CookieValue(value = "invested", defaultValue = "0") String currInvestment,
 										@CookieValue(value = "worth", defaultValue = "0") String currWorth) {
@@ -63,11 +62,11 @@ public class PortfolioSearch {
 		viewHandler.setView(view);
 		
 		try {
-			if(Double.parseDouble(numShares) <= 0 || Double.parseDouble(buyInPrice) <= 0) {
+			if(Double.parseDouble(portDTO.getSharesNum()) <= 0 || Double.parseDouble(portDTO.getBuyInPrice()) <= 0) {
 				viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
 				return viewHandler.getModelView();
 			}			
-			String name = api.nameOfCompany(ticker); // So exception is caught
+			String name = api.nameOfCompany(portDTO.getTicker()); // So exception is caught
 			viewHandler.addObjectsToView("name", name);
 			expValuePair.put("name", name);
 		} catch (NumberFormatException e) {
@@ -80,9 +79,9 @@ public class PortfolioSearch {
 			return viewHandler.getModelView(); 
 		}
 		
-		expValuePair.put("shares", numShares);
-		expValuePair.put("buyInPrice", buyInPrice);			
-		server.addStockToPortfolio(username, ticker, expValuePair);
+		expValuePair.put("shares", portDTO.getSharesNum());
+		expValuePair.put("buyInPrice", portDTO.getBuyInPrice());			
+		server.addStockToPortfolio(username, portDTO.getTicker(), expValuePair);
 		
 		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
 	    
