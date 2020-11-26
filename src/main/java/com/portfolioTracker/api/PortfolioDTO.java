@@ -16,5 +16,16 @@ public class PortfolioDTO {
 	public void setBuyInPrice(String buyInPrice) {
 		this.buyInPrice = buyInPrice;
 	}
-	
+
+	public String getTicker() {
+		return ticker;
+	}
+
+	public String getSharesNum() {
+		return sharesNum;
+	}
+
+	public String getBuyInPrice() {
+		return buyInPrice;
+	}
 }
