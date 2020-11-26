@@ -2,6 +2,12 @@ package com.portfolioTracker.api;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * PortfolioDTO is meant to minimize the need to make multiple @RequestParam
+ * requests inside a single method. 
+ * @author Georgios Davakos
+ * @since 2020-11-26
+ */
 @Component
 public class PortfolioDTO {
 	private String ticker;
