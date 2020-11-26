@@ -29,6 +29,13 @@ public class PortfolioSearchTest {
 	@Autowired
 	private PortfolioDTO portDTO;
 
+	@Before
+	public void setupPortfolioDTO() {
+		portDTO.setTicker("MSFT");
+		portDTO.setSharesNum("20");
+		portDTO.setBuyInPrice("5");		
+	}
+
 	@Test
 	public void viewTest() {
 		String username = "integratedTest";
