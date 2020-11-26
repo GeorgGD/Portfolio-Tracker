@@ -1,5 +1,8 @@
 package com.portfolioTracker.api;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PortfolioDTO {
 	private String ticker;
 	private String sharesNum;
