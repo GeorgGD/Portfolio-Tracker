@@ -13,10 +13,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import okhttp3.OkHttpClient;
 
-@EnableWebMvc
 @Configuration
 @ComponentScan({"com.portfolioTracker"})
-public class SpringConfig implements WebMvcConfigurer{
+public class SpringConfig{
 
 	/**
 	 * The following method figures out which view the dispatcher should pick
