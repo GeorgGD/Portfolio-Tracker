@@ -54,10 +54,10 @@ public class PortfolioSearch {
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
 	public ModelAndView portfolioSearch(PortfolioDTO portDTO,
 										@CookieValue(value = "username", defaultValue = "") String username,
-										@CookieValue(value = "invested", defaultValue = "0") String currInvestment,
 										@CookieValue(value = "worth", defaultValue = "0") String currWorth) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
+		String currInvestment = server.checkCurrentInvestment(username);
 	    viewHandler.newModelAndView();
 		viewHandler.setView(view);
 		
@@ -82,6 +82,7 @@ public class PortfolioSearch {
 		expValuePair.put("shares", portDTO.getSharesNum());
 		expValuePair.put("buyInPrice", portDTO.getBuyInPrice());			
 		server.addStockToPortfolio(username, portDTO.getTicker(), expValuePair);
+		currInvestment = server.checkCurrentInvestment(username);
 		
 		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
 	    
