@@ -30,6 +30,9 @@ public class SpringConfig implements WebMvcConfigurer{
 		return view;
 	}
 
+	/**
+	 * Takes care for all mappings to static files
+	 */
 	@Override 
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
