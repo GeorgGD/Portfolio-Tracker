@@ -36,6 +36,10 @@ public class ServerCommunication {
 
 	@Autowired
 	private ObjectMapper mapper;
+
+	// Constants
+	private String CURRENTLY_INVESTED = "invested";
+	private String CURRENTLY_WORTH = "worth";
 	
 	/**
 	 * Creates a user
@@ -145,8 +149,8 @@ public class ServerCommunication {
 	    ObjectNode tickerNode = createNewObject(stockData);
 		
 		stocks.set(ticker, tickerNode);
-		stocks.put("invested", 0.0);
-		stocks.put("worth", 0.0);
+		stocks.put(CURRENTLY_INVESTED, 0.0);
+		stocks.put(CURRENTLY_WORTH, 0.0);
 	   return stocks.toString();		
 	}
 	
@@ -376,4 +380,5 @@ public class ServerCommunication {
 		value = value / 10;		
 		return value;
 	}
+	
 }
