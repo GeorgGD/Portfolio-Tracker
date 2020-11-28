@@ -407,4 +407,20 @@ public class ServerCommunication {
 		}
 		return portfolio;
 	}
+
+	private String updateEvaluation(String username) {
+		String portfolio = readPortfolio(username);
+		if(portfolio.equals(""))
+			return "";
+		
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			String newValue = updateCurrentEval(username);
+			((ObjectNode) jsonTree).put(CURRENTLY_WORTH, Double.parseDouble(newValue));
+			portfolio = jsonTree.toString();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return portfolio;
+	}
 }
