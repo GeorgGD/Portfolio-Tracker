@@ -145,7 +145,8 @@ public class ServerCommunication {
 	    ObjectNode tickerNode = createNewObject(stockData);
 		
 		stocks.set(ticker, tickerNode);
-		
+		stocks.put("invested", "0");
+		stocks.put("worth", "0");
 	   return stocks.toString();		
 	}
 	
@@ -370,5 +371,4 @@ public class ServerCommunication {
 		value = value / 10;		
 		return value;
 	}
-		
 }
