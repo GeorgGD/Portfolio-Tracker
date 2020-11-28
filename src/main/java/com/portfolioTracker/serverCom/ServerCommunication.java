@@ -365,6 +365,11 @@ public class ServerCommunication {
 		return rowStart + rowElements + rowEnd;
 	}
 
+	/**
+	 * Rounds out the value to one decimal
+	 * @param value The value
+	 * @return The rounded out value	
+	 */
 	private double oneDecimal(double value) {
 		value = value * 10;
 		value = Math.floor(value);
