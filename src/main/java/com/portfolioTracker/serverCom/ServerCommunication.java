@@ -151,13 +151,12 @@ public class ServerCommunication {
 		ArrayNode stockArray = mapper.createArrayNode();
 		stockArray.add(ticker);
 		stocks.set(STOCKS_ARRAY, stockArray);
-		
+		stocks.put(CURRENTLY_INVESTED, 0.0);
+		stocks.put(CURRENTLY_WORTH, 0.0);		
 	    ObjectNode tickerNode = createNewObject(stockData);
 		
 		stocks.set(ticker, tickerNode);
-		stocks.put(CURRENTLY_INVESTED, 0.0);
-		stocks.put(CURRENTLY_WORTH, 0.0);
-	   return stocks.toString();		
+		return stocks.toString();		
 	}
 	
 	/**
