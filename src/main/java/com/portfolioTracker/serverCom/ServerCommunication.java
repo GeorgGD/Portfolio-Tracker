@@ -384,4 +384,20 @@ public class ServerCommunication {
 		value = value / 10;		
 		return value;
 	}
+	
+	private String updateInvestment(String username) {
+		String portfolio = readPortfolio(username);
+		if(portfolio.equals(""))
+			return "";
+		
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			String newValue = updateCurrentInvestment(username);
+			((ObjectNode) jsonTree).put(CURRENTLY_INVESTED, Double.parseDouble(newValue));
+			portfolio = jsonTree.toString();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return portfolio;
+	}
 }
