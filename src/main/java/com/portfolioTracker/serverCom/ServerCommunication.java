@@ -450,4 +450,23 @@ public class ServerCommunication {
 		
 		return value;
 	}
+
+	// This method is similar to checkCurrentInvestment!!!!
+	public String checkEvaluation(String username) {
+		String portfolio = readPortfolio(username);
+		if(portfolio.equals(""))
+			return "0";
+
+		String value = "0";
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			JsonNode investment = jsonTree.get(CURRENTLY_WORTH);
+			value = investment.asText();
+			
+		} catch (JsonProcessingException e) {
+	    	e.printStackTrace();
+		}
+		
+		return value;
+	}	
 }
