@@ -39,13 +39,12 @@ public class Username {
 	 * @return The view with the data to display	
 	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST)
-	public ModelAndView setUsernameCookie(@RequestParam("userName") String username,
-										  @CookieValue(value = "worth", defaultValue = "0") String currWorth,
-										  HttpServletResponse response) {
+	public ModelAndView setUsernameCookie(@RequestParam("userName") String username, HttpServletResponse response) {
 		String jspExpression;
 		String view;
 		String currency = " USD";		
 		String currInvestment = server.checkCurrentInvestment(username);
+		String currWorth = server.checkEvaluation(username);
 		viewHandler.newModelAndView();
 	    
 		if(username == null || username.equals("")) {
