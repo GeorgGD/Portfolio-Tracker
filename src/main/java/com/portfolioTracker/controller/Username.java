@@ -40,12 +40,12 @@ public class Username {
 	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST)
 	public ModelAndView setUsernameCookie(@RequestParam("userName") String username,
-										  @CookieValue(value = "invested", defaultValue = "0") String currInvestment,
 										  @CookieValue(value = "worth", defaultValue = "0") String currWorth,
 										  HttpServletResponse response) {
 		String jspExpression;
 		String view;
 		String currency = " USD";		
+		String currInvestment = server.checkCurrentInvestment(username);
 		viewHandler.newModelAndView();
 	    
 		if(username == null || username.equals("")) {
