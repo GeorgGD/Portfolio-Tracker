@@ -38,9 +38,13 @@ public class ServerCommunication {
 	private ObjectMapper mapper;
 
 	// Constants
-	private String CURRENTLY_INVESTED = "invested";
-	private String CURRENTLY_WORTH = "worth";
-	
+	private final String STOCKS_NAME = "name";
+	private final String CURRENTLY_INVESTED = "invested";
+	private final String CURRENTLY_WORTH = "worth";
+	private final String STOCKS_ARRAY = "stocks";
+	private final String NUMBER_SHARES = "shares";
+	private final String BUY_IN_PRICE = "buyInPrice";
+
 	/**
 	 * Creates a user
 	 * @param username The name of the user	
@@ -144,7 +148,7 @@ public class ServerCommunication {
     	ObjectNode stocks = mapper.createObjectNode();
 		ArrayNode stockArray = mapper.createArrayNode();
 		stockArray.add(ticker);
-		stocks.set("stocks", stockArray);
+		stocks.set(STOCKS_ARRAY, stockArray);
 		
 	    ObjectNode tickerNode = createNewObject(stockData);
 		
@@ -168,7 +172,7 @@ public class ServerCommunication {
 		
 		try {
 			ObjectNode rootNode = (ObjectNode) mapper.readTree(portfolio);
-			ArrayNode stocks = (ArrayNode) rootNode.get("stocks");
+			ArrayNode stocks = (ArrayNode) rootNode.get(STOCKS_ARRAY);
 
 			if(!tickerExists(ticker, stocks))
 				stocks.add(ticker);
@@ -255,11 +259,11 @@ public class ServerCommunication {
 ;
 		try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
-			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
+			ArrayNode stocks = (ArrayNode) jsonTree.get(STOCKS_ARRAY);
 
 		    for(JsonNode node : stocks) {
-				shares = jsonTree.get(node.asText()).get("shares").asDouble();
-				price = jsonTree.get(node.asText()).get("buyInPrice").asDouble();
+				shares = jsonTree.get(node.asText()).get(NUMBER_SHARES).asDouble();
+				price = jsonTree.get(node.asText()).get(BUY_IN_PRICE).asDouble();
 				total = total + shares * price;
 			}
 			return String.valueOf(oneDecimal(total));
@@ -286,10 +290,10 @@ public class ServerCommunication {
 
     	try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
-			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
+			ArrayNode stocks = (ArrayNode) jsonTree.get(STOCKS_ARRAY);
 
 			for(JsonNode node : stocks) {
-				shares = jsonTree.get(node.asText()).get("shares").asDouble();
+				shares = jsonTree.get(node.asText()).get(NUMBER_SHARES).asDouble();
 				price = api.currentPrice(node.asText());
 				total = total + price * shares;
 			}
@@ -321,12 +325,12 @@ public class ServerCommunication {
 		
 		try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
-			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
+			ArrayNode stocks = (ArrayNode) jsonTree.get(STOCKS_ARRAY);
 	
 			for(JsonNode node : stocks) {
-				contentArr.add(jsonTree.get(node.asText()).get("name").asText());
-				contentArr.add(jsonTree.get(node.asText()).get("shares").asText());
-				contentArr.add(jsonTree.get(node.asText()).get("buyInPrice").asText() + " USD");
+				contentArr.add(jsonTree.get(node.asText()).get(STOCKS_NAME).asText());
+				contentArr.add(jsonTree.get(node.asText()).get(NUMBER_SHARES).asText());
+				contentArr.add(jsonTree.get(node.asText()).get(BUY_IN_PRICE).asText() + " USD");
 				tableBody = tableBody + setupTableEntries(contentArr);
 				contentArr.clear();
 			}
@@ -380,5 +384,4 @@ public class ServerCommunication {
 		value = value / 10;		
 		return value;
 	}
-	
 }
