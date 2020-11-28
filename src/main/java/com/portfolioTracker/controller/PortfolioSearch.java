@@ -53,11 +53,11 @@ public class PortfolioSearch {
 	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
 	public ModelAndView portfolioSearch(PortfolioDTO portDTO,
-										@CookieValue(value = "username", defaultValue = "") String username,
-										@CookieValue(value = "worth", defaultValue = "0") String currWorth) {
+										@CookieValue(value = "username", defaultValue = "") String username) {
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		String currInvestment = server.checkCurrentInvestment(username);
+		String currWorth = server.checkEvaluation(username);
 	    viewHandler.newModelAndView();
 		viewHandler.setView(view);
 		
