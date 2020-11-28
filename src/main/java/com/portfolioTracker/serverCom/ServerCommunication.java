@@ -298,6 +298,7 @@ public class ServerCommunication {
 				price = api.currentPrice(node.asText());
 				total = total + price * shares;
 			}
+			updateEvaluation(username, oneDecimal(total));
 			return String.valueOf(oneDecimal(total));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
@@ -410,22 +411,21 @@ public class ServerCommunication {
 	/** 
 	 * Updates the current evaluation of the portfolio
 	 * @param username The name of the user
-	 * @return The updated portfolio	
+	 * @param currWorth The current net worth of the portfolio	
 	 */
-	private String updateEvaluation(String username) {
+	private void updateEvaluation(String username, double currWorth) {
 		String portfolio = readPortfolio(username);
 		if(portfolio.equals(""))
-			return "";
+			return;
 		
 		try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
-			String newValue = updateCurrentEval(username);
-			((ObjectNode) jsonTree).put(CURRENTLY_WORTH, Double.parseDouble(newValue));
+			((ObjectNode) jsonTree).put(CURRENTLY_WORTH, currWorth);
 			portfolio = jsonTree.toString();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		return portfolio;
+		saveChanges(username, portfolio);
 	}
 
 	public String checkCurrentInvestment(String username) {
