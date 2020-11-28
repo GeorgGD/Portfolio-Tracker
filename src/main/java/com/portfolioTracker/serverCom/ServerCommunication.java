@@ -407,6 +407,11 @@ public class ServerCommunication {
 		return portfolio;
 	}
 
+	/** 
+	 * Updates the current evaluation of the portfolio
+	 * @param username The name of the user
+	 * @return The updated portfolio	
+	 */
 	private String updateEvaluation(String username) {
 		String portfolio = readPortfolio(username);
 		if(portfolio.equals(""))
