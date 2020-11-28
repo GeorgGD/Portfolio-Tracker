@@ -84,12 +84,14 @@ public class ServerCommunication {
 		String portfolio;
 		File user = new File(username + ".txt");
 		if (user.exists()) {
-			portfolio = addStockToPortfolioAux(username, ticker, stockData);
-			saveChanges(username, portfolio);
+			portfolio = addStockToPortfolioAux(username, ticker, stockData);		    
 		} else {
-			portfolio = createFirstEntry(ticker, stockData);
-			saveChanges(username, portfolio);
+			portfolio = createFirstEntry(ticker, stockData);			
 		}
+		
+		saveChanges(username, portfolio);
+		portfolio = updateInvestment(username);
+		saveChanges(username, portfolio);
 	}
 
 	/**
