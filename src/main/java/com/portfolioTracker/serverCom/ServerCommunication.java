@@ -249,7 +249,7 @@ public class ServerCommunication {
 	 * @param username The name of the user
 	 * @return The current investment	
 	 */
-	public String updateCurrentInvestment(String username) {
+	private String updateCurrentInvestment(String username) {
 		double shares;
 		double price;
 		double total = 0; 
@@ -431,9 +431,9 @@ public class ServerCommunication {
 	public String checkCurrentInvestment(String username) {
 		String portfolio = readPortfolio(username);
 		if(portfolio.equals(""))
-			return "";
+			return "0";
 
-		String value = "";
+		String value = "0";
 		try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
 			JsonNode investment = jsonTree.get(CURRENTLY_INVESTED);
