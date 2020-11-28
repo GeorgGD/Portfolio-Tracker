@@ -428,6 +428,11 @@ public class ServerCommunication {
 		saveChanges(username, portfolio);
 	}
 
+	/**
+	 * Checks how much the user has invested and return that sum
+	 * @param username The name of the user
+	 * @return The sum the user has invested	
+	 */
 	public String checkCurrentInvestment(String username) {
 		String portfolio = readPortfolio(username);
 		if(portfolio.equals(""))
