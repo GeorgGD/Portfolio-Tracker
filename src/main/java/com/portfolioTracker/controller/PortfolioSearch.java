@@ -106,7 +106,7 @@ public class PortfolioSearch {
 			return viewHandler.getModelView();
 		}
 		
-		String currInvestment = server.updateCurrentInvestment(username);
+		String currInvestment = server.checkCurrentInvestment(username);
 		String currEval = server.updateCurrentEval(username);
 		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currEval, username);
 		response = addToCookie(currInvestment, currEval, response);
