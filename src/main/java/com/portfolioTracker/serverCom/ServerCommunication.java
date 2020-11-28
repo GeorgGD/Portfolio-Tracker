@@ -386,7 +386,12 @@ public class ServerCommunication {
 		value = value / 10;		
 		return value;
 	}
-	
+
+	/**
+	 * Updates the current investment of the user
+	 * @param username The name of the user
+	 * @return The updated portfolio	
+	 */
 	private String updateInvestment(String username) {
 		String portfolio = readPortfolio(username);
 		if(portfolio.equals(""))
