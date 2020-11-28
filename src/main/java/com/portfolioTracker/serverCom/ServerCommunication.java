@@ -257,7 +257,7 @@ public class ServerCommunication {
 
 		if(portfolio.equals(""))
 			return "0";
-;
+
 		try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
 			ArrayNode stocks = (ArrayNode) jsonTree.get(STOCKS_ARRAY);
