@@ -427,4 +427,22 @@ public class ServerCommunication {
 		}
 		return portfolio;
 	}
+
+	public String checkCurrentInvestment(String username) {
+		String portfolio = readPortfolio(username);
+		if(portfolio.equals(""))
+			return "";
+
+		String value = "";
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			JsonNode investment = jsonTree.get(CURRENTLY_INVESTED);
+			value = investment.asText();
+			
+		} catch (JsonProcessingException e) {
+	    	e.printStackTrace();
+		}
+		
+		return value;
+	}
 }
