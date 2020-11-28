@@ -109,7 +109,7 @@ public class PortfolioSearch {
 		String currInvestment = server.checkCurrentInvestment(username);
 		String currEval = server.updateCurrentEval(username);
 		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currEval, username);
-		response = addToCookie(currInvestment, currEval, response);
+		response = addToCookie(currEval, response);
 		
 		return viewHandler.getModelView();
 	}
@@ -136,8 +136,7 @@ public class PortfolioSearch {
 	 * @param response The HTTP response body 	
 	 * @return The response body	
 	 */
-	private HttpServletResponse addToCookie(String currInvestment, String currWorth, HttpServletResponse response) {
-		response.addCookie(cookieHandler.putInsideCookie("invested", currInvestment));
+	private HttpServletResponse addToCookie(String currWorth, HttpServletResponse response) {
 		response.addCookie(cookieHandler.putInsideCookie("worth", currWorth));
 		
 		return response;
