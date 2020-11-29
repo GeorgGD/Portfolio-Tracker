@@ -43,7 +43,7 @@ public class CookieHandler {
 
 	public Cookie putInsideCookie(String key, String value) {
 		Cookie tmp = new Cookie(key, value);
-		tmp .setMaxAge(60*60*24*7);
+		tmp.setMaxAge(60*60*24*7);
 		return tmp;
 	}
 }
