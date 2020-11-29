@@ -468,5 +468,29 @@ public class ServerCommunication {
 		}
 		
 		return value;
-	}	
+	}
+
+	/**
+	 * Reads the given data from the portfolio
+	 * @param username The name of the user
+	 * @param data The data to read
+	 * @return The desired data from the portfolio	
+	 */
+	private String readPortfolioData(String username, String data) {
+		String portfolio = readPortfolio(username);
+		if(portfolio.equals(""))
+			return "";
+
+		String value = "";
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			JsonNode investment = jsonTree.get(data);
+			value = investment.asText();
+			
+		} catch (JsonProcessingException e) {
+	    	e.printStackTrace();
+		}
+		
+		return value;
+	}
 }
