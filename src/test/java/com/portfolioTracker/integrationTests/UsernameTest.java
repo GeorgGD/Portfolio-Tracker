@@ -36,13 +36,11 @@ public class UsernameTest {
 	@Test
 	public void setUsernameCookieNoInputTest() {
 		String name = "";
-		String cookieValue1 = "0";
-		String cookieValue2 = "0";
 		String expectedResult = "Please provide a Username!";
 		String expectedView = "index";
 		String expectedKey = "errorMsg";
 		
-		ModelAndView mav = username.setUsernameCookie(name,cookieValue1,cookieValue2, response);
+		ModelAndView mav = username.setUsernameCookie(name, response);
 		HashMap<String, Object> map = mav.getModelMap();
 		String actualResult = (String) map.get(expectedKey);
 
