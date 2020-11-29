@@ -442,25 +442,20 @@ public class ServerCommunication {
 		return value;
 	}
 
-	// This method is similar to checkCurrentInvestment!!!!
+	/**
+	 * Checks how much the portfolio is currently worth
+	 * @param username The name of the user
+	 * @return The total networth of the portfolio	
+	 */	
 	public String checkEvaluation(String username) {
-		String portfolio = readPortfolio(username);
-		if(portfolio.equals(""))
+		String value = readPortfolioData(username,CURRENTLY_WORTH);
+	
+		if(value.equals(""))
 			return "0";
-
-		String value = "0";
-		try {
-			JsonNode jsonTree = mapper.readTree(portfolio);
-			JsonNode investment = jsonTree.get(CURRENTLY_WORTH);
-			value = investment.asText();
-			
-		} catch (JsonProcessingException e) {
-	    	e.printStackTrace();
-		}
-		
+	
 		return value;
 	}
-
+	
 	/**
 	 * Reads the given data from the portfolio
 	 * @param username The name of the user
