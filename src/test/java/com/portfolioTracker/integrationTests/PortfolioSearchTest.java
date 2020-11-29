@@ -41,9 +41,7 @@ public class PortfolioSearchTest {
 	@Test
 	public void viewTest() {
 		String username = "integratedTest";
-		String cookie2 = "0";
-		String cookie3 = "0";
-		ModelAndView mav = portfolio.portfolioSearch(portDTO, username, cookie2, cookie3);
+		ModelAndView mav = portfolio.portfolioSearch(portDTO, username);
 
 		String expectedView = "portfolio";
 		assertEquals(expectedView, mav.getViewName());
@@ -52,9 +50,7 @@ public class PortfolioSearchTest {
 	@Test
 	public void checkAttributeValues() {
     	String username = "integratedTest";
-		String cookie2 = "0";
-		String cookie3 = "0";
-		ModelAndView mav = portfolio.portfolioSearch(portDTO, username, cookie2, cookie3);
+		ModelAndView mav = portfolio.portfolioSearch(portDTO, username);
 
 		Map<String, Object> map = mav.getModel();
 		String expectedResult = "<tr><td>Microsoft Corporation</td><td>20</td><td>5 USD</td></tr>";
@@ -65,11 +61,9 @@ public class PortfolioSearchTest {
 	@Test
 	public void updateEvaluationTest() {	    
 		String username = "integratedTest";
-		String cookie2 = "0";
-		String cookie3 = "0";
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
-		portfolio.portfolioSearch(portDTO, username, cookie2, cookie3);
+		portfolio.portfolioSearch(portDTO, username);
 		ModelAndView mav = portfolio.updateEvaluation(username, response);
 		Map<String, Object> map = mav.getModel();
 
