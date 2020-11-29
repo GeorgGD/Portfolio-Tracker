@@ -434,19 +434,10 @@ public class ServerCommunication {
 	 * @return The sum the user has invested	
 	 */
 	public String checkCurrentInvestment(String username) {
-		String portfolio = readPortfolio(username);
-		if(portfolio.equals(""))
+		String value = readPortfolioData(username, CURRENTLY_INVESTED);
+		
+		if(value.equals(""))
 			return "0";
-
-		String value = "0";
-		try {
-			JsonNode jsonTree = mapper.readTree(portfolio);
-			JsonNode investment = jsonTree.get(CURRENTLY_INVESTED);
-			value = investment.asText();
-			
-		} catch (JsonProcessingException e) {
-	    	e.printStackTrace();
-		}
 		
 		return value;
 	}
