@@ -92,11 +92,10 @@ public class PortfolioSearch {
 	/**
 	 * Updates the current evaluation of the users portfolio
 	 * @param username The name of the user
-	 * @param response The HTTP response 
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
-	public ModelAndView updateEvaluation(@CookieValue(value = "username", defaultValue = "") String username, HttpServletResponse response) {
+	public ModelAndView updateEvaluation(@CookieValue(value = "username", defaultValue = "") String username) {
 	    String view = "portfolio";
 		viewHandler.newModelAndView();
 		viewHandler.setView(view);
@@ -109,8 +108,7 @@ public class PortfolioSearch {
 		String currInvestment = server.checkCurrentInvestment(username);
 		String currEval = server.updateCurrentEval(username);
 		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currEval, username);
-		response = addToCookie(currEval, response);
-		
+	    
 		return viewHandler.getModelView();
 	}
 
@@ -128,17 +126,4 @@ public class PortfolioSearch {
 		viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
 		return viewHandler;
 	}
-
-	/**
-	 * Add values to cookie 
-	 * @param currInvestment The current investment 
-	 * @param currWorth The current net worth of the investment
-	 * @param response The HTTP response body 	
-	 * @return The response body	
-	 */
-	private HttpServletResponse addToCookie(String currWorth, HttpServletResponse response) {
-		response.addCookie(cookieHandler.putInsideCookie("worth", currWorth));
-		
-		return response;
-	}	
 }
