@@ -38,10 +38,10 @@
         </div>
         <div class="col-4 pl-5 pr-5 pb-4 pt-2 more-margin">
           <form action="username" method="post">
-            <input type="text" name="userName" placeholder="Username" class="form-conrol">
-          	<button type="submit" class="btn btn-primary font-weight-bold mt-2">Get Started</button>
-          </form>  
-          <p>${errorMsg}</p>        
+            <input type="text" name="userName" placeholder="Username" class="form-conrol">         
+          <button type="submit" class="btn btn-primary font-weight-bold mt-2">Get Started</button>
+          </form>
+	  <p>${errorMsg}</p>
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
       </p>
       <form action="tickerSearch" method="get">
         <input class="form-control col-sm-3" type="text" name="ticker" placeholder="Ticker">
-        <button type="submit" class="btn btn-primary font-weight-bold mt-2">Search</button>
+         <button type="submit" class="btn btn-primary font-weight-bold mt-2">Search</button>         
       </form>
     </div>
     <p class="mt-3 mb-0">
