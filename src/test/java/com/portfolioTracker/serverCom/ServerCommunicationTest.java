@@ -71,7 +71,7 @@ public class ServerCommunicationTest {
 	}
 
 	@Test
-	public void updateCurrentInvestmentTest() {
+	public void checkCurrentInvestmentTest() {
 		ServerCommunication server = initialize();
 		HashMap<String,String> stockData = new HashMap<String,String>();
 		String expTicker = "MSFT";	
@@ -82,7 +82,7 @@ public class ServerCommunicationTest {
 		stockData.put("buyInPrice", "5");		
 		server.addStockToPortfolio(expUser, expTicker, stockData);
 
-		String actualResult = server.updateCurrentInvestment(expUser);
+		String actualResult = server.checkCurrentInvestment(expUser);
 		assertNotEquals("0", actualResult);
 	}
 
