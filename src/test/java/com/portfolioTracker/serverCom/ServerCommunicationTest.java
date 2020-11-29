@@ -59,7 +59,7 @@ public class ServerCommunicationTest {
 		HashMap<String,String> stockData = new HashMap<String,String>();
 		String expTicker = "MSFT";	
 		String expUser = "unitTest";
-		String expectedResult = "{\"stocks\":[\"MSFT\"],\"MSFT\":{\"shares\":\"20\",\"buyInPrice\":\"5\"}}";
+		String expectedResult = "{\"stocks\":[\"MSFT\"],\"invested\":100.0,\"worth\":0\"MSFT\":{\"shares\":\"20\",\"buyInPrice\":\"5\"}}";
 		
 		server.createUser(expUser);
 		stockData.put("shares", "20");
