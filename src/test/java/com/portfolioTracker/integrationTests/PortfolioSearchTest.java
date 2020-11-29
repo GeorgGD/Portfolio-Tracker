@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -61,10 +60,9 @@ public class PortfolioSearchTest {
 	@Test
 	public void updateEvaluationTest() {	    
 		String username = "integratedTest";
-		MockHttpServletResponse response = new MockHttpServletResponse();
 
 		portfolio.portfolioSearch(portDTO, username);
-		ModelAndView mav = portfolio.updateEvaluation(username, response);
+		ModelAndView mav = portfolio.updateEvaluation(username);
 		Map<String, Object> map = mav.getModel();
 
 		String expectedCurrentValue = "100.0 USD";
