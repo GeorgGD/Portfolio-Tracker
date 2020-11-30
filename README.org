@@ -18,3 +18,4 @@
 *** TODO's
   1. Create some sort of login authentication.
   2. Remove cookieHandler and instead use sessions.
+  3. Replace ModelAndView with just Model and have controller return view
