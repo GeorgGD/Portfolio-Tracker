@@ -2,21 +2,18 @@ package com.portfolioTracker.controller;
 
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.portfolioTracker.api.APIRequester;
 import com.portfolioTracker.api.PortfolioDTO;
 import com.portfolioTracker.api.TickerNotFoundException;
-import com.portfolioTracker.cookies.CookieHandler;
 import com.portfolioTracker.serverCom.ServerCommunication;
 import com.portfolioTracker.view.ViewHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -35,9 +32,6 @@ public class PortfolioSearch {
 	private ViewHandler viewHandler;
 
 	@Autowired
-	private CookieHandler cookieHandler;
-
-	@Autowired
 	private ServerCommunication server;
 
 	/**
@@ -52,10 +46,10 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
-	public ModelAndView portfolioSearch(PortfolioDTO portDTO,
-										@CookieValue(value = "username", defaultValue = "") String username) {
+	public ModelAndView portfolioSearch(PortfolioDTO portDTO, HttpSession session) {		
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
+		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
 		String currInvestment = server.checkCurrentInvestment(username);
 		String currWorth = server.checkEvaluation(username);
 	    viewHandler.newModelAndView();
@@ -95,7 +89,8 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
-	public ModelAndView updateEvaluation(@CookieValue(value = "username", defaultValue = "") String username) {
+	public ModelAndView updateEvaluation(HttpSession session) {
+		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
 	    String view = "portfolio";
 		viewHandler.newModelAndView();
 		viewHandler.setView(view);
