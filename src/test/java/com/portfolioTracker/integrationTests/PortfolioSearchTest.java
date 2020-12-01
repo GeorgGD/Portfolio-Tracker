@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.util.Map;
 
-import com.portfolioTracker.api.PortfolioDTO;
 import com.portfolioTracker.controller.PortfolioSearch;
+import com.portfolioTracker.dto.PortfolioDTO;
 
 import org.junit.Before;
 import org.junit.Test;

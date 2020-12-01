@@ -1,4 +1,4 @@
-package com.portfolioTracker.api;
+package com.portfolioTracker.dto;
 
 /**
  * PortfolioDTO is meant to minimize the need to make multiple @RequestParam

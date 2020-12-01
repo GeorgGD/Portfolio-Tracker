@@ -5,8 +5,8 @@ import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import com.portfolioTracker.api.APIRequester;
-import com.portfolioTracker.api.PortfolioDTO;
 import com.portfolioTracker.api.TickerNotFoundException;
+import com.portfolioTracker.dto.PortfolioDTO;
 import com.portfolioTracker.serverCom.ServerCommunication;
 import com.portfolioTracker.view.ViewHandler;
 
