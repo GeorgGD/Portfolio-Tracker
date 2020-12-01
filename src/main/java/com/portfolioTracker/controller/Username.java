@@ -2,11 +2,13 @@ package com.portfolioTracker.controller;
 
 import javax.servlet.http.HttpSession;
 
+import com.portfolioTracker.dto.User;
 import com.portfolioTracker.serverCom.ServerCommunication;
 import com.portfolioTracker.view.ViewHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +35,8 @@ public class Username {
 	 * @return The view with the data to display	
 	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "login")
-	public ModelAndView setUsername(@RequestParam("userName") String username, HttpSession session) {
+	public ModelAndView setUsername(@ModelAttribute("userInfo") User user, HttpSession session) {
+		String username = user.getUsername();
 		String jspExpression;
 		String view;
 		String currency = " USD";		
