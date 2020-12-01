@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -29,6 +30,8 @@ public class PortfolioSearchTest {
 
 	private PortfolioDTO portDTO;
 
+	private MockHttpSession session;
+	
 	@Before
 	public void setupPortfolioDTO() {
 		portDTO = new PortfolioDTO();
@@ -37,10 +40,16 @@ public class PortfolioSearchTest {
 		portDTO.setBuyInPrice("5");		
 	}
 
+	@Before
+	public void setupSession() {
+		session = new MockHttpSession();
+		String username = "integratedTest";		
+		session.setAttribute("username", username);		
+	}
+	
 	@Test
 	public void viewTest() {
-		String username = "integratedTest";
-		ModelAndView mav = portfolio.portfolioSearch(portDTO, username);
+		ModelAndView mav = portfolio.portfolioSearch(portDTO, session);
 
 		String expectedView = "portfolio";
 		assertEquals(expectedView, mav.getViewName());
@@ -48,8 +57,7 @@ public class PortfolioSearchTest {
 
 	@Test
 	public void checkAttributeValues() {
-    	String username = "integratedTest";
-		ModelAndView mav = portfolio.portfolioSearch(portDTO, username);
+		ModelAndView mav = portfolio.portfolioSearch(portDTO, session);
 
 		Map<String, Object> map = mav.getModel();
 		String expectedResult = "<tr><td>Microsoft Corporation</td><td>20</td><td>5 USD</td></tr>";
@@ -59,10 +67,8 @@ public class PortfolioSearchTest {
 
 	@Test
 	public void updateEvaluationTest() {	    
-		String username = "integratedTest";
-
-		portfolio.portfolioSearch(portDTO, username);
-		ModelAndView mav = portfolio.updateEvaluation(username);
+		portfolio.portfolioSearch(portDTO, session);
+		ModelAndView mav = portfolio.updateEvaluation(session);
 		Map<String, Object> map = mav.getModel();
 
 		String expectedCurrentValue = "100.0 USD";
