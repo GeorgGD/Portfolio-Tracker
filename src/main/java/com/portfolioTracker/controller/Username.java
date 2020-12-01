@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * The Username class takes care of assigning usernames and managing 
- * cookies related to the user
+ * sessions related to the user. 
  * @auther Georgios Davakos
  * @since 2020-11-17
  */
@@ -32,7 +32,7 @@ public class Username {
 	 * @param response The response object
 	 * @return The view with the data to display	
 	 */
-	@RequestMapping(value = "/username", method = RequestMethod.POST)
+	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "login")
 	public ModelAndView setUsername(@RequestParam("userName") String username, HttpSession session) {
 		String jspExpression;
 		String view;
@@ -65,5 +65,10 @@ public class Username {
 		viewHandler.addObjectsToView(jspExpression, server.setupTableEntries(username));
 		
 	    return viewHandler.getModelView();
+	}
+
+	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "register")
+	public String registerUser() {
+		return "index";
 	}
 }
