@@ -1,5 +1,6 @@
 package com.portfolioTracker.dto;
 
+import javax.validation.constraints.NotBlank;
 
 /**
  * The following class is meant to store the user info into a POJO 
@@ -9,7 +10,10 @@ package com.portfolioTracker.dto;
  */
 public class User {
 
+	@NotBlank(message = "Username may not be blank!")
 	private String username;
+
+	@NotBlank(message = "Password may not be blank")
 	private String password;
 
 	/**
