@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -26,13 +26,13 @@ public class UsernameTest {
 	@Autowired
 	private Username username;
 
-	private MockHttpServletResponse response;
+	private MockHttpSession session;
 	
 	@Before
 	public void setup() {
-		response = new MockHttpServletResponse();
+		session = new MockHttpSession();
 	}
-	
+
 	@Test
 	public void setUsernameCookieNoInputTest() {
 		String name = "";
@@ -40,7 +40,7 @@ public class UsernameTest {
 		String expectedView = "index";
 		String expectedKey = "errorMsg";
 		
-		ModelAndView mav = username.setUsernameCookie(name, response);
+		ModelAndView mav = username.setUsername(name, session);
 		HashMap<String, Object> map = mav.getModelMap();
 		String actualResult = (String) map.get(expectedKey);
 
