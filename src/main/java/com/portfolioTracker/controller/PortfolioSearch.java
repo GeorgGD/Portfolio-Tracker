@@ -8,7 +8,6 @@ import com.portfolioTracker.api.APIRequester;
 import com.portfolioTracker.api.TickerNotFoundException;
 import com.portfolioTracker.dto.PortfolioDTO;
 import com.portfolioTracker.serverCom.ServerCommunication;
-import com.portfolioTracker.view.ViewHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +28,6 @@ public class PortfolioSearch {
 	private APIRequester api;
 	
 	@Autowired
-	private ViewHandler viewHandler;
-
-	@Autowired
 	private ServerCommunication server;
 
 	/**
@@ -46,7 +42,7 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
-	public ModelAndView portfolioSearch(PortfolioDTO portDTO, HttpSession session) {		
+	public String portfolioSearch(PortfolioDTO portDTO, HttpSession session) {		
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
@@ -89,7 +85,7 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
-	public ModelAndView updateEvaluation(HttpSession session) {
+	public String updateEvaluation(HttpSession session) {
 		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
 	    String view = "portfolio";
 		viewHandler.newModelAndView();
