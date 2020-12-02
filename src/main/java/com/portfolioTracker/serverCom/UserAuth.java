@@ -30,4 +30,26 @@ public class UserAuth {
 		
 		return true;
 	}
+	
+	public boolean loginSuccess(User user) {
+		if(!userIsRegistered(user))
+			return false;
+		
+		String userInfo = readUserFile(url.toString() + user.getUsername() + ".txt");
+		try {
+			ObjectNode rootNode = (ObjectNode) mapper.readTree(userInfo);
+			ObjectNode passNode = (ObjectNode) rootNode.get("password");
+			if(!user.getPassword().equals(passNode.asText()))
+				return false;
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+	
+	private String readUserFile(String string) {
+		return null;
+	}
 }
