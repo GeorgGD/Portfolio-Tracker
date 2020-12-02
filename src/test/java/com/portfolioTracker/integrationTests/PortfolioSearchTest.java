@@ -63,8 +63,7 @@ public class PortfolioSearchTest {
 
 	@Test
 	public void checkAttributeValues() {
-		setupModel();
-		String view = portfolio.portfolioSearch(portDTO,model, session);
+    	String view = portfolio.portfolioSearch(portDTO,model, session);
 	    
 		String expectedResult = "<tr><td>Microsoft Corporation</td><td>20</td><td>5 USD</td></tr>";
 		String elExpresion = "tableBody";
@@ -73,8 +72,7 @@ public class PortfolioSearchTest {
 
 	@Test
 	public void updateEvaluationTest() {
-		setupModel();
-		portfolio.portfolioSearch(portDTO, model, session);
+    	portfolio.portfolioSearch(portDTO, model, session);
 		String view = portfolio.updateEvaluation(model, session);	    
 
 		String expectedCurrentValue = "100.0 USD";
