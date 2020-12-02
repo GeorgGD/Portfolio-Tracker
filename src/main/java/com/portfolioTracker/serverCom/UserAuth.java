@@ -15,6 +15,12 @@ import com.portfolioTracker.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * UserAuth is designed to authenticate and authorize the user to use 
+ * some of the services requiring authorization 
+ * @author Georgios Davakos
+ * @since 2020-12-02
+ */
 @Component
 public class UserAuth {
 
@@ -23,18 +29,27 @@ public class UserAuth {
 	
 	URL url = this.getClass().getResource("/users/"); // URL to resources 
 
+	/**
+	 * Checks if user is registered
+	 * @param user A user
+	 * @return True if a user is registered	
+	 */
 	public boolean userIsRegistered(User user) {
 		if(user.getUsername() == null || user.getUsername().equals(""))
 			return false;		
 	    
 		File userFile = new File(url.toString() + user.getUsername() + ".txt");
-
 		if(!userFile.exists())
 			return false;
 		
 		return true;
 	}
-	
+
+	/**
+	 * Checks if the user provided the correct username and password 
+	 * @param user The user
+	 * @return True if the information provided is accurate	
+	 */
 	public boolean loginSuccess(User user) {
 		if(!userIsRegistered(user))
 			return false;
@@ -52,7 +67,12 @@ public class UserAuth {
 
 		return true;
 	}
-	
+
+	/**
+	 * Reads the file that stores the users information
+	 * @param userDir The path to the users file
+	 * @return The information inside the users file	
+	 */
 	private String readUserFile(String userDir) {
 		File file = new File(userDir);
 		String userInfo = "";
@@ -75,9 +95,15 @@ public class UserAuth {
 		return userInfo;
 	}
 
+	/**
+	 * Registers the user
+	 * @param user The user
+	 * @return True if the user was successfully registered	
+	 */
 	public boolean registerUser(User user) {
 		if(userIsRegistered(user))
 			return false;
+
 		ObjectNode node = mapper.createObjectNode();
 		node.put("password", user.getPassword());
 		saveUser(user.getUsername(), node.toString());
@@ -85,6 +111,11 @@ public class UserAuth {
 		return true;
 	}
 
+	/**
+	 * Saves user
+	 * @param username The name of the user
+	 * @param toSave The content to save
+	 */
 	private void saveUser(String username, String toSave) {
 		if(username.equals(""))
 			return;
