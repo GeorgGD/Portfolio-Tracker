@@ -2,8 +2,6 @@ package com.portfolioTracker.integrationTests;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
-
 import com.portfolioTracker.controller.TickerSearchController;
 
 import org.junit.Before;
@@ -15,7 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 
 import config.SpringConfig;
 
