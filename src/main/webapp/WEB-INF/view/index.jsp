@@ -39,8 +39,8 @@
         </div>
         <div class="col-4 pl-5 pr-5 pb-4 pt-2 more-margin">
           <form:form action="username" method="post" modelAttribute="userInfo">
-	   <label for="userName" class="mb-1">Username:</label>
-            <form:input type="text" path="username" placeholder="Username" class="form-conrol"/>
+	   <label for="username" class="mb-1">Username:</label>
+        <form:input type="text" path="username" placeholder="Username" class="form-conrol"/>
 	    <label for="password" class="mt-2 mb-1">Password:</label>
             <form:input type="password" path="password" class="form-conrol"/><br>
           <button type="submit" name="login" class="btn btn-primary font-weight-bold mt-3 btn-block">Login</button>
