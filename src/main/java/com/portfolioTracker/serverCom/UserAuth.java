@@ -2,6 +2,8 @@ package com.portfolioTracker.serverCom;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -77,7 +79,34 @@ public class UserAuth {
 	public boolean registerUser(User user) {
 		if(userIsRegistered(user))
 			return false;
-		
+		ObjectNode node = mapper.createObjectNode();
+		node.put(user.getUsername(), user.getPassword());
+		saveUser(user.getUsername(), node.toString());
 		return true;
 	}
+
+	private void saveUser(String username, String toSave) {
+		if(username.equals(""))
+			return;
+		
+		File user = new File(username + ".txt");
+		FileWriter toWrite = null;
+		String filePath = url.toString();
+		try {
+			user.createNewFile();		
+			toWrite = new FileWriter(filePath + username + ".txt", false);
+			toWrite.write(toSave);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (toWrite != null) {
+				try {
+					toWrite.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}			
+	}
+	
 }
