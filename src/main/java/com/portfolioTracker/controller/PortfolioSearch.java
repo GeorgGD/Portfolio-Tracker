@@ -11,9 +11,9 @@ import com.portfolioTracker.serverCom.ServerCommunication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * The following class is meant to allow the used to create a portfolio of stocks
@@ -42,31 +42,29 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
-	public String portfolioSearch(PortfolioDTO portDTO, HttpSession session) {		
+	public String portfolioSearch(PortfolioDTO portDTO, Model model, HttpSession session) {		
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
 		String currInvestment = server.checkCurrentInvestment(username);
 		String currWorth = server.checkEvaluation(username);
-	    viewHandler.newModelAndView();
-		viewHandler.setView(view);
 		
 		try {
 			if(Double.parseDouble(portDTO.getSharesNum()) <= 0 || Double.parseDouble(portDTO.getBuyInPrice()) <= 0) {
-				viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
-				return viewHandler.getModelView();
+				prepCurrentEvalAndTable(model, currInvestment, currWorth, username);
+				return view;
 			}			
 			String name = api.nameOfCompany(portDTO.getTicker()); // So exception is caught
-			viewHandler.addObjectsToView("name", name);
+			model.addAttribute("name", name);
 			expValuePair.put("name", name);
 		} catch (NumberFormatException e) {
 			e.printStackTrace(); 
-			viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
-			return viewHandler.getModelView();
+		    prepCurrentEvalAndTable(model, currInvestment, currWorth, username);
+			return view;
 		} catch (TickerNotFoundException e) {
 			e.printStackTrace();
-			viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);	    
-			return viewHandler.getModelView(); 
+			prepCurrentEvalAndTable(model, currInvestment, currWorth, username);	    
+			return view; 
 		}
 		
 		expValuePair.put("shares", portDTO.getSharesNum());
@@ -74,9 +72,9 @@ public class PortfolioSearch {
 		server.addStockToPortfolio(username, portDTO.getTicker(), expValuePair);
 		currInvestment = server.checkCurrentInvestment(username);
 		
-		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
+		prepCurrentEvalAndTable(model, currInvestment, currWorth, username);
 	    
-		return viewHandler.getModelView();
+		return view;
 	}
 
 	/**
@@ -85,22 +83,20 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
-	public String updateEvaluation(HttpSession session) {
+	public String updateEvaluation(Model model, HttpSession session) {
 		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
 	    String view = "portfolio";
-		viewHandler.newModelAndView();
-		viewHandler.setView(view);
-		
+    
 		if(username.equals("")) {
-			viewHandler = prepCurrentEvalAndTable(viewHandler, "0", "0", username);
-			return viewHandler.getModelView();
+		    prepCurrentEvalAndTable(model, "0", "0", username);
+			return view;
 		}
 		
 		String currInvestment = server.checkCurrentInvestment(username);
 		String currEval = server.updateCurrentEval(username);
-		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currEval, username);
+	    prepCurrentEvalAndTable(model, currInvestment, currEval, username);
 	    
-		return viewHandler.getModelView();
+		return view;
 	}
 
 	/**
@@ -111,10 +107,9 @@ public class PortfolioSearch {
 	 * @param username The name of the user	
 	 * @return A map with EL and value pair	
 	 */
-	private ViewHandler prepCurrentEvalAndTable(ViewHandler viewHandler, String currInvestment, String currWorth, String username) {
-		viewHandler.addObjectsToView("currentInvestment", currInvestment + " USD");
-		viewHandler.addObjectsToView("currentEvaluation", currWorth + " USD");			
-		viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
-		return viewHandler;
+	private void prepCurrentEvalAndTable(Model model, String currInvestment, String currWorth, String username) {
+		model.addAttribute("currentInvestment", currInvestment + " USD");
+		model.addAttribute("currentEvaluation", currWorth + " USD");			
+	    model.addAttribute("tableBody", server.setupTableEntries(username));	    
 	}
 }
