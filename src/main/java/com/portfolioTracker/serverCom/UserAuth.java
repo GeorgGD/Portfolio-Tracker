@@ -72,4 +72,11 @@ public class UserAuth {
 		
 		return userInfo;
 	}
+
+	public boolean registerUser(User user) {
+		if(userIsRegistered(user))
+			return false;
+		
+		return true;
+	}
 }
