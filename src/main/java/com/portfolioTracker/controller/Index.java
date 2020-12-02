@@ -1,5 +1,7 @@
 package com.portfolioTracker.controller;
 
+import javax.servlet.http.HttpSession;
+
 import com.portfolioTracker.dto.User;
 
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,14 @@ public class Index {
 	 * @return The view
 	 */
 	@RequestMapping("/")
-	public String landingPage(@ModelAttribute("userInfo") User user) {
+	public String landingPage(@ModelAttribute("userInfo") User user, HttpSession session) {
+		String username = (String) session.getAttribute("username");
+		if(username == null) {
+			user.setUsername("");	
+		} else {
+			user.setUsername(username);
+		}
+		
 		return "index";
 	}
 }
