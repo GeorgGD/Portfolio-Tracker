@@ -1,6 +1,9 @@
 package com.portfolioTracker.controller;
 
+import com.portfolioTracker.dto.User;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -16,7 +19,7 @@ public class Index {
 	 * @return The view
 	 */
 	@RequestMapping("/")
-	public String landingPage() {
+	public String landingPage(@ModelAttribute("userInfo") User user) {
 		return "index";
 	}
 }
