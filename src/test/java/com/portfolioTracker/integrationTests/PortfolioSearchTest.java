@@ -3,8 +3,6 @@ package com.portfolioTracker.integrationTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.util.Map;
-
 import com.portfolioTracker.controller.PortfolioSearch;
 import com.portfolioTracker.dto.PortfolioDTO;
 
@@ -16,7 +14,8 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 
 import config.SpringConfig;
 
@@ -31,6 +30,8 @@ public class PortfolioSearchTest {
 	private PortfolioDTO portDTO;
 
 	private MockHttpSession session;
+
+	private Model model;
 	
 	@Before
 	public void setupPortfolioDTO() {
@@ -46,33 +47,38 @@ public class PortfolioSearchTest {
 		String username = "integratedTest";		
 		session.setAttribute("username", username);		
 	}
-	
+
+	@Before
+	public void setupModel() {
+		model = new ExtendedModelMap();
+	}
+		
 	@Test
 	public void viewTest() {
-		ModelAndView mav = portfolio.portfolioSearch(portDTO, session);
+		String actualView = portfolio.portfolioSearch(portDTO, model, session);
 
 		String expectedView = "portfolio";
-		assertEquals(expectedView, mav.getViewName());
+		assertEquals(expectedView, actualView);
 	}
 
 	@Test
 	public void checkAttributeValues() {
-		ModelAndView mav = portfolio.portfolioSearch(portDTO, session);
-
-		Map<String, Object> map = mav.getModel();
+		setupModel();
+		String view = portfolio.portfolioSearch(portDTO,model, session);
+	    
 		String expectedResult = "<tr><td>Microsoft Corporation</td><td>20</td><td>5 USD</td></tr>";
 		String elExpresion = "tableBody";
-		assertEquals(expectedResult, map.get(elExpresion));
+		assertEquals(expectedResult, (String) model.getAttribute(elExpresion));
 	}
 
 	@Test
-	public void updateEvaluationTest() {	    
-		portfolio.portfolioSearch(portDTO, session);
-		ModelAndView mav = portfolio.updateEvaluation(session);
-		Map<String, Object> map = mav.getModel();
+	public void updateEvaluationTest() {
+		setupModel();
+		portfolio.portfolioSearch(portDTO, model, session);
+		String view = portfolio.updateEvaluation(model, session);	    
 
 		String expectedCurrentValue = "100.0 USD";
-		assertEquals(expectedCurrentValue, map.get("currentInvestment"));
-		assertNotEquals("0 USD", map.get("currentEvaluation"));		
+		assertEquals(expectedCurrentValue, (String) model.getAttribute("currentInvestment"));
+		assertNotEquals("0 USD", (String) model.getAttribute("currentEvaluation"));		
 	}
 }
