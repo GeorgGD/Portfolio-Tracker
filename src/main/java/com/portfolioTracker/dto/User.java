@@ -10,10 +10,10 @@ import javax.validation.constraints.NotBlank;
  */
 public class User {
 
-	@NotBlank(message = "Username may not be blank!")
+	@NotBlank(message = "Username may not be blanc!")
 	private String username;
 
-	@NotBlank(message = "Password may not be blank")
+	@NotBlank(message = "Password may not be blanc!")
 	private String password;
 
 	/**
