@@ -40,13 +40,14 @@
         <div class="col-4 pl-5 pr-5 pb-4 pt-2 more-margin">
           <form:form action="username" method="post" modelAttribute="userInfo">
 	   <label for="username" class="mb-1">Username:</label>
-        <form:input type="text" path="username" placeholder="Username" class="form-conrol"/>
+        <form:input type="text" path="username" placeholder="Username" class="form-conrol"/> 
+	<form:errors path="username" cssClass="error"/> <br>
 	    <label for="password" class="mt-2 mb-1">Password:</label>
-            <form:input type="password" path="password" class="form-conrol"/><br>
+            <form:input type="password" path="password" class="form-conrol"/>
+	    <form:errors path="password" cssClass="error"/><br>
           <button type="submit" name="login" class="btn btn-primary font-weight-bold mt-3 btn-block">Login</button>
 	  <button type="submit" name="register" class="btn btn-secondary font-weight-bold mt-2 btn-block">Register</button>
           </form:form>
-	  <p>${errorMsg}</p>
         </div>
       </div>
     </div>
