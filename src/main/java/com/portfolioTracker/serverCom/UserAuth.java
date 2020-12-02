@@ -18,4 +18,16 @@ public class UserAuth {
 	private ObjectMapper mapper;
 	
 	URL url = this.getClass().getResource("/users/"); // URL to resources 
+
+	public boolean userIsRegistered(User user) {
+		if(user.getUsername() == null || user.getUsername().equals(""))
+			return false;		
+	    
+		File userFile = new File(url.toString() + user.getUsername() + ".txt");
+
+		if(!userFile.exists())
+			return false;
+		
+		return true;
+	}
 }
