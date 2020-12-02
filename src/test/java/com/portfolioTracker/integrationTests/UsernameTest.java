@@ -2,9 +2,8 @@ package com.portfolioTracker.integrationTests;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
-
 import com.portfolioTracker.controller.Username;
+import com.portfolioTracker.dto.User;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +13,8 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 
 import config.SpringConfig;
 
@@ -27,25 +27,27 @@ public class UsernameTest {
 	private Username username;
 
 	private MockHttpSession session;
+
+	private Model model;
 	
 	@Before
 	public void setup() {
 		session = new MockHttpSession();
+		model = new ExtendedModelMap();
 	}
 
 	@Test
 	public void setUsernameCookieNoInputTest() {
-		String name = "";
+		User user = new User();
+		user.setUsername("");
 		String expectedResult = "Please provide a Username!";
 		String expectedView = "index";
 		String expectedKey = "errorMsg";
 		
-		ModelAndView mav = username.setUsername(name, session);
-		HashMap<String, Object> map = mav.getModelMap();
-		String actualResult = (String) map.get(expectedKey);
+		String actualView = username.setUsername(user, model, session);	    
+		String actualResult = (String) model.getAttribute(expectedKey);
 
 		assertEquals(expectedResult, actualResult);
-		assertEquals(expectedView, mav.getViewName());
+		assertEquals(expectedView, actualView);
 	}
-
 }
