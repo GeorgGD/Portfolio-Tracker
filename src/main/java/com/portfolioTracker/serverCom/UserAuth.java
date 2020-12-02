@@ -1,7 +1,9 @@
 package com.portfolioTracker.serverCom;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,7 +51,25 @@ public class UserAuth {
 		return true;
 	}
 	
-	private String readUserFile(String string) {
-		return null;
+	private String readUserFile(String userDir) {
+		File file = new File(userDir);
+		String userInfo = "";
+		Scanner scan = null;
+
+		try {
+			scan = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return "";
+		}
+		
+		while(scan.hasNextLine()) {
+			userInfo = userInfo + scan.nextLine();
+		}
+
+		if(scan != null)
+			scan.close();
+		
+		return userInfo;
 	}
 }
