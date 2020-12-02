@@ -1,6 +1,7 @@
 package com.portfolioTracker.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import com.portfolioTracker.dto.User;
 import com.portfolioTracker.serverCom.ServerCommunication;
@@ -31,16 +32,14 @@ public class Username {
 	 * @return The view with the data to display	
 	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "login")
-	public String setUsername(@ModelAttribute("userInfo") User user, BindingResult result,Model model, HttpSession session) {
+	public String setUsername(@Valid @ModelAttribute("userInfo") User user, BindingResult result,Model model, HttpSession session) {
 		String username = user.getUsername();
 		String jspExpression;
 		String currency = " USD";		
 		String currInvestment = server.checkCurrentInvestment(username);
 		String currWorth = server.checkEvaluation(username);
 	    
-		if(username == null || username.equals("")) {
-	    	jspExpression = "errorMsg";
-			model.addAttribute(jspExpression, "Please provide a Username!");		    
+		if(result.hasErrors()) {		    
 			return "index";
 		}
 		
