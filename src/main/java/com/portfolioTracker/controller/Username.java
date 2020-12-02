@@ -8,6 +8,7 @@ import com.portfolioTracker.serverCom.ServerCommunication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +31,7 @@ public class Username {
 	 * @return The view with the data to display	
 	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "login")
-	public String setUsername(@ModelAttribute("userInfo") User user, Model model, HttpSession session) {
+	public String setUsername(@ModelAttribute("userInfo") User user, BindingResult result,Model model, HttpSession session) {
 		String username = user.getUsername();
 		String jspExpression;
 		String currency = " USD";		
