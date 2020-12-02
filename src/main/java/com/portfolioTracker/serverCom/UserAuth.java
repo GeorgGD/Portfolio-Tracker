@@ -73,6 +73,7 @@ public class UserAuth {
 		return userInfo;
 	}
 
+	// TODO: Not complete
 	public boolean registerUser(User user) {
 		if(userIsRegistered(user))
 			return false;
