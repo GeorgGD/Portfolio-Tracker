@@ -44,11 +44,17 @@ public class Username {
 			return "index";
 		}
 		
-		session.setAttribute("username", username);
-		session.setMaxInactiveInterval(60*60*24*2);
+		if(userAuth.loginSuccess(user)) {
+			server.createUser(username);
+			session.setAttribute("username", username);
+			session.setMaxInactiveInterval(60*60*24*2);
 		
-		setupModel(username, model);
-	    return "portfolio";
+			setupModel(username, model);
+			return "portfolio";
+		}
+		
+
+	    return "index";
 	}
 
 	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "register")
