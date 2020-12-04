@@ -39,10 +39,6 @@ public class Username {
 	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "login")
 	public String setUsername(@Valid @ModelAttribute("userInfo") User user, BindingResult result,Model model, HttpSession session) {
 		String username = user.getUsername();
-		String jspExpression;
-		String currency = " USD";		
-		String currInvestment = server.checkCurrentInvestment(username);
-		String currWorth = server.checkEvaluation(username);
 	    
 		if(result.hasErrors()) {		    
 			return "index";
@@ -50,16 +46,8 @@ public class Username {
 		
 		session.setAttribute("username", username);
 		session.setMaxInactiveInterval(60*60*24*2);
-
-		jspExpression = "currentInvestment";
-		model.addAttribute(jspExpression, currInvestment + currency);
 		
-		jspExpression = "currentEvaluation";
-		model.addAttribute(jspExpression, currWorth + currency);
-
-		jspExpression = "tableBody";
-	    model.addAttribute(jspExpression, server.setupTableEntries(username));
-		
+		setupModel(username, model);
 	    return "portfolio";
 	}
 
@@ -77,9 +65,29 @@ public class Username {
 
 		if(userAuth.registerUser(user)) {
 			session.setAttribute("username", user.getUsername());
+			session.setMaxInactiveInterval(60*60*24*2);		
+
+			setupModel(user.getUsername(), model);
 			return viewForSuccess;
 		}
 		
 		return viewForErrors;
+	}
+
+	private void setupModel(String username, Model model) {
+		String jspExpression;
+		String currency = " USD";		
+		String currInvestment = server.checkCurrentInvestment(username);
+		String currWorth = server.checkEvaluation(username);
+
+		jspExpression = "currentInvestment";
+		model.addAttribute(jspExpression, currInvestment + currency);
+		
+		jspExpression = "currentEvaluation";
+		model.addAttribute(jspExpression, currWorth + currency);
+
+		jspExpression = "tableBody";
+	    model.addAttribute(jspExpression, server.setupTableEntries(username));
+
 	}
 }
