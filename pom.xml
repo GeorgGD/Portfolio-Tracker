@@ -8,6 +8,12 @@
   <name>PortfolioTracker Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
+  <properties>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  
   <dependencies>
     
     <dependency>
@@ -60,6 +66,13 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+    
     <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
@@ -74,6 +87,20 @@
       <version>2.11.2</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>2.0.1.Final</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>6.1.5.Final</version>
+    </dependency>
+
   </dependencies>
   
   <build>
@@ -86,6 +113,7 @@
 	<version>3.8.0</version>
 	<configuration>
 	  <release>11</release>
+	  <failOnMissingWebXml>false</failOnMissingWebXml>
 	</configuration>
       </plugin>
 

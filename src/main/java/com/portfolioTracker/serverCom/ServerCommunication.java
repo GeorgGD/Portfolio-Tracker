@@ -36,14 +36,23 @@ public class ServerCommunication {
 
 	@Autowired
 	private ObjectMapper mapper;
-	
+
+	// Constants
+	private final String STOCKS_NAME = "name";
+	private final String CURRENTLY_INVESTED = "invested";
+	private final String CURRENTLY_WORTH = "worth";
+	private final String STOCKS_ARRAY = "stocks";
+	private final String NUMBER_SHARES = "shares";
+	private final String BUY_IN_PRICE = "buyInPrice";
+	private String FILE_PATH = "src/main/resources/portfolios/";
+
 	/**
 	 * Creates a user
 	 * @param username The name of the user	
 	 */ 
 	public void createUser(String username) {
 		try {			
-			File user = new File(username + ".txt");
+			File user = new File(FILE_PATH + username + ".txt");
 			user.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -74,14 +83,16 @@ public class ServerCommunication {
 	 */
 	public void addStockToPortfolio(String username, String ticker, HashMap<String, String> stockData) {
 		String portfolio;
-		File user = new File(username + ".txt");
+		File user = new File(FILE_PATH + username + ".txt");
 		if (user.exists()) {
-			portfolio = addStockToPortfolioAux(username, ticker, stockData);
-			saveChanges(username, portfolio);
+			portfolio = addStockToPortfolioAux(username, ticker, stockData);		    
 		} else {
-			portfolio = createFirstEntry(ticker, stockData);
-			saveChanges(username, portfolio);
+			portfolio = createFirstEntry(ticker, stockData);			
 		}
+		
+		saveChanges(username, portfolio);
+		portfolio = updateInvestment(username);
+		saveChanges(username, portfolio);
 	}
 
 	/**
@@ -94,11 +105,11 @@ public class ServerCommunication {
 		if(username.equals(""))
 			return;
 		
-		File user = new File(username + ".txt");
+		File user = new File(FILE_PATH + username + ".txt");
 		FileWriter toWrite = null;
 		if(user.exists()) {
 			try {
-				toWrite = new FileWriter(username + ".txt", false);
+				toWrite = new FileWriter(FILE_PATH + username + ".txt", false);
 				toWrite.write(toSave);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -114,7 +125,7 @@ public class ServerCommunication {
 		} else {
 			createUser(username);
 			try {
-				toWrite = new FileWriter(username + ".txt", false);
+				toWrite = new FileWriter(FILE_PATH + username + ".txt", false);
 				toWrite.write(toSave);
 			} catch (IOException e) {
 		    	e.printStackTrace();
@@ -140,13 +151,13 @@ public class ServerCommunication {
     	ObjectNode stocks = mapper.createObjectNode();
 		ArrayNode stockArray = mapper.createArrayNode();
 		stockArray.add(ticker);
-		stocks.set("stocks", stockArray);
-		
+		stocks.set(STOCKS_ARRAY, stockArray);
+		stocks.put(CURRENTLY_INVESTED, 0.0);
+		stocks.put(CURRENTLY_WORTH, 0.0);		
 	    ObjectNode tickerNode = createNewObject(stockData);
 		
 		stocks.set(ticker, tickerNode);
-		
-	   return stocks.toString();		
+		return stocks.toString();		
 	}
 	
 	/**
@@ -163,7 +174,7 @@ public class ServerCommunication {
 		
 		try {
 			ObjectNode rootNode = (ObjectNode) mapper.readTree(portfolio);
-			ArrayNode stocks = (ArrayNode) rootNode.get("stocks");
+			ArrayNode stocks = (ArrayNode) rootNode.get(STOCKS_ARRAY);
 
 			if(!tickerExists(ticker, stocks))
 				stocks.add(ticker);
@@ -214,7 +225,7 @@ public class ServerCommunication {
 	 * @return The portfolio	
 	 */
 	private String readPortfolio(String username) {
-		File file = new File(username + ".txt");
+		File file = new File(FILE_PATH + username + ".txt");
 		String portfolio = "";
 		Scanner scan = null;
 		
@@ -239,7 +250,7 @@ public class ServerCommunication {
 	 * @param username The name of the user
 	 * @return The current investment	
 	 */
-	public String updateCurrentInvestment(String username) {
+	private String updateCurrentInvestment(String username) {
 		double shares;
 		double price;
 		double total = 0; 
@@ -247,14 +258,14 @@ public class ServerCommunication {
 
 		if(portfolio.equals(""))
 			return "0";
-;
+
 		try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
-			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
+			ArrayNode stocks = (ArrayNode) jsonTree.get(STOCKS_ARRAY);
 
 		    for(JsonNode node : stocks) {
-				shares = jsonTree.get(node.asText()).get("shares").asDouble();
-				price = jsonTree.get(node.asText()).get("buyInPrice").asDouble();
+				shares = jsonTree.get(node.asText()).get(NUMBER_SHARES).asDouble();
+				price = jsonTree.get(node.asText()).get(BUY_IN_PRICE).asDouble();
 				total = total + shares * price;
 			}
 			return String.valueOf(oneDecimal(total));
@@ -281,13 +292,14 @@ public class ServerCommunication {
 
     	try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
-			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
+			ArrayNode stocks = (ArrayNode) jsonTree.get(STOCKS_ARRAY);
 
 			for(JsonNode node : stocks) {
-				shares = jsonTree.get(node.asText()).get("shares").asDouble();
+				shares = jsonTree.get(node.asText()).get(NUMBER_SHARES).asDouble();
 				price = api.currentPrice(node.asText());
 				total = total + price * shares;
 			}
+			updateEvaluation(username, oneDecimal(total));
 			return String.valueOf(oneDecimal(total));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
@@ -316,12 +328,12 @@ public class ServerCommunication {
 		
 		try {
 			JsonNode jsonTree = mapper.readTree(portfolio);
-			ArrayNode stocks = (ArrayNode) jsonTree.get("stocks");
+			ArrayNode stocks = (ArrayNode) jsonTree.get(STOCKS_ARRAY);
 	
 			for(JsonNode node : stocks) {
-				contentArr.add(jsonTree.get(node.asText()).get("name").asText());
-				contentArr.add(jsonTree.get(node.asText()).get("shares").asText());
-				contentArr.add(jsonTree.get(node.asText()).get("buyInPrice").asText() + " USD");
+				contentArr.add(jsonTree.get(node.asText()).get(STOCKS_NAME).asText());
+				contentArr.add(jsonTree.get(node.asText()).get(NUMBER_SHARES).asText());
+				contentArr.add(jsonTree.get(node.asText()).get(BUY_IN_PRICE).asText() + " USD");
 				tableBody = tableBody + setupTableEntries(contentArr);
 				contentArr.clear();
 			}
@@ -364,11 +376,108 @@ public class ServerCommunication {
 		return rowStart + rowElements + rowEnd;
 	}
 
+	/**
+	 * Rounds out the value to one decimal
+	 * @param value The value
+	 * @return The rounded out value	
+	 */
 	private double oneDecimal(double value) {
 		value = value * 10;
 		value = Math.floor(value);
 		value = value / 10;		
 		return value;
 	}
+
+	/**
+	 * Updates the current investment of the user
+	 * @param username The name of the user
+	 * @return The updated portfolio	
+	 */
+	private String updateInvestment(String username) {
+		String portfolio = readPortfolio(username);
+		if(portfolio.equals(""))
+			return "";
 		
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			String newValue = updateCurrentInvestment(username);
+			((ObjectNode) jsonTree).put(CURRENTLY_INVESTED, Double.parseDouble(newValue));
+			portfolio = jsonTree.toString();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return portfolio;
+	}
+
+	/** 
+	 * Updates the current evaluation of the portfolio
+	 * @param username The name of the user
+	 * @param currWorth The current net worth of the portfolio	
+	 */
+	private void updateEvaluation(String username, double currWorth) {
+		String portfolio = readPortfolio(username);
+		if(portfolio.equals(""))
+			return;
+		
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			((ObjectNode) jsonTree).put(CURRENTLY_WORTH, currWorth);
+			portfolio = jsonTree.toString();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		saveChanges(username, portfolio);
+	}
+
+	/**
+	 * Checks how much the user has invested and return that sum
+	 * @param username The name of the user
+	 * @return The sum the user has invested	
+	 */
+	public String checkCurrentInvestment(String username) {
+		String value = readPortfolioData(username, CURRENTLY_INVESTED);
+		
+		if(value.equals(""))
+			return "0";
+		
+		return value;
+	}
+
+	/**
+	 * Checks how much the portfolio is currently worth
+	 * @param username The name of the user
+	 * @return The total networth of the portfolio	
+	 */	
+	public String checkEvaluation(String username) {
+		String value = readPortfolioData(username,CURRENTLY_WORTH);
+	
+		if(value.equals(""))
+			return "0";
+	
+		return value;
+	}
+	
+	/**
+	 * Reads the given data from the portfolio
+	 * @param username The name of the user
+	 * @param data The data to read
+	 * @return The desired data from the portfolio	
+	 */
+	private String readPortfolioData(String username, String data) {
+		String portfolio = readPortfolio(username);
+		if(portfolio.equals(""))
+			return "";
+
+		String value = "";
+		try {
+			JsonNode jsonTree = mapper.readTree(portfolio);
+			JsonNode investment = jsonTree.get(data);
+			value = investment.asText();
+			
+		} catch (JsonProcessingException e) {
+	    	e.printStackTrace();
+		}
+		
+		return value;
+	}
 }

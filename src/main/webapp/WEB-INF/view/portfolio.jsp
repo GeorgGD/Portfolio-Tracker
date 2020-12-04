@@ -16,7 +16,7 @@
   <meta name="revised" content="Monday, June 16th, 12:00 pm">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/stylesheet.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/stylesheet.css">
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/2994acdae5.js" crossorigin="anonymous"></script>
   <title>Your portfolio</title>

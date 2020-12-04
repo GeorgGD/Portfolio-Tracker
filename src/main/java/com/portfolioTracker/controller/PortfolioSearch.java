@@ -2,21 +2,18 @@ package com.portfolioTracker.controller;
 
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.portfolioTracker.api.APIRequester;
 import com.portfolioTracker.api.TickerNotFoundException;
-import com.portfolioTracker.cookies.CookieHandler;
+import com.portfolioTracker.dto.PortfolioDTO;
 import com.portfolioTracker.serverCom.ServerCommunication;
-import com.portfolioTracker.view.ViewHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * The following class is meant to allow the used to create a portfolio of stocks
@@ -30,12 +27,6 @@ public class PortfolioSearch {
 	@Autowired
 	private APIRequester api;
 	
-	@Autowired
-	private ViewHandler viewHandler;
-
-	@Autowired
-	private CookieHandler cookieHandler;
-
 	@Autowired
 	private ServerCommunication server;
 
@@ -51,67 +42,61 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
-	public ModelAndView portfolioSearch(@RequestParam("ticker") String ticker,
-										@RequestParam("sharesNum") String numShares,
-										@RequestParam("buyInPrice") String buyInPrice,
-										@CookieValue(value = "username", defaultValue = "") String username,
-										@CookieValue(value = "invested", defaultValue = "0") String currInvestment,
-										@CookieValue(value = "worth", defaultValue = "0") String currWorth) {
+	public String portfolioSearch(PortfolioDTO portDTO, Model model, HttpSession session) {		
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
-	    viewHandler.newModelAndView();
-		viewHandler.setView(view);
+		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
+		String currInvestment = server.checkCurrentInvestment(username);
+		String currWorth = server.checkEvaluation(username);
 		
 		try {
-			if(Double.parseDouble(numShares) <= 0 || Double.parseDouble(buyInPrice) <= 0) {
-				viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
-				return viewHandler.getModelView();
+			if(Double.parseDouble(portDTO.getSharesNum()) <= 0 || Double.parseDouble(portDTO.getBuyInPrice()) <= 0) {
+				prepCurrentEvalAndTable(model, currInvestment, currWorth, username);
+				return view;
 			}			
-			String name = api.nameOfCompany(ticker); // So exception is caught
-			viewHandler.addObjectsToView("name", name);
+			String name = api.nameOfCompany(portDTO.getTicker()); // So exception is caught
+			model.addAttribute("name", name);
 			expValuePair.put("name", name);
 		} catch (NumberFormatException e) {
 			e.printStackTrace(); 
-			viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
-			return viewHandler.getModelView();
+		    prepCurrentEvalAndTable(model, currInvestment, currWorth, username);
+			return view;
 		} catch (TickerNotFoundException e) {
 			e.printStackTrace();
-			viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);	    
-			return viewHandler.getModelView(); 
+			prepCurrentEvalAndTable(model, currInvestment, currWorth, username);	    
+			return view; 
 		}
 		
-		expValuePair.put("shares", numShares);
-		expValuePair.put("buyInPrice", buyInPrice);			
-		server.addStockToPortfolio(username, ticker, expValuePair);
+		expValuePair.put("shares", portDTO.getSharesNum());
+		expValuePair.put("buyInPrice", portDTO.getBuyInPrice());			
+		server.addStockToPortfolio(username, portDTO.getTicker(), expValuePair);
+		currInvestment = server.checkCurrentInvestment(username);
 		
-		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currWorth, username);
+		prepCurrentEvalAndTable(model, currInvestment, currWorth, username);
 	    
-		return viewHandler.getModelView();
+		return view;
 	}
 
 	/**
 	 * Updates the current evaluation of the users portfolio
 	 * @param username The name of the user
-	 * @param response The HTTP response 
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
-	public ModelAndView updateEvaluation(@CookieValue(value = "username", defaultValue = "") String username, HttpServletResponse response) {
+	public String updateEvaluation(Model model, HttpSession session) {
+		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
 	    String view = "portfolio";
-		viewHandler.newModelAndView();
-		viewHandler.setView(view);
-		
+    
 		if(username.equals("")) {
-			viewHandler = prepCurrentEvalAndTable(viewHandler, "0", "0", username);
-			return viewHandler.getModelView();
+		    prepCurrentEvalAndTable(model, "0", "0", username);
+			return view;
 		}
 		
-		String currInvestment = server.updateCurrentInvestment(username);
+		String currInvestment = server.checkCurrentInvestment(username);
 		String currEval = server.updateCurrentEval(username);
-		viewHandler = prepCurrentEvalAndTable(viewHandler, currInvestment, currEval, username);
-		response = addToCookie(currInvestment, currEval, response);
-		
-		return viewHandler.getModelView();
+	    prepCurrentEvalAndTable(model, currInvestment, currEval, username);
+	    
+		return view;
 	}
 
 	/**
@@ -122,24 +107,9 @@ public class PortfolioSearch {
 	 * @param username The name of the user	
 	 * @return A map with EL and value pair	
 	 */
-	private ViewHandler prepCurrentEvalAndTable(ViewHandler viewHandler, String currInvestment, String currWorth, String username) {
-		viewHandler.addObjectsToView("currentInvestment", currInvestment + " USD");
-		viewHandler.addObjectsToView("currentEvaluation", currWorth + " USD");			
-		viewHandler.addObjectsToView("tableBody", server.setupTableEntries(username));
-		return viewHandler;
+	private void prepCurrentEvalAndTable(Model model, String currInvestment, String currWorth, String username) {
+		model.addAttribute("currentInvestment", currInvestment + " USD");
+		model.addAttribute("currentEvaluation", currWorth + " USD");			
+	    model.addAttribute("tableBody", server.setupTableEntries(username));	    
 	}
-
-	/**
-	 * Add values to cookie 
-	 * @param currInvestment The current investment 
-	 * @param currWorth The current net worth of the investment
-	 * @param response The HTTP response body 	
-	 * @return The response body	
-	 */
-	private HttpServletResponse addToCookie(String currInvestment, String currWorth, HttpServletResponse response) {
-		response.addCookie(cookieHandler.putInsideCookie("invested", currInvestment));
-		response.addCookie(cookieHandler.putInsideCookie("worth", currWorth));
-		
-		return response;
-	}	
 }

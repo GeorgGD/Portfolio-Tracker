@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +17,7 @@
   <meta name="revised" content="Monday, June 16th, 12:00 pm">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/stylesheet.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/stylesheet.css">
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/2994acdae5.js" crossorigin="anonymous"></script>
   <title>Stock Market Research</title>
@@ -37,11 +38,16 @@
           </p>
         </div>
         <div class="col-4 pl-5 pr-5 pb-4 pt-2 more-margin">
-          <form action="username" method="post">
-            <input type="text" name="userName" placeholder="Username" class="form-conrol">
-          	<button type="submit" class="btn btn-primary font-weight-bold mt-2">Get Started</button>
-          </form>  
-          <p>${errorMsg}</p>        
+          <form:form action="username" method="post" modelAttribute="userInfo">
+	   <label for="username" class="mb-1">Username:</label>
+        <form:input type="text" path="username" placeholder="Username" class="form-conrol"/> 
+	<form:errors path="username" cssClass="error"/> <br>
+	    <label for="password" class="mt-2 mb-1">Password:</label>
+            <form:input type="password" path="password" class="form-conrol"/>
+	    <form:errors path="password" cssClass="error"/><br>
+          <button type="submit" name="login" class="btn btn-primary font-weight-bold mt-3 btn-block">Login</button>
+	  <button type="submit" name="register" class="btn btn-secondary font-weight-bold mt-2 btn-block">Register</button>
+          </form:form>
         </div>
       </div>
     </div>
@@ -55,7 +61,7 @@
       </p>
       <form action="tickerSearch" method="get">
         <input class="form-control col-sm-3" type="text" name="ticker" placeholder="Ticker">
-        <button type="submit" class="btn btn-primary font-weight-bold mt-2">Search</button>
+         <button type="submit" class="btn btn-primary font-weight-bold mt-2">Search</button>         
       </form>
     </div>
     <p class="mt-3 mb-0">
