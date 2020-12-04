@@ -31,13 +31,15 @@ public class Username {
 	private UserAuth userAuth;
 	
 	/**
-	 * Sets a cookie with the username that was provided
-	 * @param username The desired username
-	 * @param response The response object
-	 * @return The view with the data to display	
+	 * Used when trying to login into the portfolio account
+	 * @param user The user trying to login
+	 * @param result All the validation errors
+	 * @param model The model from the request scope
+	 * @param session The session from the session scope	
+	 * @return The view	
 	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "login")
-	public String loginUser(@Valid @ModelAttribute("userInfo") User user, BindingResult result,Model model, HttpSession session) {
+	public String loginUser(@Valid @ModelAttribute("userInfo") User user, BindingResult result, Model model, HttpSession session) {
 		String username = user.getUsername();
 	    
 		if(result.hasErrors()) {		    
@@ -88,6 +90,11 @@ public class Username {
 		return viewForErrors;
 	}
 
+	/**
+	 * Provides data to a model 
+	 * @param username The name of the user
+	 * @param model The model from the request scope	
+	 */
 	private void setupModel(String username, Model model) {
 		String jspExpression;
 		String currency = " USD";		
