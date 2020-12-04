@@ -122,9 +122,8 @@ public class UserAuth {
 		FileWriter toWrite = null;
 		try {
 			user.createNewFile();		
-			toWrite = new FileWriter(username + ".txt", false);
+			toWrite = new FileWriter(filePath + username + ".txt", false);
 			toWrite.write(toSave);
-			System.out.println(username + ".txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
