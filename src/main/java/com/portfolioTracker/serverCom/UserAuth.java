@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,8 +25,7 @@ public class UserAuth {
 
 	@Autowired
 	private ObjectMapper mapper;
-	
-	URL url = this.getClass().getResource("/users/"); // URL to resources 
+    
 
 	/**
 	 * Checks if user is registered
@@ -38,7 +36,7 @@ public class UserAuth {
 		if(user.getUsername() == null || user.getUsername().equals(""))
 			return false;		
 	    
-		File userFile = new File(url.toString() + user.getUsername() + ".txt");
+		File userFile = new File(user.getUsername() + ".txt");
 		if(!userFile.exists())
 			return false;
 		
@@ -54,7 +52,7 @@ public class UserAuth {
 		if(!userIsRegistered(user))
 			return false;
 		
-		String userInfo = readUserFile(url.toString() + user.getUsername() + ".txt");
+		String userInfo = readUserFile(user.getUsername() + ".txt");
 		try {
 			ObjectNode rootNode = (ObjectNode) mapper.readTree(userInfo);
 			ObjectNode passNode = (ObjectNode) rootNode.get("password");
@@ -122,11 +120,11 @@ public class UserAuth {
 		
 		File user = new File(username + ".txt");
 		FileWriter toWrite = null;
-		String filePath = url.toString();
 		try {
 			user.createNewFile();		
-			toWrite = new FileWriter(filePath + username + ".txt", false);
+			toWrite = new FileWriter(username + ".txt", false);
 			toWrite.write(toSave);
+			System.out.println(username + ".txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
