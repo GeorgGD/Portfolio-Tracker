@@ -37,7 +37,7 @@ public class Username {
 	 * @return The view with the data to display	
 	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "login")
-	public String setUsername(@Valid @ModelAttribute("userInfo") User user, BindingResult result,Model model, HttpSession session) {
+	public String loginUser(@Valid @ModelAttribute("userInfo") User user, BindingResult result,Model model, HttpSession session) {
 		String username = user.getUsername();
 	    
 		if(result.hasErrors()) {		    
