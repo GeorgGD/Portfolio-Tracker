@@ -44,6 +44,7 @@ public class ServerCommunication {
 	private final String STOCKS_ARRAY = "stocks";
 	private final String NUMBER_SHARES = "shares";
 	private final String BUY_IN_PRICE = "buyInPrice";
+	private String FILE_PATH = "src/main/resources/portfolios/";
 
 	/**
 	 * Creates a user
@@ -51,7 +52,7 @@ public class ServerCommunication {
 	 */ 
 	public void createUser(String username) {
 		try {			
-			File user = new File(username + ".txt");
+			File user = new File(FILE_PATH + username + ".txt");
 			user.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -82,7 +83,7 @@ public class ServerCommunication {
 	 */
 	public void addStockToPortfolio(String username, String ticker, HashMap<String, String> stockData) {
 		String portfolio;
-		File user = new File(username + ".txt");
+		File user = new File(FILE_PATH + username + ".txt");
 		if (user.exists()) {
 			portfolio = addStockToPortfolioAux(username, ticker, stockData);		    
 		} else {
@@ -104,11 +105,11 @@ public class ServerCommunication {
 		if(username.equals(""))
 			return;
 		
-		File user = new File(username + ".txt");
+		File user = new File(FILE_PATH + username + ".txt");
 		FileWriter toWrite = null;
 		if(user.exists()) {
 			try {
-				toWrite = new FileWriter(username + ".txt", false);
+				toWrite = new FileWriter(FILE_PATH + username + ".txt", false);
 				toWrite.write(toSave);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -124,7 +125,7 @@ public class ServerCommunication {
 		} else {
 			createUser(username);
 			try {
-				toWrite = new FileWriter(username + ".txt", false);
+				toWrite = new FileWriter(FILE_PATH + username + ".txt", false);
 				toWrite.write(toSave);
 			} catch (IOException e) {
 		    	e.printStackTrace();
@@ -224,7 +225,7 @@ public class ServerCommunication {
 	 * @return The portfolio	
 	 */
 	private String readPortfolio(String username) {
-		File file = new File(username + ".txt");
+		File file = new File(FILE_PATH + username + ".txt");
 		String portfolio = "";
 		Scanner scan = null;
 		
