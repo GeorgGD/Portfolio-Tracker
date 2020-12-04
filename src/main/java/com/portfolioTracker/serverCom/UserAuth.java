@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.portfolioTracker.dto.User;
@@ -55,7 +56,7 @@ public class UserAuth {
 		String userInfo = readUserFile(FILE_PATH + user.getUsername() + ".txt");
 		try {
 			ObjectNode rootNode = (ObjectNode) mapper.readTree(userInfo);
-			ObjectNode passNode = (ObjectNode) rootNode.get("password");
+			JsonNode passNode =  rootNode.get("password");
 			if(!user.getPassword().equals(passNode.asText()))
 				return false;
 		} catch (JsonProcessingException e) {
