@@ -25,8 +25,8 @@ public class UserAuth {
 
 	@Autowired
 	private ObjectMapper mapper;
-    
-
+	
+	private String filePath = "src/main/resources/users/";
 	/**
 	 * Checks if user is registered
 	 * @param user A user
@@ -36,7 +36,7 @@ public class UserAuth {
 		if(user.getUsername() == null || user.getUsername().equals(""))
 			return false;		
 	    
-		File userFile = new File(user.getUsername() + ".txt");
+		File userFile = new File(filePath + user.getUsername() + ".txt");
 		if(!userFile.exists())
 			return false;
 		
@@ -52,7 +52,7 @@ public class UserAuth {
 		if(!userIsRegistered(user))
 			return false;
 		
-		String userInfo = readUserFile(user.getUsername() + ".txt");
+		String userInfo = readUserFile(filePath + user.getUsername() + ".txt");
 		try {
 			ObjectNode rootNode = (ObjectNode) mapper.readTree(userInfo);
 			ObjectNode passNode = (ObjectNode) rootNode.get("password");
@@ -118,7 +118,7 @@ public class UserAuth {
 		if(username.equals(""))
 			return;
 		
-		File user = new File(username + ".txt");
+		File user = new File(filePath + username + ".txt");
 		FileWriter toWrite = null;
 		try {
 			user.createNewFile();		
