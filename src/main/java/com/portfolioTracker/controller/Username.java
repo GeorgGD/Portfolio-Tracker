@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import com.portfolioTracker.dto.User;
 import com.portfolioTracker.serverCom.ServerCommunication;
+import com.portfolioTracker.serverCom.UserAuth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,10 @@ public class Username {
 	
 	@Autowired
 	private ServerCommunication server;
+
+	@Autowired
+	private UserAuth userAuth;
+	
 	/**
 	 * Sets a cookie with the username that was provided
 	 * @param username The desired username
