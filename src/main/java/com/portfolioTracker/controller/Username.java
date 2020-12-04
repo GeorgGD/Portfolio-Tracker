@@ -64,7 +64,22 @@ public class Username {
 	}
 
 	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "register")
-	public String registerUser() {
-		return "index";
+	public String registerUser(@Valid @ModelAttribute("userInfo") User user, BindingResult errorResult, Model model, HttpSession session) {
+		String viewForErrors = "index";
+		String viewForSuccess = "portfolio";
+		
+		if(errorResult.hasErrors()) {
+			return viewForErrors;
+		}
+
+		if(userAuth.userIsRegistered(user))
+			return viewForErrors;
+
+		if(userAuth.registerUser(user)) {
+			session.setAttribute("username", user.getUsername());
+			return viewForSuccess;
+		}
+		
+		return viewForErrors;
 	}
 }
