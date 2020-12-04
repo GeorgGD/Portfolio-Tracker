@@ -57,6 +57,14 @@ public class Username {
 	    return "index";
 	}
 
+	/**
+	 * Registers a new user into the datebase 
+	 * @param user The user to register
+	 * @param errorResult All the validation errors	
+	 * @param model The model from the request scope
+	 * @param session The session from the session scope
+	 * @return The view	
+	 */
 	@RequestMapping(value = "/username", method = RequestMethod.POST, params = "register")
 	public String registerUser(@Valid @ModelAttribute("userInfo") User user, BindingResult errorResult, Model model, HttpSession session) {
 		String viewForErrors = "index";
