@@ -3,6 +3,7 @@ package com.portfolioTracker.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.portfolioTracker.dto.PortfolioDTO;
 import com.portfolioTracker.dto.User;
 import com.portfolioTracker.serverCom.ServerCommunication;
 import com.portfolioTracker.serverCom.UserAuth;
@@ -50,8 +51,9 @@ public class Username {
 			server.createUser(username);
 			session.setAttribute("username", username);
 			session.setMaxInactiveInterval(60*60*24*2);
-		
+			
 			setupModel(username, model);
+			
 			return "portfolio";
 		}
 		
@@ -112,6 +114,6 @@ public class Username {
 
 		jspExpression = "tableBody";
 	    model.addAttribute(jspExpression, server.setupTableEntries(username));
-
+		model.addAttribute("portfolioData", new PortfolioDTO());
 	}
 }
