@@ -19,5 +19,5 @@
   1. Create some sort of login authentication. DONE!
   2. Remove cookieHandler and instead use sessions. DONE!
   3. Replace ModelAndView with just Model and have controller return view. DONE!
-  4. Add css for error messages.
+  4. Add css for error messages. DONE!
   5. Use validation for landing page and portfolio page.
