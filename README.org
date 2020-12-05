@@ -20,4 +20,6 @@
   2. Remove cookieHandler and instead use sessions. DONE!
   3. Replace ModelAndView with just Model and have controller return view. DONE!
   4. Add css for error messages. DONE!
-  5. Use validation for landing page and portfolio page.
+  5. Use validation for landing page and portfolio page. DONE!
+  6. Redo all tests who don't work because of the changes to the methods.
+  
