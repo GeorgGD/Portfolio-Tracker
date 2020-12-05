@@ -45,6 +45,7 @@
 	    <label for="password" class="mt-2 mb-1">Password:</label>
             <form:input type="password" path="password" class="form-conrol"/>
 	    <form:errors path="password" cssClass="error"/><br>
+	   <span class="error">${errorMsg}</span><br>
           <button type="submit" name="login" class="btn btn-primary font-weight-bold mt-3 btn-block">Login</button>
 	  <button type="submit" name="register" class="btn btn-secondary font-weight-bold mt-2 btn-block">Register</button>
           </form:form>
