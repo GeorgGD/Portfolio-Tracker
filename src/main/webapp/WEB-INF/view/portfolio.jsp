@@ -54,7 +54,7 @@
             <div class="col-sm-5"></div>
             <button type="submit" class="btn btn-primary text-white col-sm-5"><b>Add</b></button>
           </div>
-        </form>
+        </form:form>
       </div>
 
       <div class="totalValue col-4 text-center">
