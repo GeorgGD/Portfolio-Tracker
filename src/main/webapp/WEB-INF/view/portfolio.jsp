@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,18 +34,18 @@
         <p class="w-auto">
           Please search for US companies as companies from other countries are not supported as of now!
         </p>
-        <form action="portfolioSearch" method="get" class="">
+        <form:form action="portfolioSearch" method="get" class="">
           <div class="form-group row w-75">
             <label for="ticker" class="col-sm-5 col-form-label">Companies ticker symbol</label>
-            <input class="form-control col-sm-5" type="text" name="ticker" placeholder="Ticker">
+            <form:input class="form-control col-sm-5" type="text" path="ticker" placeholder="Ticker"/>
           </div>
           <div class="form-group row w-75">
             <label for="sharesNum" class="col-sm-5 col-form-label">Number of shares</label>
-            <input class="form-control col-sm-5" type="number" name="sharesNum" placeholder="0">
+            <form:input class="form-control col-sm-5" type="number" path="sharesNum" placeholder="0"/>
           </div>
           <div class="form-group row w-75">
             <label for="buyInPrice" class="col-sm-5 col-form-label">Per share price</label>
-            <input class="form-control col-sm-5" type="text" name="buyInPrice" placeholder="0.0">
+            <form:input class="form-control col-sm-5" type="text" path="buyInPrice" placeholder="0.0"/>
           </div>
           <div class="row w-75">
             <div class="col-sm-5"></div>
