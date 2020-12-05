@@ -51,9 +51,6 @@ public class PortfolioSearch {
 		String currInvestment = server.checkCurrentInvestment(username);
 		String currWorth = server.checkEvaluation(username);
 
-		if(result.hasErrors())
-			return view;
-
 		try {
 			if(Double.parseDouble(portDTO.getSharesNum()) <= 0 || Double.parseDouble(portDTO.getBuyInPrice()) <= 0) {
 				prepCurrentEvalAndTable(model, currInvestment, currWorth, username);
