@@ -16,6 +16,10 @@ body {
   margin: 0 auto;
 }
 
+.error {
+    color: #f67b1c; 
+}
+
 .hero-img {
   height: 20rem;
 }
