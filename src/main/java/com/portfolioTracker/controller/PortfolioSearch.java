@@ -3,6 +3,7 @@ package com.portfolioTracker.controller;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import com.portfolioTracker.api.APIRequester;
 import com.portfolioTracker.api.TickerNotFoundException;
@@ -12,6 +13,7 @@ import com.portfolioTracker.serverCom.ServerCommunication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -42,13 +44,16 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
-	public String portfolioSearch(PortfolioDTO portDTO, Model model, HttpSession session) {		
+	public String portfolioSearch(@Valid PortfolioDTO portDTO, BindingResult result, Model model, HttpSession session) {		
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
 		String currInvestment = server.checkCurrentInvestment(username);
 		String currWorth = server.checkEvaluation(username);
-		
+
+		if(result.hasErrors())
+			return view;
+
 		try {
 			if(Double.parseDouble(portDTO.getSharesNum()) <= 0 || Double.parseDouble(portDTO.getBuyInPrice()) <= 0) {
 				prepCurrentEvalAndTable(model, currInvestment, currWorth, username);
