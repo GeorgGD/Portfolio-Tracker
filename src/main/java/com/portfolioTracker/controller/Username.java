@@ -55,7 +55,7 @@ public class Username {
 			return "portfolio";
 		}
 		
-
+		model.addAttribute("errorMsg", "Login failed, Username and Password didn't match");
 	    return "index";
 	}
 
@@ -76,8 +76,10 @@ public class Username {
 			return viewForErrors;
 		}
 
-		if(userAuth.userIsRegistered(user))
+		if (userAuth.userIsRegistered(user)) {
+			model.addAttribute("errorMsg", "Registration failed, username is taken");	    
 			return viewForErrors;
+		}
 
 		if(userAuth.registerUser(user)) {
 			session.setAttribute("username", user.getUsername());
@@ -86,7 +88,8 @@ public class Username {
 			setupModel(user.getUsername(), model);
 			return viewForSuccess;
 		}
-		
+
+		model.addAttribute("errorMsg", "Registration failed!");	    		
 		return viewForErrors;
 	}
 
