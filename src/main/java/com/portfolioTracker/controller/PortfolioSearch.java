@@ -86,7 +86,7 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/updateEval", method = RequestMethod.GET)
-	public String updateEvaluation(Model model, HttpSession session) {
+	public String updateEvaluation(@ModelAttribute("portfolioData") PortfolioDTO portDTO, Model model, HttpSession session) {
 		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
 	    String view = "portfolio";
     
