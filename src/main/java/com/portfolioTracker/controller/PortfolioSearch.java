@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,7 +45,7 @@ public class PortfolioSearch {
 	 * @return The view with the data to display	
 	 */	
 	@RequestMapping(value = "/portfolioSearch", method = RequestMethod.GET)
-	public String portfolioSearch(@Valid PortfolioDTO portDTO, BindingResult result, Model model, HttpSession session) {		
+	public String portfolioSearch(@Valid @ModelAttribute("portfolioData") PortfolioDTO portDTO, BindingResult result, Model model, HttpSession session) {		
 		HashMap<String, String> expValuePair = new HashMap<String, String>();
 	    String view = "portfolio";
 		String username = (String) session.getAttribute("username"); // in the future their will be servlet filters!		
