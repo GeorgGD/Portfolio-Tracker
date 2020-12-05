@@ -38,17 +38,17 @@
           <div class="form-group row w-75">
             <label for="ticker" class="col-sm-5 col-form-label">Companies ticker symbol</label>
             <form:input path="ticker" placeholder="Ticker" class="form-control col-sm-5"/>
-	    <form:errors path="ticker" cssClass="error"/> <br>
+	    <form:errors path="ticker" cssClass="error col-sm-5"/><br>
           </div>
           <div class="form-group row w-75">
             <label for="sharesNum" class="col-sm-5 col-form-label">Number of shares</label>
             <form:input class="form-control col-sm-5" type="number" path="sharesNum" placeholder="0"/>
-	    <form:errors path="sharesNum" cssClass="error"/> <br>
+	    <form:errors path="sharesNum" cssClass="error col-sm-5"/> <br>
           </div>
           <div class="form-group row w-75">
             <label for="buyInPrice" class="col-sm-5 col-form-label">Per share price</label>
             <form:input class="form-control col-sm-5" type="text" path="buyInPrice" placeholder="0.0"/>
-	    <form:errors path="buyInPrice" cssClass="error"/> <br>
+	    <form:errors path="buyInPrice" cssClass="error col-sm-5"/> <br>
           </div>
           <div class="row w-75">
             <div class="col-sm-5"></div>
