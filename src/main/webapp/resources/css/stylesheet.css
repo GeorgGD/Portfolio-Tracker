@@ -16,10 +16,6 @@ body {
   margin: 0 auto;
 }
 
-.w-auto {
-  display: inline-block;
-}
-
 .hero-img {
   height: 20rem;
 }
@@ -42,4 +38,8 @@ body {
 
 .orange {
   color: #f67b1c;
+}
+
+.w-auto {
+  display: inline-block;
 }
