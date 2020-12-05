@@ -15,7 +15,7 @@ public class PortfolioDTO {
 	@NotBlank(message = "Please provide number of shares")
 	private String sharesNum;
 
-	@NotBlank(message = "Please provide the averaeg cost per share")
+	@NotBlank(message = "Please provide the average cost per share")
 	private String buyInPrice;
 
 	/**
