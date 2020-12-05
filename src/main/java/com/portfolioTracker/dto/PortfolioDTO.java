@@ -11,8 +11,10 @@ import javax.validation.constraints.NotBlank;
 public class PortfolioDTO {
 	@NotBlank(message = "Please provide a ticker")
 	private String ticker;
+
 	@NotBlank(message = "Please provide number of shares")
 	private String sharesNum;
+
 	@NotBlank(message = "Please provide the averaeg cost per share")
 	private String buyInPrice;
 
