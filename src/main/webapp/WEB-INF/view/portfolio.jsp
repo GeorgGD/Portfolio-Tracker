@@ -34,10 +34,10 @@
         <p class="w-auto">
           Please search for US companies as companies from other countries are not supported as of now!
         </p>
-        <form:form action="portfolioSearch" method="get" class="">
+        <form:form action="portfolioSearch" method="get" modelAttribute="portfolioData">
           <div class="form-group row w-75">
             <label for="ticker" class="col-sm-5 col-form-label">Companies ticker symbol</label>
-            <form:input class="form-control col-sm-5" type="text" path="ticker" placeholder="Ticker"/>
+            <form:input path="ticker" placeholder="Ticker" class="form-control col-sm-5"/>
 	    <form:errors path="ticker" cssClass="error"/> <br>
           </div>
           <div class="form-group row w-75">
