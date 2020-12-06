@@ -61,7 +61,7 @@ public class PortfolioSearchTest {
 		
 	@Test
 	public void viewTest() {
-		String actualView = portfolio.portfolioSearch(portDTO, model, session);
+		String actualView = portfolio.portfolioSearch(portDTO, errors, model, session);
 
 		String expectedView = "portfolio";
 		assertEquals(expectedView, actualView);
@@ -69,7 +69,7 @@ public class PortfolioSearchTest {
 
 	@Test
 	public void checkAttributeValues() {
-    	String view = portfolio.portfolioSearch(portDTO,model, session);
+    	String view = portfolio.portfolioSearch(portDTO, errors, model, session);
 	    
 		String expectedResult = "<tr><td>Microsoft Corporation</td><td>20</td><td>5 USD</td></tr>";
 		String elExpresion = "tableBody";
@@ -78,8 +78,8 @@ public class PortfolioSearchTest {
 
 	@Test
 	public void updateEvaluationTest() {
-    	portfolio.portfolioSearch(portDTO, model, session);
-		String view = portfolio.updateEvaluation(model, session);	    
+    	portfolio.portfolioSearch(portDTO, errors, model, session);
+		String view = portfolio.updateEvaluation(portDTO, model, session);	    
 
 		String expectedCurrentValue = "100.0 USD";
 		assertEquals(expectedCurrentValue, (String) model.getAttribute("currentInvestment"));
