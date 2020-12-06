@@ -50,6 +50,7 @@ public class UserAuthTest {
 	public void userIsRegisteredTest() {
 		UserAuth userAuth = initialize();
 		User user = initUser();
+		user.setUsername("Stig");
 		boolean expectedRegistered = false;
 		boolean actuallyRegistered = userAuth.userIsRegistered(user);
 		assertEquals(expectedRegistered, actuallyRegistered);
@@ -72,4 +73,13 @@ public class UserAuthTest {
 		boolean actualVal = userAuth.userIsRegistered(user);
 		assertEquals(expectedVal, actualVal);
 	}
+	
+	@Test
+	public void loginSuccessTest() {
+		UserAuth userAuth = initialize();
+		User user = initUser();
+		boolean expectedVal = true;
+		boolean actualVal = userAuth.loginSuccess(user);
+		assertEquals(expectedVal, actualVal);
+	}	
 }
