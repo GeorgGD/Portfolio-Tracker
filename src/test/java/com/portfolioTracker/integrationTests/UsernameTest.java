@@ -42,7 +42,7 @@ public class UsernameTest {
 	}
 
 	@Test
-	public void setUsernameCookieNoInputTest() {
+	public void loginNonExistingUserTest() {
 		User user = new User();
 		user.setUsername("Test");
 		user.setPassword("123456");
