@@ -1,6 +1,7 @@
 package com.portfolioTracker.serverCom;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolioTracker.dto.User;
@@ -24,5 +25,8 @@ public class UserAuthTest {
 	public void userIsRegisteredTest() {
 		UserAuth userAuth = initialize();
 		User user = initUser();
+		boolean expectedRegistered = false;
+		boolean actuallyRegistered = userAuth.userIsRegistered(user);
+		assertEquals(expectedRegistered, actuallyRegistered);
 	}
 }
