@@ -10,6 +10,7 @@ import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolioTracker.api.YahooAPIRequester;
 
+import org.junit.After;
 import org.junit.Test;
 
 public class ServerCommunicationTest {
@@ -43,6 +44,13 @@ public class ServerCommunicationTest {
 			scan.close();
 		return portfolio;
 
+	}
+
+	@After
+	public void removeFiles() {
+		String FILE_PATH = "src/main/resources/portfolios/";
+		File file = new File(FILE_PATH + "unitTest.txt");
+		file.delete();
 	}
 	
 	@Test
