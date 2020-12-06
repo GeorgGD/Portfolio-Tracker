@@ -16,8 +16,8 @@ body {
   margin: 0 auto;
 }
 
-.w-auto {
-  display: inline-block;
+.error {
+    color: #f67b1c; 
 }
 
 .hero-img {
@@ -42,4 +42,8 @@ body {
 
 .orange {
   color: #f67b1c;
+}
+
+.w-auto {
+  display: inline-block;
 }

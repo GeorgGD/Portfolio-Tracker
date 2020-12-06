@@ -2,9 +2,14 @@ package com.portfolioTracker.integrationTests;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+
+import java.io.File;
+
 import com.portfolioTracker.controller.Username;
 import com.portfolioTracker.dto.User;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import org.springframework.validation.MapBindingResult;
 
 import config.SpringConfig;
 
@@ -29,25 +35,57 @@ public class UsernameTest {
 	private MockHttpSession session;
 
 	private Model model;
+	private MapBindingResult errors;
 	
 	@Before
 	public void setup() {
 		session = new MockHttpSession();
 		model = new ExtendedModelMap();
+		errors = new MapBindingResult(new HashMap<String, String>(), "dummy");
 	}
-
-/*	@Test
-	public void setUsernameCookieNoInputTest() {
+	
+	@After
+	public void removeFiles() {
+		String FILE_PATH = "src/main/resources/users/";
+		File file = new File(FILE_PATH + "Test.txt");
+		file.delete();
+	}
+	
+	@Test
+	public void loginNonExistingUserTest() {
 		User user = new User();
-		user.setUsername("");
-		String expectedResult = "Please provide a Username!";
-		String expectedView = "index";
-		String expectedKey = "errorMsg";
+		user.setUsername("Test");
+		user.setPassword("123456");
 		
-		String actualView = username.loginUser(user, result, model, session);	    
-		String actualResult = (String) model.getAttribute(expectedKey);
-
-		assertEquals(expectedResult, actualResult);
+		String expectedView = "index";		
+		String actualView = username.loginUser(user, errors, model, session);	    
+		
 		assertEquals(expectedView, actualView);
-	}*/
+		
+		String expectedMsg = "Login failed, Username and Password didn't match";
+		String actualMsg = (String) model.getAttribute("errorMsg");
+		assertEquals(expectedMsg, actualMsg);
+	}
+	
+	@Test
+	public void registerUserTest() {
+		User user = new User();
+		user.setUsername("Test");
+		user.setPassword("123456");
+		
+		String expectedView = "portfolio";
+		String actualView = username.registerUser(user, errors, model, session);
+		assertEquals(expectedView, actualView);				
+	}
+	
+	@Test
+	public void loginExistingUserTest() {
+		User user = new User();
+		user.setUsername("Test");
+		user.setPassword("123456");
+		
+		String expectedView = "portfolio";
+		String actualView = username.loginUser(user, errors, model, session);
+        assertEquals(expectedView, actualView);        
+	}
 }

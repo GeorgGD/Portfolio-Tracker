@@ -3,6 +3,7 @@ package com.portfolioTracker.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.portfolioTracker.dto.PortfolioDTO;
 import com.portfolioTracker.dto.User;
 import com.portfolioTracker.serverCom.ServerCommunication;
 import com.portfolioTracker.serverCom.UserAuth;
@@ -50,12 +51,13 @@ public class Username {
 			server.createUser(username);
 			session.setAttribute("username", username);
 			session.setMaxInactiveInterval(60*60*24*2);
-		
+			
 			setupModel(username, model);
+			
 			return "portfolio";
 		}
 		
-
+		model.addAttribute("errorMsg", "Login failed, Username and Password didn't match");
 	    return "index";
 	}
 
@@ -76,8 +78,10 @@ public class Username {
 			return viewForErrors;
 		}
 
-		if(userAuth.userIsRegistered(user))
+		if (userAuth.userIsRegistered(user)) {
+			model.addAttribute("errorMsg", "Registration failed, username is taken");	    
 			return viewForErrors;
+		}
 
 		if(userAuth.registerUser(user)) {
 			session.setAttribute("username", user.getUsername());
@@ -86,7 +90,8 @@ public class Username {
 			setupModel(user.getUsername(), model);
 			return viewForSuccess;
 		}
-		
+
+		model.addAttribute("errorMsg", "Registration failed!");	    		
 		return viewForErrors;
 	}
 
@@ -109,6 +114,6 @@ public class Username {
 
 		jspExpression = "tableBody";
 	    model.addAttribute(jspExpression, server.setupTableEntries(username));
-
+		model.addAttribute("portfolioData", new PortfolioDTO());
 	}
 }

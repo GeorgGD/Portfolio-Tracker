@@ -1,5 +1,7 @@
 package com.portfolioTracker.dto;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * PortfolioDTO is meant to minimize the need to make multiple @RequestParam
  * requests inside a single method. 
@@ -7,8 +9,13 @@ package com.portfolioTracker.dto;
  * @since 2020-11-26
  */
 public class PortfolioDTO {
+	@NotBlank(message = "Please provide a ticker")
 	private String ticker;
+
+	@NotBlank(message = "Please provide number of shares")
 	private String sharesNum;
+
+	@NotBlank(message = "Please provide the average cost per share")
 	private String buyInPrice;
 
 	/**

@@ -3,6 +3,7 @@ package com.portfolioTracker.integrationTests;
 import static org.junit.Assert.*;
 
 import com.portfolioTracker.controller.TickerSearchController;
+import com.portfolioTracker.dto.User;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,15 +26,17 @@ public class TickerSearchControllerTest {
 	private TickerSearchController searchController;
 
 	private Model model;
-
+	private User user;
+	
 	@Before
 	private void setupModel() {
 		model = new ExtendedModelMap();
+		user = new User();
 	}
 	
 	@Test
 	public void tickerSearchNoInputTest() {
-		String view = searchController.tickerSearch("", model);
+		String view = searchController.tickerSearch(user, "", model);
 	    String expectedResult = "ERROR: Ticker not found!";
 		String actualResult = (String) model.getAttribute("result");
 
@@ -42,7 +45,7 @@ public class TickerSearchControllerTest {
 	
 	@Test
 	public void tickerSearchTest() {
-		String view = searchController.tickerSearch("MSFT", model);
+		String view = searchController.tickerSearch(user, "MSFT", model);
     	String notExpectedResult = "ERROR: Ticker not found!";
 		String actualResult = (String) model.getAttribute("result");
 

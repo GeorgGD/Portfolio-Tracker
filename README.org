@@ -14,9 +14,4 @@
   - Tomcat 8
   - OkHttp3
   - Jackson    
-    
-*** TODO's
-  1. Create some sort of login authentication.
-  2. Remove cookieHandler and instead use sessions. DONE!
-  3. Replace ModelAndView with just Model and have controller return view. DONE!
-  4. Add css for error messages.
+  

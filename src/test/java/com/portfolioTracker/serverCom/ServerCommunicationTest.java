@@ -10,10 +10,13 @@ import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolioTracker.api.YahooAPIRequester;
 
+import org.junit.After;
 import org.junit.Test;
 
 public class ServerCommunicationTest {
-
+	
+	private String FILE_PATH = "src/main/resources/portfolios/";
+	
 	private ServerCommunication initialize() {
 		ServerCommunication server = new ServerCommunication();
 		server.setAPIRequester(new YahooAPIRequester());
@@ -22,7 +25,7 @@ public class ServerCommunicationTest {
 	}
 
 	private String readPortfolio(String username) {
-		File file = new File(username + ".txt");
+		File file = new File(FILE_PATH + username + ".txt");
 		String portfolio = "";
 		Scanner scan = null;
 		
@@ -42,6 +45,13 @@ public class ServerCommunicationTest {
 		return portfolio;
 
 	}
+
+	@After
+	public void removeFiles() {
+		String FILE_PATH = "src/main/resources/portfolios/";
+		File file = new File(FILE_PATH + "unitTest.txt");
+		file.delete();
+	}
 	
 	@Test
 	public void createUserTest() {
@@ -49,7 +59,7 @@ public class ServerCommunicationTest {
 		String expUser = "unitTest";
 		server.createUser(expUser);
 
-		File file = new File(expUser + ".txt");
+		File file = new File(FILE_PATH + expUser + ".txt");
 		assertTrue(file.exists());
 	}
 
@@ -59,7 +69,7 @@ public class ServerCommunicationTest {
 		HashMap<String,String> stockData = new HashMap<String,String>();
 		String expTicker = "MSFT";	
 		String expUser = "unitTest";
-		String expectedResult = "{\"stocks\":[\"MSFT\"],\"invested\":100.0,\"worth\":0\"MSFT\":{\"shares\":\"20\",\"buyInPrice\":\"5\"}}";
+		String expectedResult = "{\"stocks\":[\"MSFT\"],\"invested\":100.0,\"worth\":0.0\"MSFT\":{\"shares\":\"20\",\"buyInPrice\":\"5\"}}";
 		
 		server.createUser(expUser);
 		stockData.put("shares", "20");

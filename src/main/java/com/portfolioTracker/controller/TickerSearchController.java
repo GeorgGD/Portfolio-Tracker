@@ -1,10 +1,12 @@
 package com.portfolioTracker.controller;
 
 import com.portfolioTracker.api.APIRequester;
+import com.portfolioTracker.dto.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,7 +29,7 @@ public class TickerSearchController {
 	 * @return The model and view holding the stocks name and current price	
 	 */	
 	@RequestMapping("/tickerSearch")
-	public String tickerSearch(@RequestParam("ticker") String ticker, Model model) {
+	public String tickerSearch(@ModelAttribute("userInfo") User user, @RequestParam("ticker") String ticker, Model model) {
 		String jspExpression = "result";
 		String view = "index";
 		

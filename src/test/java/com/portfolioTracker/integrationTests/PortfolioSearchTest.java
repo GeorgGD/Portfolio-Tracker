@@ -3,6 +3,8 @@ package com.portfolioTracker.integrationTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.util.HashMap;
+
 import com.portfolioTracker.controller.PortfolioSearch;
 import com.portfolioTracker.dto.PortfolioDTO;
 
@@ -16,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import org.springframework.validation.MapBindingResult;
 
 import config.SpringConfig;
 
@@ -32,6 +35,8 @@ public class PortfolioSearchTest {
 	private MockHttpSession session;
 
 	private Model model;
+
+	private MapBindingResult errors;
 	
 	@Before
 	public void setupPortfolioDTO() {
@@ -49,13 +54,14 @@ public class PortfolioSearchTest {
 	}
 
 	@Before
-	public void setupModel() {
+	public void setup() {
 		model = new ExtendedModelMap();
+		errors = new MapBindingResult(new HashMap<String, String>(), "dummy");
 	}
 		
 	@Test
 	public void viewTest() {
-		String actualView = portfolio.portfolioSearch(portDTO, model, session);
+		String actualView = portfolio.portfolioSearch(portDTO, errors, model, session);
 
 		String expectedView = "portfolio";
 		assertEquals(expectedView, actualView);
@@ -63,7 +69,7 @@ public class PortfolioSearchTest {
 
 	@Test
 	public void checkAttributeValues() {
-    	String view = portfolio.portfolioSearch(portDTO,model, session);
+    	String view = portfolio.portfolioSearch(portDTO, errors, model, session);
 	    
 		String expectedResult = "<tr><td>Microsoft Corporation</td><td>20</td><td>5 USD</td></tr>";
 		String elExpresion = "tableBody";
@@ -72,8 +78,8 @@ public class PortfolioSearchTest {
 
 	@Test
 	public void updateEvaluationTest() {
-    	portfolio.portfolioSearch(portDTO, model, session);
-		String view = portfolio.updateEvaluation(model, session);	    
+    	portfolio.portfolioSearch(portDTO, errors, model, session);
+		String view = portfolio.updateEvaluation(portDTO, model, session);	    
 
 		String expectedCurrentValue = "100.0 USD";
 		assertEquals(expectedCurrentValue, (String) model.getAttribute("currentInvestment"));
