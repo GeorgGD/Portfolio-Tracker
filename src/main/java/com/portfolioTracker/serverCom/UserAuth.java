@@ -28,6 +28,11 @@ public class UserAuth {
 	private ObjectMapper mapper;
 	
 	private String FILE_PATH = "src/main/resources/users/";
+	
+	public void setMapper (ObjectMapper mapper) {
+		this.mapper = mapper;
+	}
+	
 	/**
 	 * Checks if user is registered
 	 * @param user A user
