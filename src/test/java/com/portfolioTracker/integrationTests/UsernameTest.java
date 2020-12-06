@@ -67,4 +67,15 @@ public class UsernameTest {
 		String actualView = username.registerUser(user, errors, model, session);
 		assertEquals(expectedView, actualView);				
 	}
+	
+	@Test
+	public void loginExistingUserTest() {
+		User user = new User();
+		user.setUsername("Test");
+		user.setPassword("123456");
+		
+		String expectedView = "portfolio";
+		String actualView = username.loginUser(user, errors, model, session);
+        assertEquals(expectedView, actualView);        
+	}
 }
