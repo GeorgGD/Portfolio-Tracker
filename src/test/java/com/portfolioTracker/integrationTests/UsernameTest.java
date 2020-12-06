@@ -49,7 +49,11 @@ public class UsernameTest {
 		
 		String expectedView = "index";		
 		String actualView = username.loginUser(user, errors, model, session);	    
-
+		
 		assertEquals(expectedView, actualView);
+		
+		String expectedMsg = "Login failed, Username and Password didn't match";
+		String actualMsg = (String) model.getAttribute("errorMsg");
+		assertEquals(expectedMsg, actualMsg);
 	}
 }
