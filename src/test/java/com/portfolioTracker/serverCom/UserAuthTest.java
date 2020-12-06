@@ -3,6 +3,10 @@ package com.portfolioTracker.serverCom;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolioTracker.dto.User;
 
@@ -21,6 +25,27 @@ public class UserAuthTest {
 		return user;
 	}
 	
+	private String readUserFile(String username) {
+		File file = new File(FILE_PATH + username + ".txt");
+		String portfolio = "";
+		Scanner scan = null;
+		
+		try {
+			scan = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+			return "";
+		}
+		
+		while(scan.hasNextLine()) {
+			portfolio = portfolio + scan.nextLine();
+		}
+		
+		if(scan != null)
+			scan.close();
+		return portfolio;
+
+	}
 	@Test
 	public void userIsRegisteredTest() {
 		UserAuth userAuth = initialize();
@@ -29,4 +54,5 @@ public class UserAuthTest {
 		boolean actuallyRegistered = userAuth.userIsRegistered(user);
 		assertEquals(expectedRegistered, actuallyRegistered);
 	}
+	
 }
