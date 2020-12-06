@@ -56,4 +56,15 @@ public class UsernameTest {
 		String actualMsg = (String) model.getAttribute("errorMsg");
 		assertEquals(expectedMsg, actualMsg);
 	}
+	
+	@Test
+	public void registerUserTest() {
+		User user = new User();
+		user.setUsername("Test");
+		user.setPassword("123456");
+		
+		String expectedView = "portfolio";
+		String actualView = username.registerUser(user, errors, model, session);
+		assertEquals(expectedView, actualView);				
+	}
 }
