@@ -55,4 +55,17 @@ public class UserAuthTest {
 		assertEquals(expectedRegistered, actuallyRegistered);
 	}
 	
+	@Test
+	public void registerUserTest() {
+		UserAuth userAuth = initialize();
+		User user = initUser();
+		String expectedFileOutput = "";
+		String actualFileOutput = readUserFile(user.getUsername());
+		assertEquals(expectedFileOutput, actualFileOutput);
+		
+		expectedFileOutput = "{\"password\":\"dogsrock\"}";
+		userAuth.registerUser(user);
+		actualFileOutput =readUserFile(user.getUsername());
+		assertEquals(expectedFileOutput, actualFileOutput);
+	}
 }
