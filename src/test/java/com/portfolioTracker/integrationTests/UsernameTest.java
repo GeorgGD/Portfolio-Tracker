@@ -4,9 +4,12 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
+import java.io.File;
+
 import com.portfolioTracker.controller.Username;
 import com.portfolioTracker.dto.User;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +43,14 @@ public class UsernameTest {
 		model = new ExtendedModelMap();
 		errors = new MapBindingResult(new HashMap<String, String>(), "dummy");
 	}
-
+	
+	@After
+	public void removeFiles() {
+		String FILE_PATH = "src/main/resources/users/";
+		File file = new File(FILE_PATH + "Test.txt");
+		file.delete();
+	}
+	
 	@Test
 	public void loginNonExistingUserTest() {
 		User user = new User();
