@@ -13,7 +13,9 @@ import com.portfolioTracker.api.YahooAPIRequester;
 import org.junit.Test;
 
 public class ServerCommunicationTest {
-
+	
+	private String FILE_PATH = "src/main/resources/portfolios/";
+	
 	private ServerCommunication initialize() {
 		ServerCommunication server = new ServerCommunication();
 		server.setAPIRequester(new YahooAPIRequester());
@@ -22,7 +24,7 @@ public class ServerCommunicationTest {
 	}
 
 	private String readPortfolio(String username) {
-		File file = new File(username + ".txt");
+		File file = new File(FILE_PATH + username + ".txt");
 		String portfolio = "";
 		Scanner scan = null;
 		
@@ -49,7 +51,7 @@ public class ServerCommunicationTest {
 		String expUser = "unitTest";
 		server.createUser(expUser);
 
-		File file = new File(expUser + ".txt");
+		File file = new File(FILE_PATH + expUser + ".txt");
 		assertTrue(file.exists());
 	}
 
