@@ -67,5 +67,9 @@ public class UserAuthTest {
 		userAuth.registerUser(user);
 		actualFileOutput =readUserFile(user.getUsername());
 		assertEquals(expectedFileOutput, actualFileOutput);
+		
+		boolean expectedVal = true;
+		boolean actualVal = userAuth.userIsRegistered(user);
+		assertEquals(expectedVal, actualVal);
 	}
 }
