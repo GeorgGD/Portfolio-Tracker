@@ -1,5 +1,6 @@
 package com.portfolioTracker.serverCom;
 
+import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -46,6 +47,14 @@ public class UserAuthTest {
 		return portfolio;
 
 	}
+
+	@After
+	public void removeFiles() {
+		String FILE_PATH = "src/main/resources/users/";
+		File file = new File(FILE_PATH + "Jeo.txt");
+		file.delete();
+	}
+	
 	@Test
 	public void userIsRegisteredTest() {
 		UserAuth userAuth = initialize();
