@@ -20,10 +20,7 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.MapBindingResult;
 
-import config.SpringConfig;
-
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringConfig.class)
 @WebAppConfiguration
 public class PortfolioSearchTest {
 
