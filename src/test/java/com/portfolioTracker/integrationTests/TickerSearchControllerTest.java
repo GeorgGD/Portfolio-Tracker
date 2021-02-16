@@ -25,7 +25,7 @@ public class TickerSearchControllerTest {
 	private User user;
 	
 	@Before
-	private void setupModel() {
+	public void setupModel() {
 		model = new ExtendedModelMap();
 		user = new User();
 	}
