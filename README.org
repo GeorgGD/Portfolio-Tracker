@@ -14,7 +14,6 @@
   - Maven
   - Spring Framework
   - javax.servlet 
-  - Tomcat 8
   - OkHttp3
   - Jackson    
   
