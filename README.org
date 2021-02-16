@@ -5,13 +5,15 @@
   
   This is my attempt to try and create a servive that uses an API. 
   As always feel free to provide feedback. 
+  
+*** Change log
+- 2021-02-16: Project was converted to spring boot due to some conflict between eclipse and tomcat.
 
 ** Dependencies
   - Junit
   - Maven
   - Spring Framework
   - javax.servlet 
-  - Tomcat 8
   - OkHttp3
   - Jackson    
   
